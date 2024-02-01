@@ -111,6 +111,7 @@ proxies:
 
 proxy-groups:
   - {name: 默认, type: select, proxies: [自动选择, 直连, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, 全部节点]}
+  - {name: 全部节点, type: select , include-all-providers: true}
   - {name: dns, type: select, proxies: [自动选择, 默认, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, 全部节点]}
   - {name: Google, <<: *pr}
   - {name: Telegram, <<: *pr}
@@ -134,7 +135,6 @@ proxy-groups:
   - {name: 美国, type: select , include-all-providers: true, filter: "(?i)美|us|unitedstates|united states"}
   - {name: 新加坡, type: select , include-all-providers: true, filter: "(?i)(新|sg|singapore)"}
   - {name: 其它地区, type: select , include-all-providers: true, filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*"}
-  - {name: 全部节点, type: select , include-all-providers: true}
   - {name: 自动选择, type: url-test, include-all-providers: true, tolerance: 10}
 
 rules:
