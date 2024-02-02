@@ -60,7 +60,7 @@ sniffer:
     - "Mijia Cloud"
 
 tun:
-  enable: false
+  enable: false  # 默认关闭
   device: utun0
   inet6-address:
   stack: mixed
@@ -80,12 +80,17 @@ dns:
     - "+.lan"
     - "+.local"
   default-nameserver:  # 用于解析DNS服务器, 必须为IP 
-    - 223.5.5.5
+    - 223.5.5.5  # 阿里
+    - 119.29.29.29  # 腾讯
+    - 8.8.8.9  # Google
   proxy-server-nameserver:  # 用于解析代理节点的域名
     - https://doh.pub/dns-query
+    - 223.5.5.5
+    - 8.8.8.8
+    - 208.67.222.222  # opendns
   nameserver:  # 域名解析
-    - https://doh.pub/dns-query
-    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query  # 腾讯doh
+    - https://dns.alidns.com/dns-query  # 阿里doh
   nameserver-policy:
     "rule-set:private":
       - https://doh.pub/dns-query
@@ -94,10 +99,10 @@ dns:
       - "https://dns.cloudflare.com/dns-query#dns"
       - "https://dns.google/dns-query#dns"
   fallback:  # 用于解析fallback-filter匹配的域名
-      - '8.8.8.8'
-      - '208.67.222.222'
-      - 'tls://dns.google'
-      - 'https://doh.opendns.com/dns-query'
+    - '8.8.8.8'
+    - '208.67.222.222'
+    - 'tls://dns.google'
+    - 'https://doh.opendns.com/dns-query'
   fallback-filter:
     geoip: true
     geoip-code: CN  # CN 的IP直接采用, 其余采用fallback的结果
