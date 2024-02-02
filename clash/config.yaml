@@ -60,7 +60,7 @@ sniffer:
     - "Mijia Cloud"
 
 tun:
-  enable: true
+  enable: false
   device: utun0
   inet6-address:
   stack: mixed
