@@ -2,7 +2,7 @@
 # 策略组相关
 pr: &pr
   type: select
-  proxies: [默认,香港,台湾,日本,新加坡,美国,其它地区,全部节点,自动选择,直连]
+  proxies: [🥤 默认, 🇭🇰 香港, 🇹🇼 台湾, 🇯🇵 日本, 🇸🇬 新加坡, 🇺🇸 美国, 🌏 其它地区, 🚀 全部节点, ♻ 自动选择, 🎯 直连]
 
 #这里是订阅更新和延迟测试相关的
 p: &p
@@ -17,6 +17,9 @@ p: &p
 # url 里填写自己的订阅,名称不能重复
 proxy-providers:
   provider1:
+    <<: *p
+    url: ""
+  provider2:
     <<: *p
     url: ""
 
@@ -116,63 +119,99 @@ dns:
     domain: [+.google.com, +.facebook.com, +.twitter.com, +.youtube.com, +.xn--ngstr-lra8j.com, +.google.cn, +.googleapis.cn, +.googleapis.com, +.gvt1.com]
 
 proxies:
-- name: "直连"
+- name: "🎯 直连"
   type: direct
   udp: true
 
 proxy-groups:
-  - {name: 默认, type: select, proxies: [自动选择, 直连, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, 全部节点]}
-  - {name: 全部节点, type: select , include-all-providers: true}
-  - {name: dns, type: select, proxies: [自动选择, 默认, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, 全部节点]}
-  - {name: Google, <<: *pr}
-  - {name: Telegram, <<: *pr}
-  - {name: Twitter, <<: *pr}
-  - {name: Pixiv, <<: *pr}
-  - {name: ehentai, <<: *pr}
-  - {name: 哔哩哔哩, <<: *pr}
-  - {name: 哔哩东南亚, <<: *pr}
-  - {name: 巴哈姆特, <<: *pr}
-  - {name: YouTube, <<: *pr}
-  - {name: NETFLIX, <<: *pr}
-  - {name: Spotify, <<: *pr}
-  - {name: Github, <<: *pr}
-  - {name: 国内, type: select, proxies: [直连, 默认, 香港, 台湾, 日本, 新加坡, 美国, 其它地区, 全部节点, 自动选择]}
-  - {name: 其他, <<: *pr}
+  - {name: 🥤 默认, type: select, proxies: [♻ 自动选择, 🎯 直连, 🇭🇰 香港, 🇹🇼 台湾, 🇯🇵 日本, 🇸🇬 新加坡, 🇺🇸 美国, 🌏 其它地区, 🚀 全部节点]}
+  - {name: 🚀 全部节点, type: select , include-all-providers: true}
+  - {name: 🧊 Google, <<: *pr}
+  - {name: 🍭 Telegram, <<: *pr}
+  - {name: 🍦 Twitter, <<: *pr}
+  - {name: 🍡 Pixiv, <<: *pr}
+  - {name: 🫗 哔哩哔哩, <<: *pr}
+  - {name: 🥃 哔哩东南亚, <<: *pr}
+  - {name: 🧃 巴哈姆特, <<: *pr}
+  - {name: 🧋 YouTube, <<: *pr}
+  - {name: 🫙 NETFLIX, <<: *pr}
+  - {name: 🥛 Spotify, <<: *pr}
+  - {name: 🍮 Github, <<: *pr}
+  - {name: 📢 谷歌FCM, <<: *pr}
+  - {name: 🇨🇳 国内, type: select, proxies: [🎯 直连, 🥤 默认, 🇭🇰 香港, 🇹🇼 台湾, 🇯🇵 日本, 🇸🇬 新加坡, 🇺🇸 美国, 🌏 其它地区, 🚀 全部节点, ♻ 自动选择]}
+  - {name: ⭐ 其他, <<: *pr}
 
   #分隔,下面是地区分组
-  - {name: 香港, type: select , include-all-providers: true, filter: "(?i)港|hk|hongkong|hong kong"}
-  - {name: 台湾, type: select , include-all-providers: true, filter: "(?i)台|tw|taiwan"}
-  - {name: 日本, type: select , include-all-providers: true, filter: "(?i)日|jp|japan"}
-  - {name: 美国, type: select , include-all-providers: true, filter: "(?i)美|us|unitedstates|united states"}
-  - {name: 新加坡, type: select , include-all-providers: true, filter: "(?i)(新|sg|singapore)"}
-  - {name: 其它地区, type: select , include-all-providers: true, filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*"}
-  - {name: 自动选择, type: url-test, include-all-providers: true, tolerance: 10}
+  - {name: 🇭🇰 香港, type: select , include-all-providers: true, filter: "(?i)港|hk|hongkong|hong kong"}
+  - {name: 🇹🇼 台湾, type: select , include-all-providers: true, filter: "(?i)台|tw|taiwan"}
+  - {name: 🇯🇵 日本, type: select , include-all-providers: true, filter: "(?i)日|jp|japan"}
+  - {name: 🇰🇷 韩国, type: select , include-all-providers: true, filter: "(?i)韩|kr|korea"}
+  - {name: 🇺🇸 美国, type: select , include-all-providers: true, filter: "(?i)美|us|unitedstates|united states"}
+  - {name: 🇸🇬 新加坡, type: select , include-all-providers: true, filter: "(?i)(新|sg|singapore)"}
+  - {name: 🌏 其它地区, type: select , include-all-providers: true, filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*"}
+  - {name: ♻ 自动选择, type: url-test, include-all-providers: true, tolerance: 10}
 
 rules:
   # 域名规则
-  - GEOIP,lan,直连,no-resolve
-  - RULE-SET,biliintl_domain,哔哩东南亚
-  - RULE-SET,ehentai_domain,ehentai
-  - RULE-SET,github_domain,Github
-  - RULE-SET,twitter_domain,Twitter
-  - RULE-SET,youtube_domain,YouTube
-  - RULE-SET,google_domain,Google
-  - RULE-SET,telegram_domain,Telegram
-  - RULE-SET,netflix_domain,NETFLIX
-  - RULE-SET,bilibili_domain,哔哩哔哩
-  - RULE-SET,bahamut_domain,巴哈姆特
-  - RULE-SET,spotify_domain,Spotify
-  - RULE-SET,pixiv_domain,Pixiv
-  - RULE-SET,geolocation-!cn,其他
+  - GEOIP,lan,🎯 直连,no-resolve
+  - RULE-SET,biliintl_domain,🥃 哔哩东南亚
+  - RULE-SET,github_domain,🍮 Github
+  - RULE-SET,twitter_domain,🍦 Twitter
+  - RULE-SET,youtube_domain,🧋 YouTube
+  - RULE-SET,google_domain,🧊 Google
+  - RULE-SET,telegram_domain,🍭 Telegram
+  - RULE-SET,netflix_domain,🫙 NETFLIX
+  - RULE-SET,bilibili_domain,🫗 哔哩哔哩
+  - RULE-SET,bahamut_domain,🧃 巴哈姆特
+  - RULE-SET,spotify_domain,🥛 Spotify
+  - RULE-SET,pixiv_domain,🍡 Pixiv
+  - RULE-SET,geolocation-!cn,⭐ 其他
 
   # IP规则, 如果域名规则不匹配则进入IP规则, 此时会使用Clash配置的DNS规则解析IP 
-  - RULE-SET,google_ip,Google
-  - RULE-SET,netflix_ip,NETFLIX
-  - RULE-SET,telegram_ip,Telegram
-  - RULE-SET,twitter_ip,Twitter
-  - RULE-SET,cn_domain,国内
-  - RULE-SET,cn_ip,国内
-  - MATCH,其他
+  - RULE-SET,google_ip,🧊 Google
+  - RULE-SET,netflix_ip,🫙 NETFLIX
+  - RULE-SET,telegram_ip,🍭 Telegram
+  - RULE-SET,twitter_ip,🍦 Twitter
+  - RULE-SET,cn_domain,🇨🇳 国内
+  - RULE-SET,cn_ip,🇨🇳 国内
+  - MATCH,⭐ 其他
+
+  # google fcm used in android
+  - DOMAIN,alt1-mtalk.google.com,📢 谷歌FCM
+  - DOMAIN,alt2-mtalk.google.com,📢 谷歌FCM
+  - DOMAIN,alt3-mtalk.google.com,📢 谷歌FCM
+  - DOMAIN,alt4-mtalk.google.com,📢 谷歌FCM
+  - DOMAIN,alt5-mtalk.google.com,📢 谷歌FCM
+  - DOMAIN,alt6-mtalk.google.com,📢 谷歌FCM
+  - DOMAIN,alt7-mtalk.google.com,📢 谷歌FCM
+  - DOMAIN,alt8-mtalk.google.com,📢 谷歌FCM
+  - DOMAIN,mtalk.google.com,📢 谷歌FCM
+  - IP-CIDR,64.233.177.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,64.233.186.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,64.233.187.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,64.233.188.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,64.233.189.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,74.125.23.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,74.125.24.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,74.125.28.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,74.125.127.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,74.125.137.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,74.125.203.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,74.125.204.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,74.125.206.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,108.177.125.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,142.250.4.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,142.250.10.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,142.250.31.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,142.250.96.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,172.217.194.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,172.217.218.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,172.217.219.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,172.253.63.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,172.253.122.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,173.194.175.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,173.194.218.188/32,📢 谷歌FCM,no-resolve
+  - IP-CIDR,209.85.233.188/32,📢 谷歌FCM,no-resolve
 
 ## 规则锚点 ##
 ip: &ip 
@@ -196,9 +235,6 @@ rule-providers:
   biliintl_domain:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/biliintl.yaml"
-  ehentai_domain:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ehentai.yaml"
   github_domain:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.yaml"
