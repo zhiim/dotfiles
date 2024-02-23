@@ -91,7 +91,7 @@ dns:
   default-nameserver:  # 用于解析DNS服务器, 必须为IP 
     - 223.5.5.5  # 阿里
     - 119.29.29.29  # 腾讯
-    - 8.8.8.9  # Google
+    - 8.8.8.8  # Google
   proxy-server-nameserver:  # 用于解析代理节点的域名
     - https://doh.pub/dns-query
     - 223.5.5.5
