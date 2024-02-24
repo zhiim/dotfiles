@@ -100,13 +100,6 @@ dns:
   nameserver:  # 域名解析
     - https://doh.pub/dns-query  # 腾讯doh
     - https://dns.alidns.com/dns-query  # 阿里doh
-  nameserver-policy:
-    "rule-set:private":
-      - https://doh.pub/dns-query
-      - https://dns.alidns.com/dns-query
-    "rule-set:geolocation-!cn":
-      - "https://dns.cloudflare.com/dns-query#dns"
-      - "https://dns.google/dns-query#dns"
   fallback:  # 用于解析fallback-filter匹配的域名
     - '8.8.8.8'
     - '208.67.222.222'
