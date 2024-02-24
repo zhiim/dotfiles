@@ -51,11 +51,6 @@ external-ui: /data/adb/box/clash/dashboard
 # 可选："chrome", "firefox", "safari", "iOS", "android", "edge", "360"," qq", "random"
 # 若选择 "random", 则按 Cloudflare Radar 数据按概率生成一个现代浏览器指纹。
 
-# geox-url:
-  # mmdb: "https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb"
-  # geoip: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geoip.dat"
-  # geosite: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geosite.dat"
-
 # 控制是否让 Clash 去匹配进程
 # always 开启，强制匹配所有进程
 # strict 默认，由 Clash 判断是否开启
@@ -121,12 +116,12 @@ dns:
   # 默认 dns, 用于解析 DNS 服务器 的域名
   # 必须为 ip, 可为加密 dns
   default-nameserver:
-    - 114.114.114.114
-    - 119.29.29.29
-    - 233.5.5.5
+    # - 114.114.114.114
+    # - 119.29.29.29
+    # - 233.5.5.5
     - 8.8.8.8
     # cloudflare
-    - 1.1.1.1
+    # - 1.1.1.1
     # - tls://223.5.5.5:853
     # - https://223.5.5.5/dns-query
 
@@ -144,17 +139,17 @@ dns:
 
   # fakeip 过滤，以下地址不会下发 fakeip 映射用于连接
   fake-ip-filter:
-    - '*.lan'
-    # - localhost.ptlogin2.qq.com
+    - '+.lan'
+    - '+.local'
+    - localhost.ptlogin2.qq.com
 
   # 默认的域名解析服务器，如不配置 fallback/proxy-server-nameserver , 则所有域名都由 nameserver 解析
   nameserver:
-    - 114.114.114.114
+    # - 114.114.114.114
     - 119.29.29.29
-    - 233.5.5.5
+    # - 233.5.5.5
     # google
-    - 8.8.8.8
-    - 1.0.0.1
+    # - 8.8.8.8
   # proxy-server-nameserver:
     # - https://doh.pub/dns-query
 
@@ -167,7 +162,8 @@ dns:
 
   # 后备域名解析服务器，一般情况下使用境外 DNS, 保证结果可信
   # 配置 fallback后默认启用 fallback-filter,geoip-code为 cn
-  # fallback:
+  fallback:
+    - 8.8.8.8
     # - tls://8.8.4.4
     # - tls://1.1.1.1
 
@@ -177,30 +173,30 @@ dns:
 
   # fallback-filter
   # 后备域名解析服务器筛选，满足条件的将使用 fallback结果或只使用 fallback解析
-  # fallback-filter:
+  fallback-filter:
 
     # geoip
     # 可选值为 true/false
     # 是否启用 fallback filter
-    # geoip: true
+    geoip: true
 
     # geoip-code
     # 可选值为 国家缩写，默认值为 CN
     # 除了 geoip-code 配置的国家 IP, 其他的 IP 结果会被视为污染
     # geoip-code 配置的国家的结果会直接采用，否则将采用 fallback结果
-    # geoip-code: ID
+    geoip-code: CN
 
     # geosite
     # 可选值为对于的 geosite 内包含的集合
     # geosite 列表的内容被视为已污染，匹配到 geosite 的域名，将只使用 fallback解析，不去使用 nameserver
-    # geosite:
-      # - gfw
+    geosite:
+      - gfw
 
     # ipcidr
     # 书写内容为 IP/掩码
     # 这些网段的结果会被视为污染，nameserver解析出这些结果时将会采用 fallback的解析结果
-    # ipcidr:
-      # - 240.0.0.0/4
+    ipcidr:
+      - 240.0.0.0/4
 
     # domain
     # 这些域名被视为已污染，匹配到这些域名，会直接使用 fallback解析，不去使用 nameserver
@@ -208,6 +204,7 @@ dns:
       # - '+.google.com'
       # - '+.facebook.com'
       # - '+.youtube.com'
+    domain: [+.google.com, +.facebook.com, +.twitter.com, +.youtube.com, +.xn--ngstr-lra8j.com, +.google.cn, +.googleapis.cn, +.googleapis.com, +.gvt1.com]
 
 # hosts:
   # # block update system android
