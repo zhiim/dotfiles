@@ -132,7 +132,8 @@ proxy-groups:
   - {name: 🍮 Github, <<: *pr}
   - {name: 📢 谷歌FCM, <<: *pr}
   - {name: 🇨🇳 国内, type: select, proxies: [🎯 直连, 🥤 默认, 🇭🇰 香港, 🇹🇼 台湾, 🇯🇵 日本, 🇸🇬 新加坡, 🇺🇸 美国, 🌏 其它地区, 🚀 全部节点, ♻ 自动选择]}
-  - {name: ⭐ 其他, <<: *pr}
+  - {name: ⭐ 其他非大陆, <<: *pr}
+  - {name: 🐟 漏网之鱼, <<: *pr}
 
   #分隔,下面是地区分组
   - {name: 🇭🇰 香港, type: select , include-all-providers: true, filter: "(?i)港|hk|hongkong|hong kong"}
@@ -158,7 +159,7 @@ rules:
   - RULE-SET,bahamut_domain,🧃 巴哈姆特
   - RULE-SET,spotify_domain,🥛 Spotify
   - RULE-SET,pixiv_domain,🍡 Pixiv
-  - RULE-SET,geolocation-!cn,⭐ 其他
+  - RULE-SET,geolocation-!cn,⭐ 其他非大陆
 
   # IP规则, 如果域名规则不匹配则进入IP规则, 此时会使用Clash配置的DNS规则解析IP 
   - RULE-SET,google_ip,🧊 Google
@@ -167,7 +168,7 @@ rules:
   - RULE-SET,twitter_ip,🍦 Twitter
   - RULE-SET,cn_domain,🇨🇳 国内
   - RULE-SET,cn_ip,🇨🇳 国内
-  - MATCH,⭐ 其他
+  - MATCH,🐟 漏网之鱼
 
   # google fcm used in android
   - DOMAIN,alt1-mtalk.google.com,📢 谷歌FCM
