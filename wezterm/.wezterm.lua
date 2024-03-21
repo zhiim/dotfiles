@@ -15,6 +15,8 @@ end
 -- Changing the color scheme:
 config.color_scheme = "OneDark (base16)"
 
+config.font = wezterm.font("JetBrains Mono", { weight = "Bold" })
+
 -- Default launching Programs
 -- config.default_prog = { "pwsh.exe" }
 
