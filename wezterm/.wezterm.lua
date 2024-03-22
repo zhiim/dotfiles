@@ -15,6 +15,13 @@ end
 -- Changing the color scheme:
 config.color_scheme = "OneDark (base16)"
 
+-- Diable system title bar, and put window management buttons into tab bar
+config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+
+-- Set widows size at starup
+config.initial_rows = 30
+config.initial_cols = 120
+
 config.font = wezterm.font("JetBrains Mono", { weight = "Bold" })
 
 -- Default launching Programs
