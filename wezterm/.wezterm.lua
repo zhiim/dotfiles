@@ -67,6 +67,11 @@ end
 config.leader = { key = "b", mods = "ALT", timeout_milliseconds = 1000 }
 config.keys = {
 	{
+                key = "[",
+                mods = "LEADER",
+                action = wezterm.action.ActivateCopyMode,
+        },
+	{
 		key = "l",
 		mods = "ALT",
 		action = wezterm.action.ShowLauncher,
