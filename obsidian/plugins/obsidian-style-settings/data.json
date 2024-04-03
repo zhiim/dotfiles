@@ -46,5 +46,7 @@
   "anuppuccin-theme-settings@@anp-alt-tab-style": "anp-alternate-tab-toggle",
   "anuppuccin-theme-settings@@anp-decoration-toggle": true,
   "anuppuccin-theme-settings@@anp-bold-custom": "anp-bold-maroon",
-  "yaozhuwa@css@@center-image": true
+  "yaozhuwa@css@@center-image": true,
+  "minimal-style@@sidebar-tabs-style": "sidebar-tabs-default",
+  "minimal-style@@ribbon-style": "ribbon-hidden"
 }

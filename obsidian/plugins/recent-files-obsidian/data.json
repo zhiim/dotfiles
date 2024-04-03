@@ -1,20 +1,64 @@
 {
   "recentFiles": [
     {
-      "basename": "2024-04-03",
-      "path": "Diary/2024/4/2024-04-03.md"
-    },
-    {
-      "basename": "diary_template",
-      "path": "Diary/template/diary_template.md"
+      "basename": "HOME",
+      "path": "HOME.md"
     },
     {
       "basename": "Home",
-      "path": "Diary/Home.md"
+      "path": "Recording/Sometimes Some Thoghts/Home.md"
     },
     {
-      "basename": "HOME",
-      "path": "HOME.md"
+      "basename": "Home",
+      "path": "Recording/Casually Writing/Home.md"
+    },
+    {
+      "basename": "Diary",
+      "path": "Recording/Diary/Diary.md"
+    },
+    {
+      "basename": "二维root_music的可行性 1",
+      "path": "Files/DOA估计/二维root_music的可行性 1.png"
+    },
+    {
+      "basename": "Just Love",
+      "path": "随记/Just Love.md"
+    },
+    {
+      "basename": "BGMs",
+      "path": "随记/BGMs.md"
+    },
+    {
+      "basename": "Movies",
+      "path": "Movies/Movies.md"
+    },
+    {
+      "basename": "Books",
+      "path": "Books/Books.md"
+    },
+    {
+      "basename": "模式空间方法",
+      "path": "课题/DOA估计/4. 均匀圆阵/模式空间方法.md"
+    },
+    {
+      "basename": "1.2 空间谱估计的数学模型",
+      "path": "课题/DOA估计/1. 背景/1.2 空间谱估计的数学模型.md"
+    },
+    {
+      "basename": "1.1 空间谱估计发展现状",
+      "path": "课题/DOA估计/1. 背景/1.1 空间谱估计发展现状.md"
+    },
+    {
+      "basename": "均匀线阵大于90度 1",
+      "path": "Files/DOA估计/均匀线阵大于90度 1.png"
+    },
+    {
+      "basename": "2024-04-03",
+      "path": "Recording/Diary/2024/4/2024-04-03.md"
+    },
+    {
+      "basename": "diary_template",
+      "path": "Recording/Diary/template/diary_template.md"
     },
     {
       "basename": "temple",
@@ -27,10 +71,6 @@
     {
       "basename": "2.2 ESPRIT算法",
       "path": "课题/DOA估计/2. 基础算法/2.2 ESPRIT算法.md"
-    },
-    {
-      "basename": "1.1 空间谱估计发展现状",
-      "path": "课题/DOA估计/1. 背景/1.1 空间谱估计发展现状.md"
     }
   ],
   "omittedPaths": [],

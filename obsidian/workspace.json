@@ -4,35 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "6820a93381fa0f40",
+        "id": "a2bc96eefc122033",
         "type": "tabs",
         "children": [
           {
-            "id": "9ccf2900de1b5f81",
+            "id": "1d12463127d12051",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Temple/temple.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "63e0aeb9b2ed4abb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Diary/2024/4/2024-04-03.md",
-                "mode": "source",
-                "source": false
+                "file": "HOME.md",
+                "mode": "preview",
+                "source": true
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -90,7 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 329.5110321044922
   },
   "right": {
     "id": "ac703604f073988b",
@@ -107,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Diary/2024/4/2024-04-03.md",
+                "file": "HOME.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -124,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Diary/2024/4/2024-04-03.md",
+                "file": "HOME.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -147,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Diary/2024/4/2024-04-03.md"
+                "file": "HOME.md"
               }
             }
           },
@@ -185,7 +172,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Diary/2024/4/2024-04-03.md",
+                "file": "HOME.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -204,7 +191,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Diary/2024/4/2024-04-03.md"
+                "file": "HOME.md"
               }
             }
           }
@@ -224,57 +211,56 @@
       "command-palette:打开命令面板": false,
       "remotely-save:Remotely Save": false,
       "templater-obsidian:Templater": false,
-      "card-board:CardBoard": false
+      "homepage:Open homepage": false
     }
   },
-  "active": "63e0aeb9b2ed4abb",
+  "active": "1d12463127d12051",
   "lastOpenFiles": [
-    "Diary/template/diary_template.md",
-    "Diary/Home.md",
+    "Recording/Sometimes Some Thoghts/Home.md",
     "HOME.md",
-    "Diary/template",
-    "Diary/2024/4/2024-04-03.md",
-    "Diary/2024/4",
-    "Diary/2024/3/2024-03-26.md",
-    "Diary/2024/3/2024-03-19.md",
-    "Diary/2024/3/2024-03-18.md",
-    "Diary/2024/3/2024-03-16.md",
-    "Diary/2024/3/2024-03-15.md",
-    "Diary/2024/3/2024-03-14.md",
-    "Diary/2024/3/2024-03-13.md",
-    "Diary/2024/3",
-    "Diary/2024",
-    "Diary",
+    "Recording/Casually Writing/Home.md",
+    "Recording/Diary/Diary.md",
+    "Files/decoration/glass-pink.png",
+    "Files/decoration/glass-blue.png",
+    "Files/decoration",
+    "attachments",
+    "Files/DOA估计/二维root_music的可行性 1.png",
+    "随记/Just Love.md",
+    "Recording/Sometimes Some Thoghts",
+    "Recording/Casually Writing",
+    "随记/BGMs.md",
+    "随记",
+    "课题.md",
+    "Recording",
+    "Movies/Movies.md",
+    "Books/Books.md",
+    "Movies",
+    "Books",
+    "课题/DOA估计/1. 背景/1.2 空间谱估计的数学模型.md",
+    "课题/DOA估计/1. 背景/1.1 空间谱估计发展现状.md",
+    "Files/DOA估计/均匀线阵大于90度 1.png",
+    "Recording/Diary/2024/4/2024-04-03.md",
+    "Recording/Diary/template/diary_template.md",
+    "Recording/Diary/template",
+    "Recording/Diary/2024/4",
+    "Recording/Diary/2024/3/2024-03-26.md",
+    "Recording/Diary/2024/3/2024-03-19.md",
+    "Recording/Diary/2024/3/2024-03-18.md",
+    "Recording/Diary/2024/3/2024-03-16.md",
+    "Recording/Diary/2024/3/2024-03-15.md",
+    "Recording/Diary/2024/3/2024-03-14.md",
+    "Recording/Diary/2024/3/2024-03-13.md",
     "Files/banner/home_banner.png",
-    "Files/banner",
     "Temple/temple.md",
     "课题/DOA估计/4. 均匀圆阵/模式空间算法.md",
     "Excalidraw/Drawing 2023-03-23 14.47.06.excalidraw.md",
     "Blog/Arch Linux 配置.md",
     "未命名.canvas",
     "课题/DOA估计/2. 基础算法/2.2 ESPRIT算法.md",
-    "课题/DOA估计/1. 背景/1.1 空间谱估计发展现状.md",
-    "课题/DOA估计/12. DL based/2. Refined Classification and Multi-label Classification.md",
-    "课题/DOA估计/2. 基础算法/2.1 MUSIC算法.md",
-    "课题/DOA估计/1. 背景/1.2 空间谱估计的数学模型.md",
-    "课题/DOA估计/8. 非均匀阵列/8.1 差协同阵列 （最小冗余阵，嵌套阵，互质阵）.md",
-    "课题/DOA估计/12. DL based/1. Deep Learning Based Broadband DOA Estimation.md",
-    "课题/DOA估计/12. DL based/TODO.md",
-    "课题/DOA估计/4. 均匀圆阵/圆阵MUSIC算法.md",
-    "课题/DOA估计/4. 均匀圆阵/模式空间方法.md",
-    "课题/DOA估计/12. DL based/4. 信号降噪.md",
     "课题/DOA估计/12. DL based/attachments/maxpool_resnet.png",
     "课题/DOA估计/12. DL based/attachments/IQ_input_matrix.png",
     "课题/DOA估计/12. DL based/attachments/denoise_asl.svg",
     "课题/DOA估计/12. DL based/attachments/denoise_esprit.svg",
-    "课题/DOA估计/12. DL based/attachments/skip_connection.png",
-    "课题/DOA估计/12. DL based/attachments/convolutional_auto_encoder.png",
-    "课题/DOA估计/12. DL based/attachments/DnCNN.png",
-    "课题/DOA估计/12. DL based/attachments/-10.png",
-    "课题/DOA估计/12. DL based/attachments/-5dB.png",
-    "Excalidraw",
-    "课题/DOA估计/12. DL based/attachments",
-    "课题/DOA估计/13. MIMO",
-    "课题/DOA估计/12. DL based"
+    "课题/DOA估计/12. DL based/attachments/skip_connection.png"
   ]
 }
