@@ -6,12 +6,14 @@
   "recent-files-obsidian",
   "floating-toc",
   "calendar",
-  "obsidian-linter",
   "templater-obsidian",
   "dataview",
-  "obsidian-icon-folder",
   "obsidian-banners",
   "auto-card-link",
   "homepage",
-  "obsidian-columns"
+  "obsidian-columns",
+  "obsidian-emoji-toolbar",
+  "contribution-graph",
+  "obsidian-admonition",
+  "editing-toolbar"
 ]

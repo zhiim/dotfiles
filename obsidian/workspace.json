@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "a2bc96eefc122033",
+        "id": "d3f15f5c7137a757",
         "type": "tabs",
         "children": [
           {
-            "id": "1d12463127d12051",
+            "id": "b662724ac131533b",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -86,7 +86,7 @@
       {
         "id": "c05385261df6437f",
         "type": "tabs",
-        "dimension": 33.33333333333333,
+        "dimension": 36.89903846153847,
         "children": [
           {
             "id": "872eaebe07eac8db",
@@ -101,18 +101,6 @@
                 "showSearch": false,
                 "searchQuery": "",
                 "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
-              }
-            }
-          },
-          {
-            "id": "f98df105d0037a1a",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "HOME.md",
-                "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
             }
@@ -157,14 +145,35 @@
               "type": "calendar",
               "state": {}
             }
+          },
+          {
+            "id": "f98df105d0037a1a",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "HOME.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "408a45a00941f6c9",
+            "type": "leaf",
+            "state": {
+              "type": "file-properties",
+              "state": {
+                "file": "HOME.md"
+              }
+            }
           }
-        ],
-        "currentTab": 5
+        ]
       },
       {
         "id": "78de4e14b98e866a",
         "type": "tabs",
-        "dimension": 25.08771929824561,
+        "dimension": 24.038461538461537,
         "children": [
           {
             "id": "c32e2bd36061c45e",
@@ -183,7 +192,7 @@
       {
         "id": "4731d8118785a15a",
         "type": "tabs",
-        "dimension": 41.57894736842106,
+        "dimension": 39.0625,
         "children": [
           {
             "id": "b91eed705199510f",
@@ -214,53 +223,54 @@
       "homepage:Open homepage": false
     }
   },
-  "active": "1d12463127d12051",
+  "active": "b662724ac131533b",
   "lastOpenFiles": [
-    "Recording/Sometimes Some Thoghts/Home.md",
-    "HOME.md",
-    "Recording/Casually Writing/Home.md",
-    "Recording/Diary/Diary.md",
-    "Files/decoration/glass-pink.png",
-    "Files/decoration/glass-blue.png",
-    "Files/decoration",
-    "attachments",
-    "Files/DOA估计/二维root_music的可行性 1.png",
-    "随记/Just Love.md",
-    "Recording/Sometimes Some Thoghts",
-    "Recording/Casually Writing",
     "随记/BGMs.md",
-    "随记",
-    "课题.md",
-    "Recording",
-    "Movies/Movies.md",
-    "Books/Books.md",
-    "Movies",
-    "Books",
-    "课题/DOA估计/1. 背景/1.2 空间谱估计的数学模型.md",
-    "课题/DOA估计/1. 背景/1.1 空间谱估计发展现状.md",
-    "Files/DOA估计/均匀线阵大于90度 1.png",
-    "Recording/Diary/2024/4/2024-04-03.md",
-    "Recording/Diary/template/diary_template.md",
-    "Recording/Diary/template",
-    "Recording/Diary/2024/4",
-    "Recording/Diary/2024/3/2024-03-26.md",
-    "Recording/Diary/2024/3/2024-03-19.md",
-    "Recording/Diary/2024/3/2024-03-18.md",
-    "Recording/Diary/2024/3/2024-03-16.md",
-    "Recording/Diary/2024/3/2024-03-15.md",
-    "Recording/Diary/2024/3/2024-03-14.md",
-    "Recording/Diary/2024/3/2024-03-13.md",
-    "Files/banner/home_banner.png",
-    "Temple/temple.md",
-    "课题/DOA估计/4. 均匀圆阵/模式空间算法.md",
-    "Excalidraw/Drawing 2023-03-23 14.47.06.excalidraw.md",
-    "Blog/Arch Linux 配置.md",
-    "未命名.canvas",
-    "课题/DOA估计/2. 基础算法/2.2 ESPRIT算法.md",
-    "课题/DOA估计/12. DL based/attachments/maxpool_resnet.png",
-    "课题/DOA估计/12. DL based/attachments/IQ_input_matrix.png",
-    "课题/DOA估计/12. DL based/attachments/denoise_asl.svg",
-    "课题/DOA估计/12. DL based/attachments/denoise_esprit.svg",
-    "课题/DOA估计/12. DL based/attachments/skip_connection.png"
+    "未命名.md",
+    "HOME.md",
+    "Recording/Casually Writing/Index.md",
+    "Recording/Casually Writing/Library/爱恋说.md",
+    "Recording/Casually Writing/Library/attachments/爱莲说.jpg",
+    "Recording/Casually Writing/Library/北国之恋.md",
+    "Recording/Casually Writing/Library/attachments/北国之恋.mp3",
+    "Recording/Casually Writing/Library/Nice to See You.md",
+    "Recording/Casually Writing/Library/走上前.md",
+    "Recording/Casually Writing/Library/追.md",
+    "Recording/Casually Writing/Library/早春的凉感.md",
+    "Recording/Casually Writing/Library/郁闷.md",
+    "Recording/Casually Writing/Library/永恒的孤独和不知所以.md",
+    "Recording/Casually Writing/Library/因为他为人比较老实, 我欺负他的时候不会反抗.md",
+    "Recording/Casually Writing/Library/以往的年代.md",
+    "Recording/Casually Writing/Library/一个遥远的梦.md",
+    "Recording/Casually Writing/Library/厌烦和满足.md",
+    "Recording/Casually Writing/Library/性感美女.md",
+    "Recording/Casually Writing/Library/新年小记.md",
+    "Recording/Casually Writing/Library/新海诚.md",
+    "Recording/Casually Writing/Library/夏末微风.md",
+    "Recording/Casually Writing/Library/五四.md",
+    "Recording/Casually Writing/Library/无奈.md",
+    "Recording/Casually Writing/Library/乌克兰募捐.md",
+    "Recording/Casually Writing/Library/我想你.md",
+    "Recording/Casually Writing/Library/我能找到她吗.md",
+    "Recording/Casually Writing/Library/王振宇和陈文静.md",
+    "Recording/Casually Writing/Library/attachments/父亲的散文诗.mp3",
+    "Recording/Casually Writing/Library/attachments",
+    "Recording/Casually Writing/Library/attachments/年华.mp3",
+    "Recording/Casually Writing/Library/attachments/流行的云.m4a",
+    "Recording/Casually Writing/Library/年华 ed8320a1fd524013aee68653ddf126c4",
+    "Recording/Casually Writing/Library/流行的云 b80c18c07e4041e3b135ad28b7f59c91",
+    "Recording/Casually Writing/Library/北国之恋 a4cc68d5556c4d44b5bda4b98a5a7a75",
+    "Recording/Casually Writing/Library/爱恋说 60e3e9c98fc046e0ba9a2daa5bc3ec26",
+    "Recording/Casually Writing/Library",
+    "Recording/Casually Writing/爱恋说 60e3e9c98fc046e0ba9a2daa5bc3ec26/photo_2021-04-08_13-58-01.jpg",
+    "Files/深度学习/神经元.png",
+    "Files/深度学习/感知机.png",
+    "Files/深度学习/神经元 1.png",
+    "Files/深度学习/多层神经网络.png",
+    "Files/DOA估计/压缩感知.png",
+    "Files/深度学习/感知机 1.png",
+    "Files/DOA估计/随机亚采样.png",
+    "Files/DOA估计/奇异值分解.png",
+    "未命名.canvas"
   ]
 }

@@ -5,72 +5,196 @@
       "path": "HOME.md"
     },
     {
-      "basename": "Home",
-      "path": "Recording/Sometimes Some Thoghts/Home.md"
-    },
-    {
-      "basename": "Home",
-      "path": "Recording/Casually Writing/Home.md"
-    },
-    {
-      "basename": "Diary",
-      "path": "Recording/Diary/Diary.md"
-    },
-    {
-      "basename": "二维root_music的可行性 1",
-      "path": "Files/DOA估计/二维root_music的可行性 1.png"
-    },
-    {
-      "basename": "Just Love",
-      "path": "随记/Just Love.md"
-    },
-    {
       "basename": "BGMs",
       "path": "随记/BGMs.md"
     },
     {
-      "basename": "Movies",
-      "path": "Movies/Movies.md"
+      "basename": "Index",
+      "path": "Recording/Casually Writing/Index.md"
     },
     {
-      "basename": "Books",
-      "path": "Books/Books.md"
+      "basename": "爱恋说",
+      "path": "Recording/Casually Writing/Library/爱恋说.md"
     },
     {
-      "basename": "模式空间方法",
-      "path": "课题/DOA估计/4. 均匀圆阵/模式空间方法.md"
+      "basename": "爱莲说",
+      "path": "Recording/Casually Writing/Library/attachments/爱莲说.jpg"
     },
     {
-      "basename": "1.2 空间谱估计的数学模型",
-      "path": "课题/DOA估计/1. 背景/1.2 空间谱估计的数学模型.md"
+      "basename": "北国之恋",
+      "path": "Recording/Casually Writing/Library/北国之恋.md"
     },
     {
-      "basename": "1.1 空间谱估计发展现状",
-      "path": "课题/DOA估计/1. 背景/1.1 空间谱估计发展现状.md"
+      "basename": "北国之恋",
+      "path": "Recording/Casually Writing/Library/attachments/北国之恋.mp3"
     },
     {
-      "basename": "均匀线阵大于90度 1",
-      "path": "Files/DOA估计/均匀线阵大于90度 1.png"
+      "basename": "Nice to See You",
+      "path": "Recording/Casually Writing/Library/Nice to See You.md"
     },
     {
-      "basename": "2024-04-03",
-      "path": "Recording/Diary/2024/4/2024-04-03.md"
+      "basename": "走上前",
+      "path": "Recording/Casually Writing/Library/走上前.md"
     },
     {
-      "basename": "diary_template",
-      "path": "Recording/Diary/template/diary_template.md"
+      "basename": "追",
+      "path": "Recording/Casually Writing/Library/追.md"
     },
     {
-      "basename": "temple",
-      "path": "Temple/temple.md"
+      "basename": "早春的凉感",
+      "path": "Recording/Casually Writing/Library/早春的凉感.md"
     },
     {
-      "basename": "模式空间算法",
-      "path": "课题/DOA估计/4. 均匀圆阵/模式空间算法.md"
+      "basename": "郁闷",
+      "path": "Recording/Casually Writing/Library/郁闷.md"
     },
     {
-      "basename": "2.2 ESPRIT算法",
-      "path": "课题/DOA估计/2. 基础算法/2.2 ESPRIT算法.md"
+      "basename": "永恒的孤独和不知所以",
+      "path": "Recording/Casually Writing/Library/永恒的孤独和不知所以.md"
+    },
+    {
+      "basename": "因为他为人比较老实, 我欺负他的时候不会反抗",
+      "path": "Recording/Casually Writing/Library/因为他为人比较老实, 我欺负他的时候不会反抗.md"
+    },
+    {
+      "basename": "以往的年代",
+      "path": "Recording/Casually Writing/Library/以往的年代.md"
+    },
+    {
+      "basename": "一个遥远的梦",
+      "path": "Recording/Casually Writing/Library/一个遥远的梦.md"
+    },
+    {
+      "basename": "厌烦和满足",
+      "path": "Recording/Casually Writing/Library/厌烦和满足.md"
+    },
+    {
+      "basename": "性感美女",
+      "path": "Recording/Casually Writing/Library/性感美女.md"
+    },
+    {
+      "basename": "新年小记",
+      "path": "Recording/Casually Writing/Library/新年小记.md"
+    },
+    {
+      "basename": "新海诚",
+      "path": "Recording/Casually Writing/Library/新海诚.md"
+    },
+    {
+      "basename": "夏末微风",
+      "path": "Recording/Casually Writing/Library/夏末微风.md"
+    },
+    {
+      "basename": "五四",
+      "path": "Recording/Casually Writing/Library/五四.md"
+    },
+    {
+      "basename": "无奈",
+      "path": "Recording/Casually Writing/Library/无奈.md"
+    },
+    {
+      "basename": "乌克兰募捐",
+      "path": "Recording/Casually Writing/Library/乌克兰募捐.md"
+    },
+    {
+      "basename": "我想你",
+      "path": "Recording/Casually Writing/Library/我想你.md"
+    },
+    {
+      "basename": "我能找到她吗",
+      "path": "Recording/Casually Writing/Library/我能找到她吗.md"
+    },
+    {
+      "basename": "王振宇和陈文静",
+      "path": "Recording/Casually Writing/Library/王振宇和陈文静.md"
+    },
+    {
+      "basename": "外出",
+      "path": "Recording/Casually Writing/Library/外出.md"
+    },
+    {
+      "basename": "突如其来的爱情",
+      "path": "Recording/Casually Writing/Library/突如其来的爱情.md"
+    },
+    {
+      "basename": "藤井树和渡边博子",
+      "path": "Recording/Casually Writing/Library/藤井树和渡边博子.md"
+    },
+    {
+      "basename": "锁住的三年",
+      "path": "Recording/Casually Writing/Library/锁住的三年.md"
+    },
+    {
+      "basename": "随想",
+      "path": "Recording/Casually Writing/Library/随想.md"
+    },
+    {
+      "basename": "石黑一雄",
+      "path": "Recording/Casually Writing/Library/石黑一雄.md"
+    },
+    {
+      "basename": "失去",
+      "path": "Recording/Casually Writing/Library/失去.md"
+    },
+    {
+      "basename": "生生，冻结",
+      "path": "Recording/Casually Writing/Library/生生，冻结.md"
+    },
+    {
+      "basename": "什么是青春",
+      "path": "Recording/Casually Writing/Library/什么是青春.md"
+    },
+    {
+      "basename": "谁喊我",
+      "path": "Recording/Casually Writing/Library/谁喊我.md"
+    },
+    {
+      "basename": "青年是文学的",
+      "path": "Recording/Casually Writing/Library/青年是文学的.md"
+    },
+    {
+      "basename": "青春的外套",
+      "path": "Recording/Casually Writing/Library/青春的外套.md"
+    },
+    {
+      "basename": "平等的爱情",
+      "path": "Recording/Casually Writing/Library/平等的爱情.md"
+    },
+    {
+      "basename": "年华",
+      "path": "Recording/Casually Writing/Library/年华.md"
+    },
+    {
+      "basename": "买买买",
+      "path": "Recording/Casually Writing/Library/买买买.md"
+    },
+    {
+      "basename": "论文致谢",
+      "path": "Recording/Casually Writing/Library/论文致谢.md"
+    },
+    {
+      "basename": "流行的云",
+      "path": "Recording/Casually Writing/Library/流行的云.md"
+    },
+    {
+      "basename": "离别真让人难受",
+      "path": "Recording/Casually Writing/Library/离别真让人难受.md"
+    },
+    {
+      "basename": "看天",
+      "path": "Recording/Casually Writing/Library/看天.md"
+    },
+    {
+      "basename": "记录不下的气味",
+      "path": "Recording/Casually Writing/Library/记录不下的气味.md"
+    },
+    {
+      "basename": "回访一中",
+      "path": "Recording/Casually Writing/Library/回访一中.md"
+    },
+    {
+      "basename": "记高中那段时光",
+      "path": "Recording/Casually Writing/Library/记高中那段时光.md"
     }
   ],
   "omittedPaths": [],

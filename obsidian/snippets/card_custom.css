@@ -1,0 +1,7 @@
+.callout[data-callout="card"] {
+    .callout-content {
+        overflow-x: auto;
+        padding: var(--callout-content-padding);
+        background-color: #f1f1ef;
+    }
+}

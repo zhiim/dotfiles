@@ -8,7 +8,11 @@
     "extended-colorschemes",
     "AnuExtendTheme",
     "full-width",
-    "dashboard",
-    "Minimal Theme cards"
-  ]
+    "Minimal Theme cards",
+    "网格背景",
+    "custom-admonitions.0c5abb",
+    "custom-admonitions.85a7c8",
+    "card_custom"
+  ],
+  "interfaceFontFamily": ""
 }
