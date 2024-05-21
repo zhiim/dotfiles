@@ -1,0 +1,48 @@
+live_config_reload = true
+
+
+[window]
+decorations_theme_variant = "Dark"
+
+[window.dimensions]
+columns = 140
+lines = 35
+
+[window.padding]
+x = 5
+y = 1
+
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+
+
+# Colors (One Dark)
+
+# Default colors
+[colors.primary]
+background = '#282c34'
+foreground = '#abb2bf'
+
+# Normal colors
+[colors.normal]
+black   = '#1e2127'
+red     = '#e06c75'
+green   = '#98c379'
+yellow  = '#d19a66'
+blue    = '#61afef'
+magenta = '#c678dd'
+cyan    = '#56b6c2'
+white   = '#abb2bf'
+
+# Bright colors
+[colors.bright]
+black   = '#5c6370'
+red     = '#e06c75'
+green   = '#98c379'
+yellow  = '#d19a66'
+blue    = '#61afef'
+magenta = '#c678dd'
+cyan    = '#56b6c2'
+white   = '#ffffff'
+
