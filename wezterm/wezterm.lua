@@ -14,6 +14,7 @@ end
 
 -- Changing the color scheme:
 config.color_scheme = "OneDark (base16)"
+config.use_fancy_tab_bar = false
 
 -- Diable system title bar, and put window management buttons into tab bar
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
@@ -22,10 +23,11 @@ config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.initial_rows = 30
 config.initial_cols = 120
 
-config.font = wezterm.font("JetBrains Mono", { weight = "Bold" })
+config.font = wezterm.font("JetBrains Mono")
 
 -- Default launching Programs
--- config.default_prog = { "pwsh.exe" }
+-- config.default_prog = { "pwsh.exe", "-nol" }
+-- config.default_prog = { "C:\\Users\\user\\scoop\\apps\\git\\current\\bin\\bash.exe", "-i", "-l" }
 
 -- How many lines of scrollback you want to retain per tab
 config.scrollback_lines = 3500
@@ -67,10 +69,10 @@ end
 config.leader = { key = "b", mods = "ALT", timeout_milliseconds = 1000 }
 config.keys = {
 	{
-                key = "[",
-                mods = "LEADER",
-                action = wezterm.action.ActivateCopyMode,
-        },
+		key = "[",
+		mods = "LEADER",
+		action = wezterm.action.ActivateCopyMode,
+	},
 	{
 		key = "l",
 		mods = "ALT",
