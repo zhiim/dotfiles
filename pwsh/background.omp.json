@@ -31,17 +31,17 @@
           "powerline_symbol": "\ue0b0",
           "foreground": "p:black",
           "background": "p:other",
-          "template": " {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} "
+          "template": "\ue73c {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} "
         },
         {
           "type": "git",
           "style": "powerline",
           "powerline_symbol": "\ue0b0",
           "foreground": "p:black",
-          "background": "p:green",
+          "background": "p:git_green",
           "background_templates": [
-            "{{ if or (.Working.Changed) (.Staging.Changed) }}p:red{{ end }}",
-            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:yellow{{ end }}",
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}p:git_red{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:git_yellow{{ end }}",
             "{{ if gt .Ahead 0 }}p:attention{{ end }}",
             "{{ if gt .Behind 0 }}p:attention{{ end }}"
           ],
@@ -54,12 +54,11 @@
         },
         {
           "type": "status",
-          "style": "diamond",
-          "leading_diamond": "<transparent,background>\ue0b0</>",
-          "trailing_diamond": "\ue0b0",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
           "foreground": "p:black",
-          "background": "p:green",
-          "background_templates": ["{{ if gt .Code 0 }}p:red{{ end }}"],
+          "background": "p:right_color",
+          "background_templates": ["{{ if gt .Code 0 }}p:error_color{{ end }}"],
           "template": " {{ if gt .Code 0 }}\uf467 {{ reason .Code }}{{ else }}\uf42e {{ end }}",
           "properties": {
             "always_enabled": true
@@ -88,13 +87,15 @@
   "palette": {
     "attention": "#f0c6c6",
     "black": "#303446",
+    "error_color": "#e78284",
     "foreground": "#303446",
-    "green": "#a6d189",
+    "git_green": "#a6d189",
+    "git_red": "#ef9f76",
+    "git_yellow": "#e5c890",
     "main_color1": "#ca9ee6",
     "main_color2": "#f4b8e4",
     "other": "#8caaee",
-    "red": "#e78284",
-    "text": "#c6d0f5",
-    "yellow": "#e5c890"
+    "right_color": "#81c8be",
+    "text": "#c6d0f5"
   }
 }

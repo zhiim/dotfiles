@@ -1,0 +1,91 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 2,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "session",
+          "style": "diamond",
+          "foreground": "p:main_color1",
+          "template": "{{ if .SSHSession }}\ueba9 {{else}}\uf2bd {{ end }}{{ .UserName }} "
+        },
+        {
+          "type": "path",
+          "style": "powerline",
+          "foreground": "p:main_color2",
+          "template": "\ue5fe {{ .Path }} ",
+          "properties": {
+            "style": "folder"
+          }
+        },
+        {
+          "type": "python",
+          "style": "powerline",
+          "foreground": "p:other",
+          "template": "\ue73c {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }} "
+        },
+        {
+          "type": "git",
+          "style": "powerline",
+          "foreground": "p:git_green",
+          "foreground_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}p:git_red{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:git_yellow{{ end }}",
+            "{{ if gt .Ahead 0 }}p:attention{{ end }}",
+            "{{ if gt .Behind 0 }}p:attention{{ end }}"
+          ],
+          "template": " {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
+          "properties": {
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true
+          }
+        },
+        {
+          "type": "status",
+          "style": "powerline",
+          "foreground": "p:right_color",
+          "foreground_templates": ["{{ if gt .Code 0 }}p:error_color{{ end }}"],
+          "template": " {{ if gt .Code 0 }}\uf467 {{ reason .Code }}{{ else }}\uf42e {{ end }}",
+          "properties": {
+            "always_enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right"
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "p:white",
+          "template": "\u276f "
+        }
+      ],
+      "newline": true
+    }
+  ],
+  "palette": {
+    "attention": "#bb9af7",
+    "black": "#303446",
+    "error_color": "#db4b4b",
+    "foreground": "#303446",
+    "git_green": "#41a6b5",
+    "git_red": "#f7768e",
+    "git_yellow": "#e0af68",
+    "main_color1": "#7aa2f7",
+    "main_color2": "#7dcfff",
+    "other": "#1abc9c",
+    "right_color": "#73daca",
+    "text": "#c6d0f5"
+  }
+}
