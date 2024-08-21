@@ -37,6 +37,10 @@ local function is_vim(pane)
 	-- this is set by the plugin, and unset on ExitPre in Neovim
 	return pane:get_user_vars().IS_NVIM == "true"
 end
+local function is_ssh(pane)
+	local process_name = string.gsub(pane:get_foreground_process_name(), "(.*[/\\])(.*)", "%2")
+	return process_name == "ssh"
+end
 
 local direction_keys = {
 	h = "Left",
@@ -51,6 +55,11 @@ local function split_nav(resize_or_move, key)
 		mods = resize_or_move == "resize" and "META" or "CTRL",
 		action = wezterm.action_callback(function(win, pane)
 			if is_vim(pane) then
+				-- pass the keys through to vim/nvim
+				win:perform_action({
+					SendKey = { key = key, mods = resize_or_move == "resize" and "META" or "CTRL" },
+				}, pane)
+			elseif is_ssh(pane) then
 				-- pass the keys through to vim/nvim
 				win:perform_action({
 					SendKey = { key = key, mods = resize_or_move == "resize" and "META" or "CTRL" },
