@@ -39,7 +39,7 @@ local function is_vim(pane)
 end
 local function is_ssh(pane)
 	local process_name = string.gsub(pane:get_foreground_process_name(), "(.*[/\\])(.*)", "%2")
-	return process_name == "ssh"
+	return process_name == "ssh" or process_name == "ssh.exe"
 end
 
 local direction_keys = {
@@ -126,26 +126,6 @@ config.keys = {
 	split_nav("resize", "j"),
 	split_nav("resize", "k"),
 	split_nav("resize", "l"),
-	-- {
-	-- 	key = "l",
-	-- 	mods = "LEADER",
-	-- 	action = wezterm.action.ActivatePaneDirection("Right"),
-	-- },
-	-- {
-	-- 	key = "h",
-	-- 	mods = "LEADER",
-	-- 	action = wezterm.action.ActivatePaneDirection("Left"),
-	-- },
-	-- {
-	-- 	key = "j",
-	-- 	mods = "LEADER",
-	-- 	action = wezterm.action.ActivatePaneDirection("Down"),
-	-- },
-	-- {
-	-- 	key = "k",
-	-- 	mods = "LEADER",
-	-- 	action = wezterm.action.ActivatePaneDirection("Up"),
-	-- },
 }
 
 -- and finally, return the configuration to wezterm
