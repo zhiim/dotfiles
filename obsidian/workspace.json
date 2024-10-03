@@ -1,21 +1,21 @@
 {
   "main": {
-    "id": "d0016f3bb16c1193",
+    "id": "5324373015726ba8",
     "type": "split",
     "children": [
       {
-        "id": "d3f15f5c7137a757",
+        "id": "4509724f8bf84da7",
         "type": "tabs",
         "children": [
           {
-            "id": "b662724ac131533b",
+            "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "HOME.md",
-                "mode": "preview",
-                "source": true
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -31,6 +31,7 @@
       {
         "id": "3062c7dff50477d4",
         "type": "tabs",
+        "dimension": 65.43859649122807,
         "children": [
           {
             "id": "bf7f3d2a027c150b",
@@ -64,9 +65,16 @@
               "type": "bookmarks",
               "state": {}
             }
-          },
+          }
+        ]
+      },
+      {
+        "id": "c11c6811a5909a3c",
+        "type": "tabs",
+        "dimension": 34.56140350877193,
+        "children": [
           {
-            "id": "a18199a429de7407",
+            "id": "4316d009fb704a63",
             "type": "leaf",
             "state": {
               "type": "recent-files",
@@ -77,7 +85,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 329.5110321044922
+    "width": 384.5110321044922
   },
   "right": {
     "id": "ac703604f073988b",
@@ -86,10 +94,29 @@
       {
         "id": "c05385261df6437f",
         "type": "tabs",
-        "dimension": 36.89903846153847,
+        "dimension": 30.70796460176991,
         "children": [
           {
-            "id": "872eaebe07eac8db",
+            "id": "8356ab025c7ef4f6",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "ce87f179b9c9fffd",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {}
+            }
+          },
+          {
+            "id": "1ab0928d41c09c99",
             "type": "leaf",
             "state": {
               "type": "backlink",
@@ -106,28 +133,7 @@
             }
           },
           {
-            "id": "8356ab025c7ef4f6",
-            "type": "leaf",
-            "state": {
-              "type": "tag",
-              "state": {
-                "sortOrder": "frequency",
-                "useHierarchy": true
-              }
-            }
-          },
-          {
-            "id": "7ccc230591361e67",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "HOME.md"
-              }
-            }
-          },
-          {
-            "id": "6348ade0f91b0733",
+            "id": "cec305707dd12989",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -137,32 +143,20 @@
                 "searchQuery": ""
               }
             }
-          },
+          }
+        ],
+        "currentTab": 1
+      },
+      {
+        "id": "85a58e07beda4345",
+        "type": "tabs",
+        "dimension": 41.415929203539825,
+        "children": [
           {
-            "id": "a456b627264bc8ed",
+            "id": "b91eed705199510f",
             "type": "leaf",
             "state": {
-              "type": "calendar",
-              "state": {}
-            }
-          },
-          {
-            "id": "f98df105d0037a1a",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "HOME.md",
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              }
-            }
-          },
-          {
-            "id": "408a45a00941f6c9",
-            "type": "leaf",
-            "state": {
-              "type": "file-properties",
+              "type": "outline",
               "state": {
                 "file": "HOME.md"
               }
@@ -173,7 +167,7 @@
       {
         "id": "78de4e14b98e866a",
         "type": "tabs",
-        "dimension": 24.038461538461537,
+        "dimension": 27.876106194690266,
         "children": [
           {
             "id": "c32e2bd36061c45e",
@@ -188,89 +182,73 @@
             }
           }
         ]
-      },
-      {
-        "id": "4731d8118785a15a",
-        "type": "tabs",
-        "dimension": 39.0625,
-        "children": [
-          {
-            "id": "b91eed705199510f",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "HOME.md"
-              }
-            }
-          }
-        ]
       }
     ],
     "direction": "horizontal",
-    "width": 315.5
+    "width": 355.5
   },
   "left-ribbon": {
     "hiddenItems": {
+      "homepage:Open homepage": false,
+      "remotely-save:Remotely Save": false,
+      "templater-obsidian:Templater": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
-      "daily-notes:打开/创建今天的日记": false,
+      "daily-notes:打开/创建今天的日记": true,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "remotely-save:Remotely Save": false,
-      "templater-obsidian:Templater": false,
-      "homepage:Open homepage": false
+      "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "b662724ac131533b",
+  "active": "ce87f179b9c9fffd",
   "lastOpenFiles": [
-    "随记/BGMs.md",
-    "未命名.md",
     "HOME.md",
+    "Temple/notes_template.md",
+    "Temple/diary_template.md",
+    "Temple/books_template.md",
+    "Notes/MIT 6.S081/l-overview.md",
+    "Notes/代码随想录/1. 数组.md",
+    "Temple/temple.md",
+    "Temple/test.md",
+    "Notes/数据结构与算法/1. 复杂度分析.md",
+    "Notes/数据结构与算法/2. List, Set and Map.md",
+    "课题/DOA估计/12. DL based/TODO.md",
+    "课题/DOA估计/12. DL based/5. 信号特征提取.md",
+    "未命名.canvas",
+    "随记/Just Love.md",
+    "随记/BGMs.md",
+    "课题/DOA估计/9. 宽带DOA估计/9.2 基于稀疏重构的宽带DOA估计.md",
+    "Files/banner/home_banner.png",
+    "Notes/MIT 6.S081/attachments/layered picture.png",
+    "Notes/MIT 6.S081/attachments",
+    "Notes/代码随想录/3. 哈希表.md",
+    "Notes/MIT 6.S081/l-overview.txt",
+    "Notes/MIT 6.S081/未命名.md",
+    "Notes/MIT 6.S081",
+    "Notes/代码随想录/2. 链表.md",
+    "Books/Library/无压力社交.md",
+    "Books/Library/欧洲中世纪史.md",
+    "Books/Books.md",
+    "随记/我和她.md",
+    "课题/DOA估计/12. DL based/4. 信号降噪.md",
+    "Books/Library/少有人走的路.md",
     "Recording/Casually Writing/Index.md",
-    "Recording/Casually Writing/Library/爱恋说.md",
-    "Recording/Casually Writing/Library/attachments/爱莲说.jpg",
-    "Recording/Casually Writing/Library/北国之恋.md",
-    "Recording/Casually Writing/Library/attachments/北国之恋.mp3",
-    "Recording/Casually Writing/Library/Nice to See You.md",
-    "Recording/Casually Writing/Library/走上前.md",
-    "Recording/Casually Writing/Library/追.md",
-    "Recording/Casually Writing/Library/早春的凉感.md",
-    "Recording/Casually Writing/Library/郁闷.md",
-    "Recording/Casually Writing/Library/永恒的孤独和不知所以.md",
-    "Recording/Casually Writing/Library/因为他为人比较老实, 我欺负他的时候不会反抗.md",
-    "Recording/Casually Writing/Library/以往的年代.md",
-    "Recording/Casually Writing/Library/一个遥远的梦.md",
-    "Recording/Casually Writing/Library/厌烦和满足.md",
-    "Recording/Casually Writing/Library/性感美女.md",
-    "Recording/Casually Writing/Library/新年小记.md",
-    "Recording/Casually Writing/Library/新海诚.md",
-    "Recording/Casually Writing/Library/夏末微风.md",
-    "Recording/Casually Writing/Library/五四.md",
-    "Recording/Casually Writing/Library/无奈.md",
-    "Recording/Casually Writing/Library/乌克兰募捐.md",
-    "Recording/Casually Writing/Library/我想你.md",
-    "Recording/Casually Writing/Library/我能找到她吗.md",
-    "Recording/Casually Writing/Library/王振宇和陈文静.md",
-    "Recording/Casually Writing/Library/attachments/父亲的散文诗.mp3",
-    "Recording/Casually Writing/Library/attachments",
-    "Recording/Casually Writing/Library/attachments/年华.mp3",
-    "Recording/Casually Writing/Library/attachments/流行的云.m4a",
-    "Recording/Casually Writing/Library/年华 ed8320a1fd524013aee68653ddf126c4",
-    "Recording/Casually Writing/Library/流行的云 b80c18c07e4041e3b135ad28b7f59c91",
-    "Recording/Casually Writing/Library/北国之恋 a4cc68d5556c4d44b5bda4b98a5a7a75",
-    "Recording/Casually Writing/Library/爱恋说 60e3e9c98fc046e0ba9a2daa5bc3ec26",
-    "Recording/Casually Writing/Library",
-    "Recording/Casually Writing/爱恋说 60e3e9c98fc046e0ba9a2daa5bc3ec26/photo_2021-04-08_13-58-01.jpg",
-    "Files/深度学习/神经元.png",
-    "Files/深度学习/感知机.png",
-    "Files/深度学习/神经元 1.png",
-    "Files/深度学习/多层神经网络.png",
-    "Files/DOA估计/压缩感知.png",
-    "Files/深度学习/感知机 1.png",
-    "Files/DOA估计/随机亚采样.png",
-    "Files/DOA估计/奇异值分解.png",
-    "未命名.canvas"
+    "Books/Library/不原谅也没关系.md",
+    "Recording/其他/attachments/北坡路线.png",
+    "Recording/其他/attachments",
+    "Recording/其他",
+    "Notes/数据结构与算法/attachments/Pasted image 20240717204038.png",
+    "Notes/代码随想录",
+    "Books/Library/attachments/少有人走的路.jpg",
+    "Recording/Casually Writing/Library/archieve",
+    "课题/DOA估计/12. DL based/attachments/denoise_esprit.svg",
+    "Notes/数据结构与算法/attachments/Pasted image 20240717204122.png",
+    "Notes/数据结构与算法/attachments/Pasted image 20240717204049.png",
+    "Notes/数据结构与算法/attachments",
+    "课题/DOA估计/12. DL based/attachments/rmse_7_source.svg",
+    "课题/DOA估计/12. DL based/attachments/ml_decoder_-5db.svg",
+    "Notes/Deep Learning/attachments",
+    "新建 文本文档.txt"
   ]
 }

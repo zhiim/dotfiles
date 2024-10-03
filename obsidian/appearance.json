@@ -1,18 +1,21 @@
 {
   "accentColor": "",
   "cssTheme": "AnuPpuccin",
-  "theme": "system",
+  "theme": "moonstone",
   "monospaceFontFamily": "JetBrainsMono Nerd Font",
   "enabledCssSnippets": [
-    "yaozhuwa@CSS",
-    "extended-colorschemes",
-    "AnuExtendTheme",
-    "full-width",
-    "Minimal Theme cards",
-    "网格背景",
     "custom-admonitions.0c5abb",
-    "custom-admonitions.85a7c8",
-    "card_custom"
+    "full-width",
+    "公式字体",
+    "pdf打印",
+    "card_custom",
+    "Minimal Theme cards",
+    "custom",
+    "extended-colorschemes",
+    "custom-admonitions.85a7c8"
   ],
-  "interfaceFontFamily": ""
+  "interfaceFontFamily": "思源黑体",
+  "textFontFamily": "思源黑体",
+  "baseFontSize": 17,
+  "baseFontSizeAction": true
 }

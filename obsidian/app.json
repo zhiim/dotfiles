@@ -4,11 +4,13 @@
   "attachmentFolderPath": "./attachments",
   "pdfExportSettings": {
     "includeName": true,
-    "pageSize": "A3",
+    "pageSize": "A4",
     "landscape": false,
     "margin": "0",
     "downscalePercent": 100
   },
   "strictLineBreaks": true,
-  "newFileLocation": "root"
+  "newFileLocation": "root",
+  "showInlineTitle": false,
+  "showIndentGuide": true
 }

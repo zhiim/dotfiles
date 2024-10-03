@@ -5,196 +5,200 @@
       "path": "HOME.md"
     },
     {
+      "basename": "notes_template",
+      "path": "Temple/notes_template.md"
+    },
+    {
+      "basename": "diary_template",
+      "path": "Temple/diary_template.md"
+    },
+    {
+      "basename": "books_template",
+      "path": "Temple/books_template.md"
+    },
+    {
+      "basename": "l-overview",
+      "path": "Notes/MIT 6.S081/l-overview.md"
+    },
+    {
+      "basename": "1. 数组",
+      "path": "Notes/代码随想录/1. 数组.md"
+    },
+    {
+      "basename": "temple",
+      "path": "Temple/temple.md"
+    },
+    {
+      "basename": "1. 复杂度分析",
+      "path": "Notes/数据结构与算法/1. 复杂度分析.md"
+    },
+    {
+      "basename": "2. List, Set and Map",
+      "path": "Notes/数据结构与算法/2. List, Set and Map.md"
+    },
+    {
+      "basename": "TODO",
+      "path": "课题/DOA估计/12. DL based/TODO.md"
+    },
+    {
+      "basename": "5. 信号特征提取",
+      "path": "课题/DOA估计/12. DL based/5. 信号特征提取.md"
+    },
+    {
+      "basename": "Just Love",
+      "path": "随记/Just Love.md"
+    },
+    {
       "basename": "BGMs",
       "path": "随记/BGMs.md"
+    },
+    {
+      "basename": "9.2 基于稀疏重构的宽带DOA估计",
+      "path": "课题/DOA估计/9. 宽带DOA估计/9.2 基于稀疏重构的宽带DOA估计.md"
+    },
+    {
+      "basename": "home_banner",
+      "path": "Files/banner/home_banner.png"
+    },
+    {
+      "basename": "3. 哈希表",
+      "path": "Notes/代码随想录/3. 哈希表.md"
+    },
+    {
+      "basename": "2. 链表",
+      "path": "Notes/代码随想录/2. 链表.md"
+    },
+    {
+      "basename": "无压力社交",
+      "path": "Books/Library/无压力社交.md"
+    },
+    {
+      "basename": "欧洲中世纪史",
+      "path": "Books/Library/欧洲中世纪史.md"
+    },
+    {
+      "basename": "Books",
+      "path": "Books/Books.md"
+    },
+    {
+      "basename": "我和她",
+      "path": "随记/我和她.md"
+    },
+    {
+      "basename": "4. 信号降噪",
+      "path": "课题/DOA估计/12. DL based/4. 信号降噪.md"
+    },
+    {
+      "basename": "少有人走的路",
+      "path": "Books/Library/少有人走的路.md"
     },
     {
       "basename": "Index",
       "path": "Recording/Casually Writing/Index.md"
     },
     {
-      "basename": "爱恋说",
-      "path": "Recording/Casually Writing/Library/爱恋说.md"
+      "basename": "不原谅也没关系",
+      "path": "Books/Library/不原谅也没关系.md"
     },
     {
-      "basename": "爱莲说",
-      "path": "Recording/Casually Writing/Library/attachments/爱莲说.jpg"
+      "basename": "全球通史",
+      "path": "Books/Library/全球通史.md"
     },
     {
-      "basename": "北国之恋",
-      "path": "Recording/Casually Writing/Library/北国之恋.md"
+      "basename": "1. Deep Learning Based Broadband DOA Estimation",
+      "path": "课题/DOA估计/12. DL based/1. Deep Learning Based Broadband DOA Estimation.md"
     },
     {
-      "basename": "北国之恋",
-      "path": "Recording/Casually Writing/Library/attachments/北国之恋.mp3"
+      "basename": "1. Attention Mechanisms and Transformers",
+      "path": "Notes/Deep Learning/1. Attention Mechanisms and Transformers.md"
     },
     {
-      "basename": "Nice to See You",
-      "path": "Recording/Casually Writing/Library/Nice to See You.md"
+      "basename": "亲密关系",
+      "path": "Books/Library/亲密关系.md"
     },
     {
-      "basename": "走上前",
-      "path": "Recording/Casually Writing/Library/走上前.md"
+      "basename": "9. 24.07.08",
+      "path": "课题/DOA估计/12. DL based/9. 24.07.08.md"
     },
     {
-      "basename": "追",
-      "path": "Recording/Casually Writing/Library/追.md"
+      "basename": "7. 目前进展",
+      "path": "课题/DOA估计/12. DL based/7. 目前进展.md"
     },
     {
-      "basename": "早春的凉感",
-      "path": "Recording/Casually Writing/Library/早春的凉感.md"
+      "basename": "10. 目前进展",
+      "path": "课题/DOA估计/12. DL based/10. 目前进展.md"
     },
     {
-      "basename": "郁闷",
-      "path": "Recording/Casually Writing/Library/郁闷.md"
+      "basename": "8. 24.06.22",
+      "path": "课题/DOA估计/12. DL based/8. 24.06.22.md"
     },
     {
-      "basename": "永恒的孤独和不知所以",
-      "path": "Recording/Casually Writing/Library/永恒的孤独和不知所以.md"
+      "basename": "9.1 宽带信号接收模型及常用算法",
+      "path": "课题/DOA估计/9. 宽带DOA估计/9.1 宽带信号接收模型及常用算法.md"
     },
     {
-      "basename": "因为他为人比较老实, 我欺负他的时候不会反抗",
-      "path": "Recording/Casually Writing/Library/因为他为人比较老实, 我欺负他的时候不会反抗.md"
+      "basename": "9.0 宽带DOA估计的现存问题",
+      "path": "课题/DOA估计/9. 宽带DOA估计/9.0 宽带DOA估计的现存问题.md"
     },
     {
-      "basename": "以往的年代",
-      "path": "Recording/Casually Writing/Library/以往的年代.md"
+      "basename": "DOA估计的OMP算法",
+      "path": "课题/DOA估计/3. 压缩感知/DOA估计的OMP算法.md"
     },
     {
-      "basename": "一个遥远的梦",
-      "path": "Recording/Casually Writing/Library/一个遥远的梦.md"
+      "basename": "压缩感知",
+      "path": "课题/DOA估计/3. 压缩感知/压缩感知.md"
     },
     {
-      "basename": "厌烦和满足",
-      "path": "Recording/Casually Writing/Library/厌烦和满足.md"
+      "basename": "8.1 差协同阵列 （最小冗余阵，嵌套阵，互质阵）",
+      "path": "课题/DOA估计/8. 非均匀阵列/8.1 差协同阵列 （最小冗余阵，嵌套阵，互质阵）.md"
     },
     {
-      "basename": "性感美女",
-      "path": "Recording/Casually Writing/Library/性感美女.md"
+      "basename": "Diary",
+      "path": "Recording/Diary/Diary.md"
     },
     {
-      "basename": "新年小记",
-      "path": "Recording/Casually Writing/Library/新年小记.md"
+      "basename": "2024-03-26",
+      "path": "Recording/Diary/2024/03/2024-03-26.md"
     },
     {
-      "basename": "新海诚",
-      "path": "Recording/Casually Writing/Library/新海诚.md"
+      "basename": "2024-03-19",
+      "path": "Recording/Diary/2024/03/2024-03-19.md"
     },
     {
-      "basename": "夏末微风",
-      "path": "Recording/Casually Writing/Library/夏末微风.md"
+      "basename": "2024-03-18",
+      "path": "Recording/Diary/2024/03/2024-03-18.md"
     },
     {
-      "basename": "五四",
-      "path": "Recording/Casually Writing/Library/五四.md"
+      "basename": "2024-03-16",
+      "path": "Recording/Diary/2024/03/2024-03-16.md"
     },
     {
-      "basename": "无奈",
-      "path": "Recording/Casually Writing/Library/无奈.md"
+      "basename": "2024-03-15",
+      "path": "Recording/Diary/2024/03/2024-03-15.md"
     },
     {
-      "basename": "乌克兰募捐",
-      "path": "Recording/Casually Writing/Library/乌克兰募捐.md"
+      "basename": "2024-03-14",
+      "path": "Recording/Diary/2024/03/2024-03-14.md"
     },
     {
-      "basename": "我想你",
-      "path": "Recording/Casually Writing/Library/我想你.md"
+      "basename": "2024-03-13",
+      "path": "Recording/Diary/2024/03/2024-03-13.md"
     },
     {
-      "basename": "我能找到她吗",
-      "path": "Recording/Casually Writing/Library/我能找到她吗.md"
+      "basename": "2020",
+      "path": "Recording/Casually Writing/Library/archieve/2020.md"
     },
     {
-      "basename": "王振宇和陈文静",
-      "path": "Recording/Casually Writing/Library/王振宇和陈文静.md"
+      "basename": "11.2 Generalized FRI Sampling, FRIDA",
+      "path": "课题/DOA估计/11. FRI-based DOA Estimation/11.2 Generalized FRI Sampling, FRIDA.md"
     },
     {
-      "basename": "外出",
-      "path": "Recording/Casually Writing/Library/外出.md"
+      "basename": "11.1 FRI采样",
+      "path": "课题/DOA估计/11. FRI-based DOA Estimation/11.1 FRI采样.md"
     },
     {
-      "basename": "突如其来的爱情",
-      "path": "Recording/Casually Writing/Library/突如其来的爱情.md"
-    },
-    {
-      "basename": "藤井树和渡边博子",
-      "path": "Recording/Casually Writing/Library/藤井树和渡边博子.md"
-    },
-    {
-      "basename": "锁住的三年",
-      "path": "Recording/Casually Writing/Library/锁住的三年.md"
-    },
-    {
-      "basename": "随想",
-      "path": "Recording/Casually Writing/Library/随想.md"
-    },
-    {
-      "basename": "石黑一雄",
-      "path": "Recording/Casually Writing/Library/石黑一雄.md"
-    },
-    {
-      "basename": "失去",
-      "path": "Recording/Casually Writing/Library/失去.md"
-    },
-    {
-      "basename": "生生，冻结",
-      "path": "Recording/Casually Writing/Library/生生，冻结.md"
-    },
-    {
-      "basename": "什么是青春",
-      "path": "Recording/Casually Writing/Library/什么是青春.md"
-    },
-    {
-      "basename": "谁喊我",
-      "path": "Recording/Casually Writing/Library/谁喊我.md"
-    },
-    {
-      "basename": "青年是文学的",
-      "path": "Recording/Casually Writing/Library/青年是文学的.md"
-    },
-    {
-      "basename": "青春的外套",
-      "path": "Recording/Casually Writing/Library/青春的外套.md"
-    },
-    {
-      "basename": "平等的爱情",
-      "path": "Recording/Casually Writing/Library/平等的爱情.md"
-    },
-    {
-      "basename": "年华",
-      "path": "Recording/Casually Writing/Library/年华.md"
-    },
-    {
-      "basename": "买买买",
-      "path": "Recording/Casually Writing/Library/买买买.md"
-    },
-    {
-      "basename": "论文致谢",
-      "path": "Recording/Casually Writing/Library/论文致谢.md"
-    },
-    {
-      "basename": "流行的云",
-      "path": "Recording/Casually Writing/Library/流行的云.md"
-    },
-    {
-      "basename": "离别真让人难受",
-      "path": "Recording/Casually Writing/Library/离别真让人难受.md"
-    },
-    {
-      "basename": "看天",
-      "path": "Recording/Casually Writing/Library/看天.md"
-    },
-    {
-      "basename": "记录不下的气味",
-      "path": "Recording/Casually Writing/Library/记录不下的气味.md"
-    },
-    {
-      "basename": "回访一中",
-      "path": "Recording/Casually Writing/Library/回访一中.md"
-    },
-    {
-      "basename": "记高中那段时光",
-      "path": "Recording/Casually Writing/Library/记高中那段时光.md"
+      "basename": "6. 复数神经网络",
+      "path": "课题/DOA估计/12. DL based/6. 复数神经网络.md"
     }
   ],
   "omittedPaths": [],

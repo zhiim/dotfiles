@@ -1,13 +1,15 @@
 /* PDF打印，主要用于设置输出的PDF文件字体*/
 @media print {
-
   /* set your preferred fonts here.
    */
 
   :root {
-    --body-font-family: "思源黑体", "Microsoft YaHei", TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
-    --header-font-family: "思源黑体", "Microsoft YaHei", CenturyGothic, AppleGothic, sans-serif;
-    --code-font-family: "JetBrainsMono Nerd Font", MonoLisa, Menlo, SFMono-Regular, Consolas, "Roboto Mono", monospace;
+    --body-font-family: "思源黑体", "Microsoft YaHei", TimesNewRoman,
+      "Times New Roman", Times, Baskerville, Georgia, serif;
+    --header-font-family: "思源黑体", "Microsoft YaHei", CenturyGothic,
+      AppleGothic, sans-serif;
+    --code-font-family: "JetBrainsMono Nerd Font", MonoLisa, Menlo,
+      SFMono-Regular, Consolas, "Roboto Mono", monospace;
   }
 
   /* body {
@@ -21,49 +23,62 @@
    * Add it below. You can fund the element by inspecting the document
    * in "Reading" mode in the console.
    */
-  body, p, li, div.callout {
+  body,
+  p,
+  li,
+  div.callout {
     font-family: var(--body-font-family);
   }
 
   /* */
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--header-font-family);
   }
 
-  code, code[class*="language-"],
-  pre, pre[class*="language-"] {
+  code,
+  code[class*="language-"],
+  pre,
+  pre[class*="language-"] {
     font-family: var(--code-font-family);
   }
-
 }
 
 /* 设置latex公式字体，大小和颜色*/
 
 mjx-math {
-    color: #000;
-    font-size: 100% !important;
-    font-family: MJXZERO, MJXTEX;
+  color: #000;
+  font-size: 100% !important;
+  font-family: MJXZERO, MJXTEX;
 }
 
 /* 全宽页面*/
 .view-content .full-width {
-    --file-line-width: 100%;
+  --file-line-width: 100%;
 }
 
 /* 设置ad-card背景颜色*/
 body.theme-light {
-    --ad-card-color: #f1f1ef;
+  --ad-card-color: #f1f1ef;
 }
 
 body.theme-dark {
-    --ad-card-color: transparent;
+  --ad-card-color: transparent;
 }
 
 .callout[data-callout="card"] {
-    .callout-content {
-        overflow-x: auto;
-        padding: var(--callout-content-padding);
-        background-color: var(--ad-card-color);
-    }
+  .callout-content {
+    overflow-x: auto;
+    padding: var(--callout-content-padding);
+    background-color: var(--ad-card-color);
+  }
+}
+
+.image-captions-figure {
+  margin: 0 auto;
 }
