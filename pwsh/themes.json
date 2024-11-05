@@ -1,0 +1,44 @@
+{
+  "github_dark_dimmed": {
+    "attention": "#966600",
+    "black": "#22272e",
+    "error_color": "#c93c37",
+    "foreground": "#adbac7",
+    "git_green": "#57ab5a",
+    "git_red": "#f47067",
+    "git_yellow": "#c69026",
+    "main_color1": "#1b4b91",
+    "main_color2": "#986ee2",
+    "other": "#e0823d",
+    "right_color": "#347d39",
+    "text": "#cdd9e5"
+  },
+  "tokyonight": {
+    "attention": "#bb9af7",
+    "black": "#303446",
+    "error_color": "#db4b4b",
+    "foreground": "#303446",
+    "git_green": "#41a6b5",
+    "git_red": "#f7768e",
+    "git_yellow": "#e0af68",
+    "main_color1": "#7aa2f7",
+    "main_color2": "#7dcfff",
+    "other": "#1abc9c",
+    "right_color": "#73daca",
+    "text": "#c6d0f5"
+  },
+  "catppuccin": {
+    "attention": "#f0c6c6",
+    "black": "#303446",
+    "error_color": "#e78284",
+    "foreground": "#303446",
+    "git_green": "#a6d189",
+    "git_red": "#ef9f76",
+    "git_yellow": "#e5c890",
+    "main_color1": "#ca9ee6",
+    "main_color2": "#f4b8e4",
+    "other": "#8caaee",
+    "right_color": "#81c8be",
+    "text": "#c6d0f5"
+  }
+}
