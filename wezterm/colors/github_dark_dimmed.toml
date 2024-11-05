@@ -1,0 +1,61 @@
+[colors]
+foreground = "#adbac7"
+background = "#22272e"
+cursor_bg = "#adbac7"
+cursor_border = "#adbac7"
+cursor_fg = "#22272e"
+selection_bg = "#2d333b"
+selection_fg = "#adbac7"
+split = "#539bf5"
+compose_cursor = "#c93c37"
+scrollbar_thumb = "#292e42"
+
+ansi = [
+  "#22272e",
+  "#e5534b",
+  "#57ab5a",
+  "#c69026",
+  "#539bf5",
+  "#b083f0",
+  "#76e3ea",
+  "#768390",
+]
+brights = [
+  "#2d333b",
+  "#e5534b",
+  "#57ab5a",
+  "#c69026",
+  "#539bf5",
+  "#b083f0",
+  "#76e3ea",
+  "#adbac7",
+]
+
+[colors.tab_bar]
+inactive_tab_edge = "#1f2335"
+background = "#22272e"
+
+[colors.tab_bar.active_tab]
+fg_color = "#1f2335"
+bg_color = "#539bf5"
+
+[colors.tab_bar.inactive_tab]
+fg_color = "#545c7e"
+bg_color = "#292e42"
+
+[colors.tab_bar.inactive_tab_hover]
+fg_color = "#539bf5"
+bg_color = "#292e42"
+# intensity = "Bold"
+
+[colors.tab_bar.new_tab_hover]
+fg_color = "#539bf5"
+bg_color = "#22272e"
+intensity = "Bold"
+
+[colors.tab_bar.new_tab]
+fg_color = "#539bf5"
+bg_color = "#22272e"
+
+[metadata]
+name = "github_dark_dimmed"
