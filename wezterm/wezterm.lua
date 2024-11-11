@@ -23,8 +23,10 @@ config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.initial_rows = 30
 config.initial_cols = 120
 
-config.font = wezterm.font("JetBrains Mono")
-
+config.font = wezterm.font_with_fallback({
+	{ family = "JetBrains Mono", weight = "Medium" },
+	{ family = "思源黑体", weight = "Medium" },
+})
 -- Default launching Programs
 -- config.default_prog = { "pwsh.exe", "-nol" }
 -- config.default_prog = { "C:\\Users\\user\\scoop\\apps\\git\\current\\bin\\bash.exe", "-i", "-l" }
