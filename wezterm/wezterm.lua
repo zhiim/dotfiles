@@ -27,6 +27,10 @@ config.font = wezterm.font_with_fallback({
 	{ family = "JetBrains Mono", weight = "Medium" },
 	{ family = "思源黑体", weight = "Medium" },
 })
+
+-- disable ligatures
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
+
 -- Default launching Programs
 -- config.default_prog = { "pwsh.exe", "-nol" }
 -- config.default_prog = { "C:\\Users\\user\\scoop\\apps\\git\\current\\bin\\bash.exe", "-i", "-l" }
