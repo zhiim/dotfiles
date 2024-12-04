@@ -19,6 +19,9 @@ config.use_fancy_tab_bar = false
 -- Diable system title bar, and put window management buttons into tab bar
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
+-- use WSL by default
+-- config.default_domain = "WSL:openSUSE-Tumbleweed"
+
 -- Set widows size at starup
 config.initial_rows = 30
 config.initial_cols = 120
