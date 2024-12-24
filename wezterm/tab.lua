@@ -74,7 +74,7 @@ function M.apply(config, theme)
     local tab_num = tostring(tab.tab_index + 1)
     local tab_name = get_tab_name(tab)
 
-    tab_name = wezterm.truncate_right(tab_name, max_width - 7)
+    tab_name = wezterm.truncate_right(tab_name, max_width - 6)
 
     return {
       { Background = { Color = empty } },
@@ -82,7 +82,7 @@ function M.apply(config, theme)
       { Text = wezterm.nerdfonts.ple_lower_right_triangle },
       { Background = { Color = bg } },
       { Foreground = { Color = fg } },
-      { Text = ' ' .. tab_num .. ':' .. ' ' .. tab_name .. ' ' },
+      { Text = '[' .. tab_num .. ']' .. ' ' .. tab_name },
       { Background = { Color = empty } },
       { Foreground = { Color = bg } },
       { Text = wezterm.nerdfonts.ple_upper_left_triangle },

@@ -71,6 +71,15 @@ local keys = {
   smart_nav('resize', 'l'),
 }
 
+for i = 1, 9 do
+  -- CTRL+ALT + number to activate that tab
+  table.insert(keys, {
+    key = tostring(i),
+    mods = 'LEADER',
+    action = wezterm.action.ActivateTab(i - 1),
+  })
+end
+
 function M.apply(config)
   config.leader = { key = 'b', mods = 'ALT', timeout_milliseconds = 1000 }
   config.keys = keys
