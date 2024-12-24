@@ -29,7 +29,6 @@ function M.apply(config, theme)
   config.tab_max_width = 32
 
   local colors = require('colors.' .. theme)
-  local empty = colors.tab_bar.background
 
   local inactive_bg = colors.tab_bar.inactive_tab.bg_color
   local inactive_fg = colors.tab_bar.inactive_tab.fg_color
@@ -84,15 +83,9 @@ function M.apply(config, theme)
     tab_name = wezterm.truncate_right(tab_name, max_width - 6)
 
     return {
-      { Background = { Color = empty } },
-      { Foreground = { Color = bg } },
-      { Text = wezterm.nerdfonts.ple_lower_right_triangle },
       { Background = { Color = bg } },
       { Foreground = { Color = fg } },
-      { Text = '[' .. tab_num .. ']' .. ' ' .. tab_name },
-      { Background = { Color = empty } },
-      { Foreground = { Color = bg } },
-      { Text = wezterm.nerdfonts.ple_upper_left_triangle },
+      { Text = ' ' .. '[' .. tab_num .. ']' .. ' ' .. tab_name .. ' ' },
     }
   end)
 
@@ -120,9 +113,6 @@ function M.apply(config, theme)
       { Background = { Color = active_bg } },
       { Foreground = { Color = active_fg } },
       { Text = ' ' .. logo .. ' ' },
-      { Background = { Color = empty } },
-      { Foreground = { Color = active_bg } },
-      { Text = wezterm.nerdfonts.ple_upper_left_triangle },
     })
   end)
 
