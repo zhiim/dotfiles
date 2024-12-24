@@ -13,6 +13,13 @@ local function get_tab_name(tab_info)
   return tab_info.active_pane.title
 end
 
+local function basename(s)
+  if s == nil then
+    return nil
+  end
+  return string.gsub(s, '(.*[/\\])(.*)', '%2')
+end
+
 function M.apply(config, theme)
   -- Diable system title bar, and put window management buttons into tab bar
   ---@diagnostic disable-next-line: assign-type-mismatch
@@ -89,14 +96,26 @@ function M.apply(config, theme)
     }
   end)
 
-  local logo = ''
-  if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
-    logo = wezterm.nerdfonts.md_microsoft_windows
-  elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
-    logo = wezterm.nerdfonts.md_linux
-  end
+  wezterm.on('update-status', function(window, pane)
+    local logo = ''
+    -- if in Windows, show wsl, fish or windows logo
+    if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
+      logo = wezterm.nerdfonts.md_microsoft_windows
+      local launch_pro = basename(pane:get_foreground_process_name())
+      if launch_pro == 'wslhost.exe' then
+        logo = wezterm.nerdfonts.md_linux
+      elseif launch_pro == 'fish.exe' then
+        logo = wezterm.nerdfonts.md_fish
+      end
+    -- if in Linux, show linux (Arch) logo
+    elseif wezterm.target_triple == 'x86_64-unknown-linux-gnu' then
+      logo = wezterm.nerdfonts.linux_archlinux
+    end
+    -- if in ssh domain, show ssh logo
+    if string.match(pane:get_domain_name(), '^SSH') then
+      logo = wezterm.nerdfonts.md_remote_desktop
+    end
 
-  wezterm.on('update-status', function(window, _)
     window:set_left_status(wezterm.format {
       { Background = { Color = active_bg } },
       { Foreground = { Color = active_fg } },

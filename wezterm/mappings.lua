@@ -4,6 +4,34 @@ local M = {}
 
 local smart_nav = require('smart-split').smart_nav
 
+local mouse_bindings = {
+  -- disable copy on selection
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'NONE',
+    action = wezterm.action.Nop,
+  },
+  -- copy and paste with right click
+  {
+    event = { Down = { streak = 1, button = 'Right' } },
+    mods = 'NONE',
+    action = wezterm.action_callback(function(window, pane)
+      ---@diagnostic disable-next-line: redundant-parameter
+      local has_selection = (window:get_selection_text_for_pane(pane) ~= '')
+      if has_selection then
+        window:perform_action(
+          wezterm.action.CopyTo 'ClipboardAndPrimarySelection',
+          pane
+        )
+        ---@diagnostic disable-next-line: param-type-mismatch
+        window:perform_action(wezterm.action.ClearSelection, pane)
+      else
+        window:perform_action(wezterm.action { PasteFrom = 'Clipboard' }, pane)
+      end
+    end),
+  },
+}
+
 local keys = {
   {
     key = '[',
@@ -83,6 +111,7 @@ end
 function M.apply(config)
   config.leader = { key = 'b', mods = 'ALT', timeout_milliseconds = 1000 }
   config.keys = keys
+  config.mouse_bindings = mouse_bindings
 end
 
 return M
