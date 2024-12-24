@@ -74,7 +74,7 @@ function M.apply(config, theme)
     local tab_num = tostring(tab.tab_index + 1)
     local tab_name = get_tab_name(tab)
 
-    tab_name = wezterm.truncate_right(tab_name, max_width - 2)
+    tab_name = wezterm.truncate_right(tab_name, max_width - 7)
 
     return {
       { Background = { Color = empty } },
