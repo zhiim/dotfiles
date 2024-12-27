@@ -5,15 +5,15 @@ return {
 
   -- Cursor colors
   cursor_bg = '#c0caf5',
-  cursor_border = '#c0caf5',
   cursor_fg = '#24283b',
+  cursor_border = '#c0caf5',
+  compose_cursor = '#ff9e64',
 
   -- Selection colors
   selection_bg = '#2e3c64',
   selection_fg = '#c0caf5',
 
   split = '#7aa2f7',
-  compose_cursor = '#ff9e64',
   scrollbar_thumb = '#292e42',
 
   ansi = {

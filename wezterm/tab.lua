@@ -30,6 +30,8 @@ function M.apply(config, theme)
 
   local colors = require('colors.' .. theme)
 
+  local normal = colors.foreground
+
   local inactive_bg = colors.tab_bar.inactive_tab.bg_color
   local inactive_fg = colors.tab_bar.inactive_tab.fg_color
   local inactive_hover_bg = colors.tab_bar.inactive_tab_hover.bg_color
@@ -40,6 +42,7 @@ function M.apply(config, theme)
   -- change window management buttons
   config.tab_bar_style = {
     window_hide = wezterm.format {
+      { Foreground = { Color = normal } },
       { Text = ' ' .. wezterm.nerdfonts.md_window_minimize .. ' ' },
     },
     window_hide_hover = wezterm.format {
@@ -48,6 +51,7 @@ function M.apply(config, theme)
       { Text = ' ' .. wezterm.nerdfonts.md_window_minimize .. ' ' },
     },
     window_maximize = wezterm.format {
+      { Foreground = { Color = normal } },
       { Text = ' ' .. wezterm.nerdfonts.md_window_maximize .. ' ' },
     },
     window_maximize_hover = wezterm.format {
@@ -56,11 +60,12 @@ function M.apply(config, theme)
       { Text = ' ' .. wezterm.nerdfonts.md_window_maximize .. ' ' },
     },
     window_close = wezterm.format {
+      { Foreground = { Color = normal } },
       { Text = ' ' .. wezterm.nerdfonts.md_window_close .. ' ' },
     },
     window_close_hover = wezterm.format {
       { Background = { Color = colors.ansi[2] } },
-      { Foreground = { Color = active_fg } },
+      { Foreground = { Color = normal } },
       { Text = ' ' .. wezterm.nerdfonts.md_window_close .. ' ' },
     },
   }
