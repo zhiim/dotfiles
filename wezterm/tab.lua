@@ -81,7 +81,6 @@ function M.apply(config, theme)
     local tab_name = get_tab_name(tab)
 
     tab_name = wezterm.truncate_right(tab_name, max_width - 6)
-
     return {
       { Background = { Color = bg } },
       { Foreground = { Color = fg } },
@@ -113,6 +112,15 @@ function M.apply(config, theme)
       { Background = { Color = active_bg } },
       { Foreground = { Color = active_fg } },
       { Text = ' ' .. logo .. ' ' },
+    })
+
+    window:set_right_status(wezterm.format {
+      { Attribute = { Intensity = 'Bold' } },
+      { Text = wezterm.nerdfonts.md_animation .. ' ' },
+      { Text = window:active_workspace() .. ' ' },
+      { Attribute = { Intensity = 'Normal' } },
+      { Text = wezterm.nerdfonts.md_flag .. ' ' },
+      { Text = pane:get_title() .. ' ' },
     })
   end)
 
