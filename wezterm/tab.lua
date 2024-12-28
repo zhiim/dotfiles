@@ -28,7 +28,9 @@ function M.apply(config, theme)
   config.use_fancy_tab_bar = false
   config.tab_max_width = 32
 
-  local colors = require('colors.' .. theme)
+  local colors, _ = wezterm.color.load_scheme(
+    wezterm.config_dir .. '/colors/' .. theme .. '.toml'
+  )
 
   local normal = colors.foreground
 
