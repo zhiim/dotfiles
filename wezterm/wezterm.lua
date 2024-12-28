@@ -19,6 +19,8 @@ config.font = wezterm.font_with_fallback {
   -- { family = '思源黑体', weight = 'Medium' },
 }
 
+config.font_size = 12.0
+
 -- disable ligatures
 -- config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
