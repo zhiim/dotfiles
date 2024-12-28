@@ -15,30 +15,32 @@ config.initial_rows = 30
 config.initial_cols = 120
 
 config.font = wezterm.font_with_fallback {
-  { family = 'FiraCode Nerd Font', weight = 'Medium' },
-  { family = '思源黑体', weight = 'Medium' },
+  { family = 'JetBrains Mono', weight = 'Medium' },
+  -- { family = '思源黑体', weight = 'Medium' },
 }
 
 -- disable ligatures
 -- config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
-config.default_domain = 'WSL:openSUSE-Tumbleweed'
+-- use WSL
+-- config.default_domain = 'WSL:openSUSE-Tumbleweed'
 
 -- Default launching Programs
-config.default_prog = { 'pwsh.exe', '-nol' }
+-- config.default_prog = { 'pwsh.exe', '-nol' }
 -- config.default_prog = { "D:\\msys2\\usr\\bin\\fish.exe", "-i", "-l" }
-config.launch_menu = {
-  {
-    label = 'PowerShell',
-    args = { 'pwsh.exe', '-nol' },
-    domain = { DomainName = 'local' },
-  },
-  {
-    label = 'Fish',
-    args = { 'D:\\msys2\\usr\\bin\\fish.exe', '-i', '-l' },
-    domain = { DomainName = 'local' },
-  },
-}
+
+-- config.launch_menu = {
+--   {
+--     label = 'PowerShell',
+--     args = { 'pwsh.exe', '-nol' },
+--     domain = { DomainName = 'local' },
+--   },
+--   {
+--     label = 'Fish',
+--     args = { 'D:\\msys2\\usr\\bin\\fish.exe', '-i', '-l' },
+--     domain = { DomainName = 'local' },
+--   },
+-- }
 
 -- How many lines of scrollback you want to retain per tab
 config.scrollback_lines = 3500
