@@ -126,7 +126,7 @@ function M.apply(config, theme)
       { Text = wezterm.nerdfonts.md_animation .. ' ' },
       { Text = window:active_workspace() .. ' ' },
       { Attribute = { Intensity = 'Normal' } },
-      { Text = wezterm.nerdfonts.md_flag .. ' ' },
+      { Text = wezterm.nerdfonts.md_collage .. ' ' },
       { Text = pane:get_title() .. ' ' },
     })
   end)
