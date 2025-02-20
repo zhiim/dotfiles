@@ -26,7 +26,7 @@ function M.apply(config, theme)
   config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
 
   config.use_fancy_tab_bar = false
-  config.tab_max_width = 32
+  config.tab_max_width = 16
 
   local colors, _ = wezterm.color.load_scheme(
     wezterm.config_dir .. '/colors/' .. theme .. '.toml'
@@ -84,14 +84,17 @@ function M.apply(config, theme)
       fg = inactive_hover_fg
     end
 
-    local tab_num = tostring(tab.tab_index + 1)
+    local tab_pre = ''
+    if not tab.is_active then
+      tab_pre = tostring(tab.tab_index + 1)
+    end
     local tab_name = get_tab_name(tab)
 
-    tab_name = wezterm.truncate_right(tab_name, max_width - 6)
+    tab_name = wezterm.truncate_right(tab_name, max_width - 4)
     return {
       { Background = { Color = bg } },
       { Foreground = { Color = fg } },
-      { Text = ' ' .. '[' .. tab_num .. ']' .. ' ' .. tab_name .. ' ' },
+      { Text = ' ' .. tab_pre .. ' ' .. tab_name .. ' ' },
     }
   end)
 
