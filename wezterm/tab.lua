@@ -87,6 +87,8 @@ function M.apply(config, theme)
     local tab_pre = ''
     if not tab.is_active then
       tab_pre = tostring(tab.tab_index + 1)
+    else
+      tab_pre = wezterm.nerdfonts.md_image_filter_center_focus_strong
     end
     local tab_name = get_tab_name(tab)
 
