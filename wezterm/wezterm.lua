@@ -53,6 +53,6 @@ require('colors').apply(config, theme)
 require('tab').apply(config, theme)
 require('mappings').apply(config)
 require('commend_palette').apply()
-require('plugins').apply(config)
+-- require('plugins').apply(config)
 
 return config
