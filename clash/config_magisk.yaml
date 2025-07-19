@@ -268,6 +268,19 @@ proxy-groups:
   - {name: ♻ 自动选择, type: url-test, include-all-providers: true, tolerance: 10}
 
 rules:
+  # 自定义规则
+  - DOMAIN-KEYWORD,porn,REJECT
+  - DOMAIN-KEYWORD,jav,REJECT
+  - DOMAIN-KEYWORD,missav,REJECT
+  - DOMAIN-KEYWORD,sex,REJECT
+  - DOMAIN-KEYWORD,xvideos,REJECT
+  - DOMAIN-SUFFIX,madou.club,REJECT
+  - DOMAIN-SUFFIX,wnacg.org,REJECT
+  - DOMAIN-SUFFIX,xhamster.com,REJECT
+  - DOMAIN-SUFFIX,xnxx.com,REJECT
+  - DOMAIN-SUFFIX,rou.video,REJECT
+  - RULE-SET,porn_domain,REJECT
+  
   # 域名规则
   - GEOIP,lan,🎯 直连,no-resolve
   - RULE-SET,github_domain,🍮 Github
@@ -338,6 +351,9 @@ domain: &domain
   format: yaml
 
 rule-providers:
+  porn_domain:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/1stfine/open_clash/master/rule_provider/rule_porn.yaml"
   cn_domain:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml"
