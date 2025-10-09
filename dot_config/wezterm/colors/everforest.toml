@@ -1,0 +1,62 @@
+[colors]
+foreground = "#d3c6aa"
+background = "#272e33"
+
+cursor_bg = "#d3c6aa"
+cursor_fg = "#272e33"
+cursor_border = "#d3c6aa"
+
+selection_fg = "#d3c6aa"
+selection_bg = "#45443c"
+
+scrollbar_thumb = "#493b40"
+split = "#1e2326"
+
+ansi = [
+  '#2E383C',
+  '#E67E80',
+  '#A7C080',
+  '#DBBC7F',
+  '#7FBBB3',
+  '#D699B6',
+  '#83C092',
+  '#D3C6AA',
+]
+brights = [
+  '#5C6A72',
+  '#F85552',
+  '#8DA101',
+  '#DFA000',
+  '#3A94C5',
+  '#DF69BA',
+  '#35A77C',
+  '#DFDDC8',
+]
+
+[colors.tab_bar]
+inactive_tab_edge = "#1e2326"
+background = "#272e33"
+
+[colors.tab_bar.active_tab]
+bg_color = "#A7C080"
+fg_color = "#272e33"
+intensity = "Bold"
+
+[colors.tab_bar.inactive_tab]
+fg_color = "#d3c6aa"
+bg_color = "#2e383c"
+intensity = "Normal"
+
+[colors.tab_bar.inactive_tab_hover]
+fg_color = "#A7C080"
+bg_color = "#2e383c"
+italic = true
+
+[colors.tab_bar.new_tab]
+fg_color = "#A7C080"
+bg_color = "#2e383c"
+
+[colors.tab_bar.new_tab_hover]
+bg_color = "#A7C080"
+fg_color = "#272e33"
+intensity = "Bold"

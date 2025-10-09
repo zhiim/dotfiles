@@ -1,0 +1,10 @@
+[Unit]
+Description=mihomo Daemon, Another Clash Kernel.
+After=network.target NetworkManager.service systemd-networkd.service iwd.service
+
+[Service]
+Type=simple
+ExecStart=/home/xu/.local/bin/mihomo -d /home/xu/.config/mihomo
+
+[Install]
+WantedBy=default.target
