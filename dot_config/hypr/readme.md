@@ -1,0 +1,24 @@
+## dependecies
+
+- alacritty
+- nautilus/dolphin
+- walker
+  - elephant
+  - elephant-clipboard
+  - elephant-desktopapplications
+  - elephant-files
+- hyprpaper
+- hyprlock
+- hypridle
+- hyprpicker
+- hyprpanel
+- pipewire
+- wireplumber
+- xdg-desktop-portal-hyprland
+- xdg-desktop-portal-gtk
+- hyprpolkitagent
+- qt5-wayland
+- qt6-wayland
+- fcitx5
+  - fcitx5-rime
+- swww
