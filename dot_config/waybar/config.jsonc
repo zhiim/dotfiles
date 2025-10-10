@@ -7,21 +7,21 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces",
         "hyprland/window"
     ],
     "modules-center": [
+        "hyprland/workspaces"
     ],
     "modules-right": [
         "cpu",
         "memory",
         "pulseaudio",
+        "bluetooth",
         "backlight",
         "network",
         "tray",
         "battery",
-        "clock",
-        "keyboard-state"
+        "clock"
     ],
     // Modules configuration
     "hyprland/workspaces": {
@@ -47,8 +47,6 @@
     "pulseaudio": {
         "scroll-step": 5, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": "  {format_source}",
         "format-muted": " {format_source}",
         "format-source": "",
         "format-source-muted": "",
@@ -60,8 +58,17 @@
             "portable": "󰄜",
             "car": "",
             "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
+        }
+    },
+    "bluetooth": {
+        "format": " {status}",
+        "format-disabled": "", // an empty format will hide the module
+        "format-connected": " {device_alias}",
+        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
     },
     "backlight": {
         // "device": "acpi_video1",
@@ -70,12 +77,12 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) 󰖩",
+        "format-wifi": "󰖩 ({signalStrength}%)",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} 󰔣",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) 󰖩",
         "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "on-click": "networkmanager_dmenu"
+        "format-disconnected": "Disconnected ⚠"
     },
     "tray": {
         // "icon-size": 21,
@@ -85,18 +92,9 @@
         //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
         // }
     },
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
-    },
     "clock": {
         // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "tooltip-format": "<big>{:%Y %B %d}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
     },
     "battery": {

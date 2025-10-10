@@ -36,9 +36,9 @@ tooltip {
 #memory,
 #pulseaudio,
 #backlight,
+#bluetooth,
 #network,
 #tray,
-#keyboard-state,
 #battery,
 #clock,
 #window,
@@ -108,12 +108,12 @@ tooltip {
   color: #f5a97f;
 }
 
-#network {
-  color: #eed49f;
+#bluetooth {
+  color: #8bd5ca;
 }
 
-#keyboard-state {
-  color: #8bd5ca;
+#network {
+  color: #eed49f;
 }
 
 #battery {
