@@ -2,11 +2,7 @@
 
 - alacritty
 - nautilus/dolphin
-- walker
-  - elephant
-  - elephant-clipboard
-  - elephant-desktopapplications
-  - elephant-files
+- rofi-wayland
 - hyprpaper
 - hyprlock
 - hypridle
