@@ -2,7 +2,7 @@
   "bar.customModules.updates.pollingInterval": 1440000,
   "theme.bar.floating": false,
   "theme.bar.outer_spacing": "0.3em",
-  "theme.font.size": "1em",
+  "theme.font.size": "0.98em",
   "theme.bar.buttons.radius": "1em",
   "bar.workspaces.workspaces": 2,
   "bar.workspaces.showWsIcons": true,
@@ -14,12 +14,18 @@
   "bar.notifications.show_total": true,
   "bar.layouts": {
     "*": {
-      "left": ["dashboard", "workspaces", "windowtitle", "systray", "netstat"],
-      "middle": ["media", "cava"],
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle",
+        "systray",
+        "netstat"
+      ],
+      "middle": [
+        "media"
+      ],
       "right": [
         "hypridle",
-        "cpu",
-        "ram",
         "volume",
         "bluetooth",
         "network",
@@ -404,14 +410,46 @@
   "theme.bar.buttons.dashboard.enableBorder": false,
   "theme.bar.buttons.workspaces.fontSize": "1.3em",
   "bar.windowtitle.title_map": [
-    ["armcord", "", "Armcord"],
-    ["gjs", "", "Hyprpanel Settings"],
-    ["zen", "󰰶", "Zen Browser"],
-    ["org.qbittorrent.qBittorrent", "μ", "qBitTorrent"],
-    ["com.mitchellh.ghostty", "󰊠", "Ghostty"],
-    ["jetbrains-idea-ce", "", "IntelliJ Idea"],
-    ["YouTube Music Desktop App", "", "YT Music"],
-    ["com.github.th_ch.youtube_music", "󰗃", "YT Music"]
+    [
+      "armcord",
+      "",
+      "Armcord"
+    ],
+    [
+      "gjs",
+      "",
+      "Hyprpanel Settings"
+    ],
+    [
+      "zen",
+      "󰰶",
+      "Zen Browser"
+    ],
+    [
+      "org.qbittorrent.qBittorrent",
+      "μ",
+      "qBitTorrent"
+    ],
+    [
+      "com.mitchellh.ghostty",
+      "󰊠",
+      "Ghostty"
+    ],
+    [
+      "jetbrains-idea-ce",
+      "",
+      "IntelliJ Idea"
+    ],
+    [
+      "YouTube Music Desktop App",
+      "",
+      "YT Music"
+    ],
+    [
+      "com.github.th_ch.youtube_music",
+      "󰗃",
+      "YT Music"
+    ]
   ],
   "theme.bar.menus.menu.media.scaling": 97,
   "theme.bar.menus.menu.notifications.scaling": 100,
@@ -423,8 +461,8 @@
   "bar.battery.scrollUp": "",
   "bar.battery.scrollDown": "",
   "bar.workspaces.numbered_active_indicator": "underline",
-  "bar.workspaces.spacing": 1.2,
-  "bar.workspaces.ignored": "-99",
+  "bar.workspaces.spacing": 1,
+  "bar.workspaces.ignored": "[6-9]|[1-9]\\d+",
   "bar.customModules.ram.labelType": "percentage",
   "theme.osd.scaling": 100,
   "bar.launcher.icon": "",
@@ -480,10 +518,10 @@
   "bar.workspaces.showApplicationIcons": false,
   "bar.windowtitle.icon": true,
   "bar.windowtitle.truncation": true,
-  "bar.windowtitle.truncation_size": 20,
+  "bar.windowtitle.truncation_size": 10,
   "bar.customModules.updates.icon.updated": "",
   "bar.customModules.updates.icon.pending": "",
-  "bar.media.truncation_size": 25,
+  "bar.media.truncation_size": 20,
   "theme.bar.border.location": "none",
   "menus.dashboard.powermenu.avatar.image": "/home/greed/.face",
   "theme.bar.buttons.workspaces.smartHighlight": true,
@@ -512,7 +550,9 @@
   "theme.osd.duration": 2000,
   "menus.clock.time.hideSeconds": false,
   "theme.font.label": "Lexend",
-  "bar.customModules.storage.paths": ["/"],
+  "bar.customModules.storage.paths": [
+    "/"
+  ],
   "theme.bar.layer": "bottom",
   "bar.workspaces.show_numbered": false,
   "bar.workspaces.reverse_scroll": true,
@@ -551,5 +591,9 @@
   "theme.bar.menus.buttons.radius": "1em",
   "theme.bar.menus.popover.radius": "0.4em",
   "theme.notification.opacity": 90,
-  "theme.osd.opacity": 90
+  "theme.osd.opacity": 90,
+  "bar.network.truncation_size": 10,
+  "bar.customModules.netstat.icon": "",
+  "bar.customModules.netstat.dynamicIcon": false,
+  "bar.customModules.netstat.labelType": "full"
 }
