@@ -7,23 +7,32 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/window"
+        "hyprland/window",
+        "network#speed",
     ],
     "modules-center": [
         "hyprland/workspaces"
     ],
     "modules-right": [
+        "tray",
+        "custom/power_profile",
         "cpu",
         "memory",
         "pulseaudio",
         "bluetooth",
         "backlight",
         "network",
-        "tray",
         "battery",
         "clock"
     ],
     // Modules configuration
+    "hyprland/window": {
+      "format": " {initialTitle}"  
+    },
+    "network#speed": {
+        "format": " {bandwidthDownBytes}  {bandwidthUpBytes}",
+        "interval": 1
+    },
     "hyprland/workspaces": {
         "format": "{name}",
         "format-icons": {
@@ -35,18 +44,29 @@
         "on-scroll-up": "hyprctl dispatch workspace e+1",
         "on-scroll-down": "hyprctl dispatch workspace e-1"
     },
-    "hyprland/window": {
-      "format": " {initialTitle}"  
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10
+        // "icons": {
+        //   "blueman": "bluetooth",
+        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        // }
+    },
+    "custom/power_profile": {
+        "exec": "bash ~/.config/waybar/scripts/power_profile.sh",
+        "return-type": "json",
+        "interval": 2,
+        "format": "{text}"
     },
     "cpu": {
-        "format": "{usage}% "
+        "format": " {usage}%"
     },
     "memory": {
-        "format": "{}% "
+        "format": " {}%"
     },
     "pulseaudio": {
         "scroll-step": 5, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
+        "format": "{icon} {volume}% {format_source}",
         "format-muted": " {format_source}",
         "format-source": "",
         "format-source-muted": "",
@@ -72,30 +92,19 @@
     },
     "backlight": {
         // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
+        "format": "{icon} {percent}%",
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "󰖩 ({signalStrength}%)",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} 󰔣",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%) 󰖩",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠"
-    },
-    "tray": {
-        // "icon-size": 21,
-        "spacing": 10
-        // "icons": {
-        //   "blueman": "bluetooth",
-        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
-        // }
-    },
-    "clock": {
-        // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B %d}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format-wifi": "{icon} ({signalStrength}%)",
+        "format-ethernet": " {ifname}",
+        "tooltip-format": "󰔣 {ifname} via {gwaddr}",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "format-linked": " {ifname} (No IP)",
+        "format-disconnected": "⚠ Disconnected",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"]
     },
     "battery": {
         "states": {
@@ -103,13 +112,18 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{capacity}% {icon}",
-        "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% 󰂄",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
+        "format": "{icon} {capacity}%",
+        "format-full": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
+    },
+        "clock": {
+        // "timezone": "America/New_York",
+        "tooltip-format": "<big>{:%Y %B %d}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
     }
 }

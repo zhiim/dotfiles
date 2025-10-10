@@ -9,19 +9,19 @@ window#waybar {
 }
 
 .modules-left {
-  border-radius: 50px;
+  border-radius: 30px;
   background-color: #241f31;
   padding: 0 6px;
 }
 
 .modules-center {
-  border-radius: 50px;
+  border-radius: 30px;
   background-color: #241f31;
   padding: 0 3px;
 }
 
 .modules-right {
-  border-radius: 50px;
+  border-radius: 30px;
   background-color: #241f31;
   padding: 0 6px;
 }
@@ -32,6 +32,7 @@ tooltip {
   border-radius: 15px;
 }
 
+#custom-power_profile,
 #cpu,
 #memory,
 #pulseaudio,
@@ -90,6 +91,10 @@ tooltip {
 #workspaces button.urgent {
   color: #eb4d4b;
   border-bottom: 3px solid #eb4d4b;
+}
+
+#custom-power_profile {
+  color: #a6da95;
 }
 
 #cpu {
