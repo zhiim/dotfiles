@@ -30,7 +30,7 @@ p: &p
 proxy-providers:
   provider:
     <<: *p
-    url: "https://01e96d52bf05b9bb1696ee437e87ff3b.luyuss.com"
+    url: ""
 
 ipv6: true
 mode: rule
