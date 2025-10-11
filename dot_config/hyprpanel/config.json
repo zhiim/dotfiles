@@ -14,16 +14,8 @@
   "bar.notifications.show_total": true,
   "bar.layouts": {
     "*": {
-      "left": [
-        "dashboard",
-        "workspaces",
-        "windowtitle",
-        "systray",
-        "netstat"
-      ],
-      "middle": [
-        "media"
-      ],
+      "left": ["dashboard", "workspaces", "windowtitle", "systray", "netstat"],
+      "middle": ["media"],
       "right": [
         "hypridle",
         "volume",
@@ -410,46 +402,14 @@
   "theme.bar.buttons.dashboard.enableBorder": false,
   "theme.bar.buttons.workspaces.fontSize": "1.3em",
   "bar.windowtitle.title_map": [
-    [
-      "armcord",
-      "",
-      "Armcord"
-    ],
-    [
-      "gjs",
-      "",
-      "Hyprpanel Settings"
-    ],
-    [
-      "zen",
-      "󰰶",
-      "Zen Browser"
-    ],
-    [
-      "org.qbittorrent.qBittorrent",
-      "μ",
-      "qBitTorrent"
-    ],
-    [
-      "com.mitchellh.ghostty",
-      "󰊠",
-      "Ghostty"
-    ],
-    [
-      "jetbrains-idea-ce",
-      "",
-      "IntelliJ Idea"
-    ],
-    [
-      "YouTube Music Desktop App",
-      "",
-      "YT Music"
-    ],
-    [
-      "com.github.th_ch.youtube_music",
-      "󰗃",
-      "YT Music"
-    ]
+    ["armcord", "", "Armcord"],
+    ["gjs", "", "Hyprpanel Settings"],
+    ["zen", "󰰶", "Zen Browser"],
+    ["org.qbittorrent.qBittorrent", "μ", "qBitTorrent"],
+    ["com.mitchellh.ghostty", "󰊠", "Ghostty"],
+    ["jetbrains-idea-ce", "", "IntelliJ Idea"],
+    ["YouTube Music Desktop App", "", "YT Music"],
+    ["com.github.th_ch.youtube_music", "󰗃", "YT Music"]
   ],
   "theme.bar.menus.menu.media.scaling": 97,
   "theme.bar.menus.menu.notifications.scaling": 100,
@@ -550,9 +510,7 @@
   "theme.osd.duration": 2000,
   "menus.clock.time.hideSeconds": false,
   "theme.font.label": "Lexend",
-  "bar.customModules.storage.paths": [
-    "/"
-  ],
+  "bar.customModules.storage.paths": ["/"],
   "theme.bar.layer": "bottom",
   "bar.workspaces.show_numbered": false,
   "bar.workspaces.reverse_scroll": true,
