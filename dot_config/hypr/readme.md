@@ -2,7 +2,7 @@
 
 - alacritty
 - nautilus/dolphin
-- rofi-wayland
+- rofi
 - hyprpaper
 - hyprlock
 - hypridle
