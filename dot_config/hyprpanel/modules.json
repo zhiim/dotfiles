@@ -1,1 +1,9 @@
-{}
+{
+  "custom/powerprofile": {
+    "icon": { "performance": "", "balanced": "", "low-power": "" },
+    "label": "{text}",
+    "tooltip": "{tooltip}",
+    "execute": "bash ~/.config/hyprpanel/scripts/power_profile.sh",
+    "interval": 5000
+  }
+}
