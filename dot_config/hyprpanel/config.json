@@ -423,7 +423,7 @@
   "bar.battery.scrollDown": "",
   "bar.workspaces.numbered_active_indicator": "underline",
   "bar.workspaces.spacing": 1,
-  "bar.workspaces.ignored": "-99",
+  "bar.workspaces.ignored": "",
   "bar.customModules.ram.labelType": "percentage",
   "theme.osd.scaling": 100,
   "bar.launcher.icon": "",
