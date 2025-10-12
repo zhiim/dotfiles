@@ -1,6 +1,6 @@
 ## dependecies
 
-- alacritty
+- ghostty
 - nautilus/dolphin
 - rofi
 - hyprpaper
