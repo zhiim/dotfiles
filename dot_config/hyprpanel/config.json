@@ -597,5 +597,6 @@
   "bar.customModules.netstat.labelType": "full",
   "bar.volume.label": false,
   "bar.network.label": false,
-  "bar.bluetooth.label": false
+  "bar.bluetooth.label": false,
+  "menus.dashboard.shortcuts.right.shortcut3.command": "grimblast copysave area"
 }

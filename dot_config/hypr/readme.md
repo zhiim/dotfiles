@@ -7,7 +7,6 @@
 - hyprlock
 - hypridle
 - hyprpicker
-- hyprshot
 - hyprpanel
 - pipewire
 - wireplumber
@@ -21,6 +20,9 @@
 - swww
 - cliphist
   - wl-clipboard
+- grimblast
+  - grim
+  - slurp
 
 ## tips
 
