@@ -49,7 +49,7 @@
 # resize-overlay-duration = 4s 200ms
 
 font-family = "JetBrainsMono Nerd Font"
-font-family = "Noto Sans CJK KR"
+font-family = "Noto Sans CJK SC"
 copy-on-select = clipboard
 window-decoration = none
 theme = "Catppuccin Macchiato"
