@@ -48,9 +48,10 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-font-family = "JetBrains Mono"
+font-family = "JetBrainsMono Nerd Font"
 font-family = "Noto Sans CJK KR"
 copy-on-select = clipboard
 window-decoration = none
 theme = "Catppuccin Macchiato"
 app-notifications = no-clipboard-copy
+font-thicken = true
