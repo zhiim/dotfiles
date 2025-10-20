@@ -2,6 +2,44 @@ local wezterm = require("wezterm") --[[@as Wezterm]]
 
 local M = {}
 
+local toggle_file = wezterm.config_dir .. "/wezterm_toggle"
+
+local function read_toggle()
+	local f = io.open(toggle_file, "r")
+	-- if no file exists, create it with default value false
+	if not f then
+		local wf = io.open(toggle_file, "w")
+		if wf then
+			wf:write("false")
+			wf:close()
+		end
+	end
+	-- read the value from the file
+	if f then
+		local v = f:read("*l")
+		f:close()
+		return v == "true"
+	end
+	return false
+end
+
+local function write_toggle(value)
+	local f = io.open(toggle_file, "w")
+	if f then
+		f:write(value and "true" or "false")
+		f:close()
+	end
+end
+
+local my_toggle = read_toggle() -- toggle keybindings on/off, to work with tmux/ssh
+
+wezterm.on("toggle-my-toggle", function(window, pane)
+	my_toggle = not my_toggle
+	write_toggle(my_toggle)
+	window:toast_notification("Toggle", "my_toggle is now " .. tostring(my_toggle), nil, 4000)
+	window:perform_action(wezterm.action.ReloadConfiguration, pane)
+end)
+
 local smart_nav = require("smart-split").smart_nav
 
 local mouse_bindings = {
@@ -106,9 +144,18 @@ for i = 1, 9 do
 end
 
 function M.apply(config)
-	config.leader = { key = "b", mods = "ALT", timeout_milliseconds = 1000 }
-	config.keys = keys
-	config.mouse_bindings = mouse_bindings
+	if not my_toggle then
+		config.leader = { key = "b", mods = "ALT", timeout_milliseconds = 1000 }
+		config.keys = keys
+		config.mouse_bindings = mouse_bindings
+	else
+		config.keys = {}
+	end
+	table.insert(config.keys, {
+		key = "t",
+		mods = "CTRL|ALT",
+		action = wezterm.action.EmitEvent("toggle-my-toggle"),
+	})
 end
 
 return M

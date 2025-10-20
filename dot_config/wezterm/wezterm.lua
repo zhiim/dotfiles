@@ -16,7 +16,7 @@ config.initial_cols = 120
 
 config.font = wezterm.font_with_fallback({
 	{ family = "JetBrainsMono Nerd Font", weight = "Medium" },
-	-- { family = "Noto Sans CJK SC", weight = "Medium" },
+	{ family = "Noto Sans CJK SC", weight = "Medium" },
 })
 
 config.font_size = 12.0

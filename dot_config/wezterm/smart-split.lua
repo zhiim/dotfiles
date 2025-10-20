@@ -13,20 +13,13 @@ local direction_keys = {
 local function is_vim(pane)
 	return pane:get_user_vars().IS_NVIM == "true"
 end
-local function is_ssh(pane)
-	local domain_name = pane:get_domain_name()
-	if string.match(domain_name, "^SSH") then
-		return true
-	end
-	return false
-end
 
 function M.smart_nav(resize_or_move, key)
 	return {
 		key = key,
 		mods = resize_or_move == "resize" and "META" or "CTRL",
 		action = wezterm.action_callback(function(win, pane)
-			if is_vim(pane) or is_ssh(pane) then
+			if is_vim(pane) then
 				-- pass the keys through to vim/nvim
 				win:perform_action(
 					action.SendKey({
