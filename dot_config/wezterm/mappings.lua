@@ -36,7 +36,11 @@ local my_toggle = read_toggle() -- toggle keybindings on/off, to work with tmux/
 wezterm.on("toggle-my-toggle", function(window, pane)
 	my_toggle = not my_toggle
 	write_toggle(my_toggle)
-	window:toast_notification("Toggle", "my_toggle is now " .. tostring(my_toggle), nil, 4000)
+	if my_toggle then
+		window:toast_notification("Keybindings Toggle", "keybindings are disabled", nil, 4000)
+	else
+		window:toast_notification("Keybindings Toggle", "keybindings are enabled", nil, 4000)
+	end
 	window:perform_action(wezterm.action.ReloadConfiguration, pane)
 end)
 
