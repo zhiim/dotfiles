@@ -2,6 +2,9 @@ local wezterm = require("wezterm") --[[@as Wezterm]]
 
 local M = {}
 
+local toggle_file = wezterm.config_dir .. "/wezterm_toggle"
+local my_toggle = require("mappings").read_toggle()
+
 local function get_tab_name(tab_info)
 	local title = tab_info.tab_title
 	-- if the tab title is explicitly set, take that
@@ -125,6 +128,9 @@ function M.apply(config, theme)
 		}))
 
 		window:set_right_status(wezterm.format({
+			my_toggle and { Foreground = { Color = active_bg } } or { Foreground = { Color = inactive_fg } },
+			{ Text = my_toggle and wezterm.nerdfonts.fa_lock .. " " or wezterm.nerdfonts.fa_unlock .. " " },
+			{ Foreground = { Color = inactive_fg } },
 			{ Attribute = { Intensity = "Bold" } },
 			{ Text = wezterm.nerdfonts.md_animation .. " " },
 			{ Text = window:active_workspace() .. " " },
