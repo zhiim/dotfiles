@@ -156,8 +156,8 @@ function M.apply(config)
 		config.keys = {}
 	end
 	table.insert(config.keys, {
-		key = "t",
-		mods = "CTRL|ALT",
+		key = "g",
+		mods = "CTRL",
 		action = wezterm.action.EmitEvent("toggle-my-toggle"),
 	})
 end
