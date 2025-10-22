@@ -183,7 +183,7 @@ function M.apply(config, theme)
 		window:set_left_status(wezterm.format({
 			{ Background = { Color = mode_fg_colour } },
 			{ Foreground = { Color = mode_bg_colour } },
-			{ Text = "" },
+			{ Text = " " },
 			{ Background = { Color = mode_bg_colour } },
 			{ Foreground = { Color = active_fg } },
 			{ Text = mode },
