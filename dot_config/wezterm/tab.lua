@@ -91,23 +91,33 @@ function M.apply(config, theme)
 			fg = inactive_hover_bg
 		end
 
-		local tab_index = tostring(tab.tab_index + 1)
 		if tab.is_active then
-			tab_index = wezterm.nerdfonts.md_image_filter_center_focus_strong
+			return {
+				{ Background = { Color = fg } },
+				{ Foreground = { Color = bg } },
+				{ Text = "" },
+				{ Background = { Color = bg } },
+				{ Foreground = { Color = fg } },
+				{ Text = " " .. wezterm.nerdfonts.md_image_filter_center_focus_strong .. " " },
+				{ Background = { Color = fg } },
+				{ Foreground = { Color = bg } },
+				{ Text = "" },
+			}
 		end
 
+		local tab_index = tostring(tab.tab_index + 1)
+
 		local tab_name = get_tab_name(tab)
-		tab_name = wezterm.truncate_right(tab_name, max_width - 6)
+		tab_name = wezterm.truncate_right(tab_name, max_width - 4)
 
 		return {
-			{ Background = { Color = tabbar_bg } },
-			{ Foreground = { Color = bg } },
-			{ Text = " " },
-			{ Background = { Color = bg } },
-			{ Foreground = { Color = fg } },
-			{ Text = tab_index .. " " },
+			{ Background = { Color = fg } },
+			{ Foreground = { Color = active_bg } },
+			{ Attribute = { Intensity = "Bold" } },
+			{ Text = " " .. tab_index },
 			{ Background = { Color = fg } },
 			{ Foreground = { Color = bg } },
+			{ Attribute = { Intensity = "Normal" } },
 			{ Text = " " .. tab_name .. " " },
 		}
 	end)
@@ -184,7 +194,7 @@ function M.apply(config, theme)
 			{ Text = mode },
 			{ Background = { Color = mode_fg_colour } },
 			{ Foreground = { Color = mode_bg_colour } },
-			{ Text = "" },
+			{ Text = " " },
 		}))
 
 		window:set_right_status(wezterm.format({
