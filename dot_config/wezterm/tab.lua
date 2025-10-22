@@ -26,11 +26,13 @@ function M.apply(config, theme)
 	-- config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
 	config.use_fancy_tab_bar = false
-	config.tab_max_width = 16
+	config.tab_max_width = 18
 
 	local colors, _ = wezterm.color.load_scheme(wezterm.config_dir .. "/colors/" .. theme .. ".toml")
 
 	local normal = colors.foreground
+
+	local tabbar_bg = colors.tab_bar.background
 
 	local red = colors.ansi[2]
 	local green = colors.ansi[3]
@@ -95,12 +97,12 @@ function M.apply(config, theme)
 		end
 
 		local tab_name = get_tab_name(tab)
-		tab_name = wezterm.truncate_right(tab_name, max_width - 5)
+		tab_name = wezterm.truncate_right(tab_name, max_width - 6)
 
 		return {
-			{ Background = { Color = fg } },
+			{ Background = { Color = tabbar_bg } },
 			{ Foreground = { Color = bg } },
-			{ Text = "" },
+			{ Text = " " },
 			{ Background = { Color = bg } },
 			{ Foreground = { Color = fg } },
 			{ Text = tab_index .. " " },
@@ -148,7 +150,7 @@ function M.apply(config, theme)
 
 		local mode
 		local mode_bg_colour
-		local mode_fg_colour = active_fg
+		local mode_fg_colour = tabbar_bg
 		if require("mappings").read_toggle() then
 			mode = wezterm.nerdfonts.fa_lock .. " LOCKED"
 			mode_bg_colour = red
@@ -182,7 +184,7 @@ function M.apply(config, theme)
 			{ Text = mode },
 			{ Background = { Color = mode_fg_colour } },
 			{ Foreground = { Color = mode_bg_colour } },
-			{ Text = " " },
+			{ Text = "" },
 		}))
 
 		window:set_right_status(wezterm.format({

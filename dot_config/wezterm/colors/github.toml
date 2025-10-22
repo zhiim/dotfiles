@@ -37,7 +37,7 @@ brights = [
 
 [colors.tab_bar]
 inactive_tab_edge = "#1f2335"
-background = "#22272e"
+background = "#121519"
 
 [colors.tab_bar.active_tab]
 fg_color = "#1f2335"
@@ -54,13 +54,13 @@ bg_color = "#22272e"
 italic = true
 
 [colors.tab_bar.new_tab_hover]
-fg_color = "#22272e"
-bg_color = "#6cb6ff"
+fg_color = "#6cb6ff"
+bg_color = "#22272e"
 intensity = "Bold"
 
 [colors.tab_bar.new_tab]
 fg_color = "#6cb6ff"
-bg_color = "#22272e"
+bg_color = "#121519"
 
 [metadata]
 name = "github"
