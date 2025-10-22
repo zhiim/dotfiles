@@ -41,7 +41,7 @@ background = "#22272e"
 
 [colors.tab_bar.active_tab]
 fg_color = "#1f2335"
-bg_color = "#6cb6ff"
+bg_color = "#539bf5"
 intensity = "Bold"
 
 [colors.tab_bar.inactive_tab]

@@ -2,9 +2,6 @@ local wezterm = require("wezterm") --[[@as Wezterm]]
 
 local M = {}
 
-local toggle_file = wezterm.config_dir .. "/wezterm_toggle"
-local my_toggle = require("mappings").read_toggle()
-
 local function get_tab_name(tab_info)
 	local title = tab_info.tab_title
 	-- if the tab title is explicitly set, take that
@@ -26,7 +23,7 @@ end
 function M.apply(config, theme)
 	-- Diable system title bar, and put window management buttons into tab bar
 	---@diagnostic disable-next-line: assign-type-mismatch
-	config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+	-- config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
 	config.use_fancy_tab_bar = false
 	config.tab_max_width = 16
@@ -34,6 +31,13 @@ function M.apply(config, theme)
 	local colors, _ = wezterm.color.load_scheme(wezterm.config_dir .. "/colors/" .. theme .. ".toml")
 
 	local normal = colors.foreground
+
+	local red = colors.ansi[2]
+	local green = colors.ansi[3]
+	local yellow = colors.ansi[4]
+	local blue = colors.ansi[5]
+	local magenta = colors.ansi[6]
+	local cyan = colors.ansi[7]
 
 	local inactive_bg = colors.tab_bar.inactive_tab.bg_color
 	local inactive_fg = colors.tab_bar.inactive_tab.fg_color
@@ -43,35 +47,35 @@ function M.apply(config, theme)
 	local active_fg = colors.tab_bar.active_tab.fg_color
 
 	-- change window management buttons
-	config.tab_bar_style = {
-		window_hide = wezterm.format({
-			{ Foreground = { Color = normal } },
-			{ Text = " " .. wezterm.nerdfonts.md_window_minimize .. " " },
-		}),
-		window_hide_hover = wezterm.format({
-			{ Background = { Color = active_bg } },
-			{ Foreground = { Color = active_fg } },
-			{ Text = " " .. wezterm.nerdfonts.md_window_minimize .. " " },
-		}),
-		window_maximize = wezterm.format({
-			{ Foreground = { Color = normal } },
-			{ Text = " " .. wezterm.nerdfonts.md_window_maximize .. " " },
-		}),
-		window_maximize_hover = wezterm.format({
-			{ Background = { Color = active_bg } },
-			{ Foreground = { Color = active_fg } },
-			{ Text = " " .. wezterm.nerdfonts.md_window_maximize .. " " },
-		}),
-		window_close = wezterm.format({
-			{ Foreground = { Color = normal } },
-			{ Text = " " .. wezterm.nerdfonts.md_window_close .. " " },
-		}),
-		window_close_hover = wezterm.format({
-			{ Background = { Color = colors.ansi[2] } },
-			{ Foreground = { Color = normal } },
-			{ Text = " " .. wezterm.nerdfonts.md_window_close .. " " },
-		}),
-	}
+	-- config.tab_bar_style = {
+	-- 	window_hide = wezterm.format({
+	-- 		{ Foreground = { Color = normal } },
+	-- 		{ Text = " " .. wezterm.nerdfonts.md_window_minimize .. " " },
+	-- 	}),
+	-- 	window_hide_hover = wezterm.format({
+	-- 		{ Background = { Color = active_bg } },
+	-- 		{ Foreground = { Color = active_fg } },
+	-- 		{ Text = " " .. wezterm.nerdfonts.md_window_minimize .. " " },
+	-- 	}),
+	-- 	window_maximize = wezterm.format({
+	-- 		{ Foreground = { Color = normal } },
+	-- 		{ Text = " " .. wezterm.nerdfonts.md_window_maximize .. " " },
+	-- 	}),
+	-- 	window_maximize_hover = wezterm.format({
+	-- 		{ Background = { Color = active_bg } },
+	-- 		{ Foreground = { Color = active_fg } },
+	-- 		{ Text = " " .. wezterm.nerdfonts.md_window_maximize .. " " },
+	-- 	}),
+	-- 	window_close = wezterm.format({
+	-- 		{ Foreground = { Color = normal } },
+	-- 		{ Text = " " .. wezterm.nerdfonts.md_window_close .. " " },
+	-- 	}),
+	-- 	window_close_hover = wezterm.format({
+	-- 		{ Background = { Color = colors.ansi[2] } },
+	-- 		{ Foreground = { Color = normal } },
+	-- 		{ Text = " " .. wezterm.nerdfonts.md_window_close .. " " },
+	-- 	}),
+	-- }
 
 	wezterm.on("format-tab-title", function(tab, _, _, _, hover, max_width)
 		local bg = inactive_bg
@@ -85,20 +89,32 @@ function M.apply(config, theme)
 			fg = inactive_hover_fg
 		end
 
-		local tab_pre = ""
-		if not tab.is_active then
-			tab_pre = tostring(tab.tab_index + 1)
-		else
-			tab_pre = wezterm.nerdfonts.md_image_filter_center_focus_strong
-		end
 		local tab_name = get_tab_name(tab)
 
 		tab_name = wezterm.truncate_right(tab_name, max_width - 4)
-		return {
-			{ Background = { Color = bg } },
-			{ Foreground = { Color = fg } },
-			{ Text = " " .. tab_pre .. " " .. tab_name .. " " },
-		}
+
+		local elements = {}
+
+		if tab.is_active then
+			table.insert(elements, { Background = { Color = active_fg } })
+			table.insert(elements, { Foreground = { Color = bg } })
+			table.insert(elements, { Text = "" })
+			table.insert(elements, { Background = { Color = bg } })
+			table.insert(elements, { Foreground = { Color = fg } })
+			table.insert(elements, { Text = " " .. wezterm.nerdfonts.md_image_filter_center_focus_strong .. " " })
+			table.insert(elements, { Background = { Color = active_fg } })
+			table.insert(elements, { Foreground = { Color = bg } })
+			table.insert(elements, { Text = "" })
+		else
+			table.insert(elements, { Background = { Color = bg } })
+			table.insert(elements, { Foreground = { Color = cyan } })
+			table.insert(elements, { Text = " " .. tostring(tab.tab_index + 1) })
+			table.insert(elements, { Background = { Color = bg } })
+			table.insert(elements, { Foreground = { Color = fg } })
+			table.insert(elements, { Text = " " .. tab_name .. " " })
+		end
+
+		return elements
 	end)
 
 	wezterm.on("update-status", function(window, pane)
@@ -121,16 +137,62 @@ function M.apply(config, theme)
 			logo = wezterm.nerdfonts.md_remote_desktop
 		end
 
+		-- format the text to be displayed in mode status block (all caps with no underscores)
+		local function format_mode_text(mode_text)
+			-- replace underscores with spaces
+			local new_string = string.gsub(mode_text, "_+", " ")
+
+			-- capitalise all letters
+			new_string = string.upper(new_string)
+
+			-- remove 'MODE' from the end of the string
+			if string.sub(new_string, -5) == " MODE" then
+				new_string = string.sub(new_string, 1, -6)
+			end
+
+			return new_string
+		end
+
+		local mode
+		local mode_bg_colour
+		local mode_fg_colour = active_fg
+		if require("mappings").read_toggle() then
+			mode = wezterm.nerdfonts.fa_lock .. " LOCKED"
+			mode_bg_colour = red
+		elseif window:active_key_table() then
+			mode = format_mode_text(window:active_key_table())
+			if mode == "COPY" then
+				mode = " " .. mode
+				mode_bg_colour = green
+			elseif mode == "SEARCH" then
+				mode = wezterm.nerdfonts.fa_search .. " " .. mode
+				mode_bg_colour = yellow
+			else
+				-- fallback
+				mode = logo .. " NORMAL"
+				mode_bg_colour = blue
+			end
+		elseif window:leader_is_active() then
+			mode = wezterm.nerdfonts.fa_dot_circle_o .. " LEADER"
+			mode_bg_colour = magenta
+		else
+			mode = logo .. " NORMAL"
+			mode_bg_colour = blue
+		end
+
 		window:set_left_status(wezterm.format({
-			{ Background = { Color = active_bg } },
+			{ Background = { Color = mode_fg_colour } },
+			{ Foreground = { Color = mode_bg_colour } },
+			{ Text = "" },
+			{ Background = { Color = mode_bg_colour } },
 			{ Foreground = { Color = active_fg } },
-			{ Text = " " .. logo .. " " },
+			{ Text = mode },
+			{ Background = { Color = mode_fg_colour } },
+			{ Foreground = { Color = mode_bg_colour } },
+			{ Text = " " },
 		}))
 
 		window:set_right_status(wezterm.format({
-			my_toggle and { Foreground = { Color = active_bg } } or { Foreground = { Color = inactive_fg } },
-			{ Text = my_toggle and wezterm.nerdfonts.fa_lock .. " " or wezterm.nerdfonts.fa_unlock .. " " },
-			{ Foreground = { Color = inactive_fg } },
 			{ Attribute = { Intensity = "Bold" } },
 			{ Text = wezterm.nerdfonts.md_animation .. " " },
 			{ Text = window:active_workspace() .. " " },

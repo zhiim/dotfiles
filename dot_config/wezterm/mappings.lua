@@ -73,6 +73,11 @@ local keys = {
 		action = wezterm.action.ActivateCopyMode,
 	},
 	{
+		key = "]",
+		mods = "LEADER",
+		action = wezterm.action.Search({ CaseInSensitiveString = "" }),
+	},
+	{
 		key = "l",
 		mods = "LEADER",
 		action = wezterm.action.ShowLauncherArgs({
