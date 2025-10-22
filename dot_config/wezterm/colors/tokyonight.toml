@@ -41,11 +41,11 @@ bg_color = "#7aa2f7"
 intensity = "Bold"
 
 [colors.tab_bar.inactive_tab]
-fg_color = "#545c7e"
+fg_color = "#a9b1d6"
 bg_color = "#292e42"
 
 [colors.tab_bar.inactive_tab_hover]
-fg_color = "#7aa2f7"
+fg_color = "#8db0ff"
 bg_color = "#292e42"
 italic = true
 

@@ -49,7 +49,7 @@ underline = 'None'
 
 [colors.tab_bar.inactive_tab]
 bg_color = '#1e2030'
-fg_color = '#cad3f5'
+fg_color = '#a5adcb'
 intensity = 'Normal'
 italic = false
 strikethrough = false
@@ -57,7 +57,7 @@ underline = 'None'
 
 [colors.tab_bar.inactive_tab_hover]
 bg_color = '#24273a'
-fg_color = '#cad3f5'
+fg_color = '#b7bdf8'
 intensity = 'Normal'
 italic = true
 strikethrough = false

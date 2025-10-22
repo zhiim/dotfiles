@@ -47,7 +47,7 @@ config.font_size = 12.0
 -- How many lines of scrollback you want to retain per tab
 config.scrollback_lines = 3500
 
-local theme = "github"
+local theme = "onenord"
 
 require("colors").apply(config, theme)
 require("tab").apply(config, theme)

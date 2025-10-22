@@ -43,12 +43,12 @@ fg_color = "#1f1f28"
 intensity = "Bold"
 
 [colors.tab_bar.inactive_tab]
-fg_color = "#dcd7ba"
+fg_color = "#727169"
 bg_color = "#16161d"
 intensity = "Normal"
 
 [colors.tab_bar.inactive_tab_hover]
-fg_color = "#957fb8"
+fg_color = "#938aa9"
 bg_color = "#1f1f28"
 italic = true
 

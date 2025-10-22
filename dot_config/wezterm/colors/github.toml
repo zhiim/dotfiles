@@ -45,17 +45,17 @@ bg_color = "#539bf5"
 intensity = "Bold"
 
 [colors.tab_bar.inactive_tab]
-fg_color = "#adbac7"
+fg_color = "#909dab" # a shadow grey
 bg_color = "#22272e"
 
 [colors.tab_bar.inactive_tab_hover]
-fg_color = "#6cb6ff"
+fg_color = "#6cb6ff" # a lighter main color
 bg_color = "#22272e"
 italic = true
 
 [colors.tab_bar.new_tab_hover]
-bg_color = "#6cb6ff"
 fg_color = "#22272e"
+bg_color = "#6cb6ff"
 intensity = "Bold"
 
 [colors.tab_bar.new_tab]

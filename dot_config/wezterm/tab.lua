@@ -78,43 +78,36 @@ function M.apply(config, theme)
 	-- }
 
 	wezterm.on("format-tab-title", function(tab, _, _, _, hover, max_width)
-		local bg = inactive_bg
-		local fg = inactive_fg
+		local bg = inactive_fg
+		local fg = inactive_bg
 		if tab.is_active then
 			bg = active_bg
 			fg = active_fg
 		end
 		if not tab.is_active and hover then
-			bg = inactive_hover_bg
-			fg = inactive_hover_fg
+			bg = inactive_hover_fg
+			fg = inactive_hover_bg
+		end
+
+		local tab_index = tostring(tab.tab_index + 1)
+		if tab.is_active then
+			tab_index = wezterm.nerdfonts.md_image_filter_center_focus_strong
 		end
 
 		local tab_name = get_tab_name(tab)
+		tab_name = wezterm.truncate_right(tab_name, max_width - 5)
 
-		tab_name = wezterm.truncate_right(tab_name, max_width - 4)
-
-		local elements = {}
-
-		if tab.is_active then
-			table.insert(elements, { Background = { Color = active_fg } })
-			table.insert(elements, { Foreground = { Color = bg } })
-			table.insert(elements, { Text = "" })
-			table.insert(elements, { Background = { Color = bg } })
-			table.insert(elements, { Foreground = { Color = fg } })
-			table.insert(elements, { Text = " " .. wezterm.nerdfonts.md_image_filter_center_focus_strong .. " " })
-			table.insert(elements, { Background = { Color = active_fg } })
-			table.insert(elements, { Foreground = { Color = bg } })
-			table.insert(elements, { Text = "" })
-		else
-			table.insert(elements, { Background = { Color = bg } })
-			table.insert(elements, { Foreground = { Color = cyan } })
-			table.insert(elements, { Text = " " .. tostring(tab.tab_index + 1) })
-			table.insert(elements, { Background = { Color = bg } })
-			table.insert(elements, { Foreground = { Color = fg } })
-			table.insert(elements, { Text = " " .. tab_name .. " " })
-		end
-
-		return elements
+		return {
+			{ Background = { Color = fg } },
+			{ Foreground = { Color = bg } },
+			{ Text = "" },
+			{ Background = { Color = bg } },
+			{ Foreground = { Color = fg } },
+			{ Text = tab_index .. " " },
+			{ Background = { Color = fg } },
+			{ Foreground = { Color = bg } },
+			{ Text = " " .. tab_name .. " " },
+		}
 	end)
 
 	wezterm.on("update-status", function(window, pane)
@@ -170,14 +163,14 @@ function M.apply(config, theme)
 			else
 				-- fallback
 				mode = logo .. " NORMAL"
-				mode_bg_colour = blue
+				mode_bg_colour = active_bg
 			end
 		elseif window:leader_is_active() then
 			mode = wezterm.nerdfonts.fa_dot_circle_o .. " LEADER"
-			mode_bg_colour = magenta
+			mode_bg_colour = cyan
 		else
 			mode = logo .. " NORMAL"
-			mode_bg_colour = blue
+			mode_bg_colour = active_bg
 		end
 
 		window:set_left_status(wezterm.format({
@@ -196,6 +189,7 @@ function M.apply(config, theme)
 			{ Attribute = { Intensity = "Bold" } },
 			{ Text = wezterm.nerdfonts.md_animation .. " " },
 			{ Text = window:active_workspace() .. " " },
+			{ Foreground = { Color = magenta } },
 			{ Attribute = { Intensity = "Normal" } },
 			{ Text = wezterm.nerdfonts.md_collage .. " " },
 			{ Text = pane:get_title() .. " " },

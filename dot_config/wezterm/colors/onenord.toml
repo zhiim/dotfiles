@@ -53,7 +53,7 @@ fg_color = "#C8D0E0"
 
 [colors.tab_bar.inactive_tab_hover]
 bg_color = "#2E3440"
-fg_color = "#88C0D0"
+fg_color = "#8FBCBB"
 italic = true
 
 [colors.tab_bar.new_tab]
