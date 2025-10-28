@@ -64,6 +64,19 @@ local mouse_bindings = {
 			end
 		end),
 	},
+	-- Slower scroll up/down (3 lines instead of Page Up/Down)
+	{
+		event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+		mods = "NONE",
+		action = wezterm.action.ScrollByLine(-3),
+		alt_screen = false,
+	},
+	{
+		event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+		mods = "NONE",
+		action = wezterm.action.ScrollByLine(3),
+		alt_screen = false,
+	},
 }
 
 local keys = {
@@ -151,10 +164,10 @@ function M.apply(config)
 	if not my_toggle then
 		config.leader = { key = "b", mods = "ALT", timeout_milliseconds = 1000 }
 		config.keys = keys
-		config.mouse_bindings = mouse_bindings
 	else
 		config.keys = {}
 	end
+	config.mouse_bindings = mouse_bindings
 	table.insert(config.keys, {
 		key = "g",
 		mods = "CTRL",
