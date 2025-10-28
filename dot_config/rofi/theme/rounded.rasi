@@ -1,14 +1,14 @@
 * {
-    bg0:    #24273a;
-    bg1:    #363a4f;
-    bg2:    #5b6078;
-    bg3:    #494d64;
-    fg0:    #cad3f5;
-    fg1:    #ed8796;
-    fg2:    #eed49f;
-    fg3:    #8aadf4;
+    bg0:    #121519;
+    bg1:    #22272e;
+    bg2:    #636e7b;
+    bg3:    #545d68;
+    fg0:    #adbac7;
+    fg1:    #ff938a;
+    fg2:    #daaa3f;
+    fg3:    #6cb6ff;
 
-    font:   "Roboto 12";
+    font:   "Noto Sans CJK SC 12";
 
     background-color:   transparent;
     text-color:         @fg0;
