@@ -108,13 +108,13 @@ function M.apply(config, theme)
 		local tab_index = tostring(tab.tab_index + 1)
 
 		local tab_name = get_tab_name(tab)
-		tab_name = wezterm.truncate_right(tab_name, max_width - 4)
+		tab_name = wezterm.truncate_right(tab_name, max_width - 5)
 
 		return {
 			{ Background = { Color = fg } },
 			{ Foreground = { Color = active_bg } },
 			{ Attribute = { Intensity = "Bold" } },
-			{ Text = " " .. tab_index },
+			{ Text = " " .. tab_index .. "|" },
 			{ Background = { Color = fg } },
 			{ Foreground = { Color = bg } },
 			{ Attribute = { Intensity = "Normal" } },
