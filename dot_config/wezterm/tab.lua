@@ -114,7 +114,7 @@ function M.apply(config, theme)
 			{ Background = { Color = fg } },
 			{ Foreground = { Color = active_bg } },
 			{ Attribute = { Intensity = "Bold" } },
-			{ Text = " " .. tab_index .. "|" },
+			{ Text = " " .. tab_index .. "#" },
 			{ Background = { Color = fg } },
 			{ Foreground = { Color = bg } },
 			{ Attribute = { Intensity = "Normal" } },
