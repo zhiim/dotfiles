@@ -1,0 +1,9 @@
+[Unit]
+Description=Rime config auto sync
+
+[Service]
+ExecStart=bash /home/xu/.local/share/fcitx5/rime/sync_script/sync.sh
+Restart=always
+
+[Install]
+WantedBy=default.target
