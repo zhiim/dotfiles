@@ -169,7 +169,7 @@ function M.apply(config)
 	end
 	config.mouse_bindings = mouse_bindings
 	table.insert(config.keys, {
-		key = "g",
+		key = "0",
 		mods = "CTRL",
 		action = wezterm.action.EmitEvent("toggle-my-toggle"),
 	})

@@ -10,6 +10,8 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
+
 -- Set widows size at starup
 config.initial_rows = 30
 config.initial_cols = 120
