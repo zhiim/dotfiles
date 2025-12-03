@@ -1,0 +1,7 @@
+[include]
+	path = ~/.config/delta/themes/catppuccin.gitconfig
+
+[delta]
+	navigate = true
+    line-numbers = true
+	features = catppuccin-macchiato
