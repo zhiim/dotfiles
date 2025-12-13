@@ -236,6 +236,11 @@ proxy-groups:
     }
 
 rules:
+  # 为特定进程设置直连
+  # - PROCESS-PATH,/usr/bin/linuxqq,🎯 直连
+  # - PROCESS-PATH-REGEX,\/tmp\/\.mount_linux.*\/qq,🎯 直连
+  # - PROCESS-PATH,/opt/wechat-appimage/wechat-appimage.AppImage,🎯 直连
+  # - PROCESS-PATH-REGEX,\/tmp\/\.mount_wechat.*wechat.*,🎯 直连
   # 自定义规则
   - DOMAIN-KEYWORD,porn,REJECT
   - DOMAIN-KEYWORD,jav,REJECT
