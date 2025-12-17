@@ -1,0 +1,17 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "19dc890"
+hash = "8a7c58225816a163a6e8730c0adafbc8"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "19dc890"
+hash = "27ca02f49fd236b5cc7bf03c243859fe"
+
+[[plugin.deps]]
+use = "boydaihungst/restore"
+rev = "6395e52"
+hash = "f107436db5d2cccccc11ab54bc97b761"
+
+[flavor]
+deps = []

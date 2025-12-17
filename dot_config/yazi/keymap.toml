@@ -1,0 +1,11 @@
+# -- toggle-pane.yazi --------------------------------------------------
+[[mgr.prepend_keymap]]
+on = "T"
+run = "plugin toggle-pane min-preview"
+desc = "Show or hide the preview pane"
+
+# -- restore.yazi ------------------------------------------------------
+[[mgr.prepend_keymap]]
+on = "u"
+run = "plugin restore"
+desc = "Restore last deleted files/folders"
