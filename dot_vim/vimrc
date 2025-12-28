@@ -1,0 +1,75 @@
+" +----------------------------------------------------------+
+" |                       vim options                        |
+" +----------------------------------------------------------+
+
+" do not get rid of vim defaults
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+" enable syntax highlight
+syntax on
+" enable filetype-specific autocmds
+filetype plugin indent on
+" better serarch: incrementally highlight, and ignore case differences
+set hlsearch incsearch ignorecase
+" enable relative number
+set number relativenumber
+set encoding=UTF-8
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" on pressing tab, insert 4 spaces
+set expandtab
+" enable mouse
+set mouse=a
+" save undo history even exist
+set undofile
+" add indent at warpped lines
+set breakindent
+" change new buffer postion
+set splitright
+set splitbelow
+" indicate whitespace chars
+set list
+set listchars=tab:»\ ,trail:·,nbsp:␣ 
+" go to pre/next line with h, l or others
+set whichwrap=<,>,[,],h,l
+
+" +----------------------------------------------------------+
+" |                    plugin management                     |
+" +----------------------------------------------------------+
+
+" auto install vim-plug
+let data_dir = '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+
+Plug 'preservim/nerdtree'
+Plug 'xolox/vim-session'
+Plug 'xolox/vim-misc'
+Plug 'junegunn/fzf.vim'
+
+call plug#end() 
+
+" +----------------------------------------------------------+
+" |                       key mappings                       |
+" +----------------------------------------------------------+
+
+" set leader key
+let mapleader="\<space>"
+" term
+nnoremap <leader>u :botright term<CR>
+" remove search highlight
+nnoremap <Esc> :nohlsearch<CR>
+
+" nerdtree
+nnoremap <C-n> :NERDTreeToggle<CR>
+" fzf
+nnoremap <leader>sf :Files<CR>
+nnoremap <leader>sb :Buffers<CR>
+nnoremap <leader>sg :Rg<CR>
+nnoremap <leader>sh :Helptags<CR>
