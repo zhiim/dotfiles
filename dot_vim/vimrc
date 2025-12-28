@@ -34,6 +34,10 @@ set list
 set listchars=tab:»\ ,trail:·,nbsp:␣
 " go to pre/next line with h, l or others
 set whichwrap=<,>,[,],h,l
+" better cursor
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
 
 " +----------------------------------------------------------+
 " |                    plugin management                     |
