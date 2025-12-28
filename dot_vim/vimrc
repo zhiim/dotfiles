@@ -31,7 +31,7 @@ set splitright
 set splitbelow
 " indicate whitespace chars
 set list
-set listchars=tab:»\ ,trail:·,nbsp:␣ 
+set listchars=tab:»\ ,trail:·,nbsp:␣
 " go to pre/next line with h, l or others
 set whichwrap=<,>,[,],h,l
 
@@ -53,7 +53,7 @@ Plug 'xolox/vim-session'
 Plug 'xolox/vim-misc'
 Plug 'junegunn/fzf.vim'
 
-call plug#end() 
+call plug#end()
 
 " +----------------------------------------------------------+
 " |                       key mappings                       |
