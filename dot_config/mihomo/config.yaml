@@ -296,6 +296,11 @@ rules:
   - RULE-SET,cn_domain,🇨🇳 国内
   - RULE-SET,cn_ip,🇨🇳 国内
   - MATCH,🐟 漏网之鱼
+  - RULE-SET,AD,REJECT
+  - RULE-SET,EasyList,REJECT
+  - RULE-SET,EasyListChina,REJECT
+  - RULE-SET,EasyPrivacy,REJECT
+  - RULE-SET,ProgramAD,REJECT
 
   # google fcm used in android
   - DOMAIN,alt1-mtalk.google.com,📢 谷歌FCM
@@ -405,3 +410,18 @@ rule-providers:
   telegram_ip:
     <<: *ip
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.yaml"
+  AD:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/AD.yaml"
+  EasyList:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/EasyList.yaml"
+  EasyListChina:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/EasyListChina.yaml"
+  EasyPrivacy:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/EasyPrivacy.yaml"
+  ProgramAD:
+    <<: *ip
+    url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/ProgramAD.yaml"
