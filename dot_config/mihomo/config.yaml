@@ -236,12 +236,39 @@ proxy-groups:
     }
 
 rules:
+  # 域名规则
+  - GEOIP,lan,🎯 直连,no-resolve
+  - RULE-SET,biliintl_domain,🥃 哔哩东南亚
+  - RULE-SET,github_domain,🍮 Github
+  - RULE-SET,twitter_domain,🍦 Twitter
+  - RULE-SET,youtube_domain,🧋 YouTube
+  - RULE-SET,google_domain,🧊 Google
+  - RULE-SET,telegram_domain,🍭 Telegram
+  - RULE-SET,netflix_domain,🫙 NETFLIX
+  - RULE-SET,bilibili_domain,🫗 哔哩哔哩
+  - RULE-SET,bahamut_domain,🧃 巴哈姆特
+  - RULE-SET,spotify_domain,🥛 Spotify
+  - RULE-SET,pixiv_domain,🍡 Pixiv
+  - RULE-SET,geolocation-!cn,⭐ 其他非大陆
+  - RULE-SET,anti_ad,REJECT
+  - RULE-SET,anti_ad_white,DIRECT
+  - RULE-SET,porn_domain,REJECT
+
+  # IP规则, 如果域名规则不匹配则进入IP规则, 此时会使用Clash配置的DNS规则解析IP
+  - RULE-SET,google_ip,🧊 Google
+  - RULE-SET,netflix_ip,🫙 NETFLIX
+  - RULE-SET,telegram_ip,🍭 Telegram
+  - RULE-SET,twitter_ip,🍦 Twitter
+  - RULE-SET,cn_domain,🇨🇳 国内
+  - RULE-SET,cn_ip,🇨🇳 国内
+  - MATCH,🐟 漏网之鱼
+
+  # 自定义规则
   # 为特定进程设置直连
   # - PROCESS-PATH,/usr/bin/linuxqq,🎯 直连
   # - PROCESS-PATH-REGEX,\/tmp\/\.mount_linux.*\/qq,🎯 直连
   # - PROCESS-PATH,/opt/wechat-appimage/wechat-appimage.AppImage,🎯 直连
   # - PROCESS-PATH-REGEX,\/tmp\/\.mount_wechat.*wechat.*,🎯 直连
-  # 自定义规则
   - DOMAIN-KEYWORD,porn,REJECT
   - DOMAIN-KEYWORD,jav,REJECT
   - DOMAIN-KEYWORD,missav,REJECT
@@ -252,7 +279,6 @@ rules:
   - DOMAIN-SUFFIX,xhamster.com,REJECT
   - DOMAIN-SUFFIX,xnxx.com,REJECT
   - DOMAIN-SUFFIX,rou.video,REJECT
-  - RULE-SET,porn_domain,REJECT
   - DOMAIN-KEYWORD,91cg,REJECT
   - DOMAIN-KEYWORD,51cg,REJECT
   - DOMAIN-KEYWORD,cg51,REJECT
@@ -272,36 +298,6 @@ rules:
   - DOMAIN-KEYWORD,xmorex,REJECT
   - DOMAIN-KEYWORD,xszav,REJECT
   - DOMAIN-KEYWORD,videocelebs,REJECT
-
-  # 域名规则
-  - GEOIP,lan,🎯 直连,no-resolve
-  - RULE-SET,biliintl_domain,🥃 哔哩东南亚
-  - RULE-SET,github_domain,🍮 Github
-  - RULE-SET,twitter_domain,🍦 Twitter
-  - RULE-SET,youtube_domain,🧋 YouTube
-  - RULE-SET,google_domain,🧊 Google
-  - RULE-SET,telegram_domain,🍭 Telegram
-  - RULE-SET,netflix_domain,🫙 NETFLIX
-  - RULE-SET,bilibili_domain,🫗 哔哩哔哩
-  - RULE-SET,bahamut_domain,🧃 巴哈姆特
-  - RULE-SET,spotify_domain,🥛 Spotify
-  - RULE-SET,pixiv_domain,🍡 Pixiv
-  - RULE-SET,geolocation-!cn,⭐ 其他非大陆
-
-  # IP规则, 如果域名规则不匹配则进入IP规则, 此时会使用Clash配置的DNS规则解析IP
-  - RULE-SET,google_ip,🧊 Google
-  - RULE-SET,netflix_ip,🫙 NETFLIX
-  - RULE-SET,telegram_ip,🍭 Telegram
-  - RULE-SET,twitter_ip,🍦 Twitter
-  - RULE-SET,cn_domain,🇨🇳 国内
-  - RULE-SET,cn_ip,🇨🇳 国内
-  - MATCH,🐟 漏网之鱼
-  - RULE-SET,AD,REJECT
-  - RULE-SET,EasyList,REJECT
-  - RULE-SET,EasyListChina,REJECT
-  - RULE-SET,EasyPrivacy,REJECT
-  - RULE-SET,ProgramAD,REJECT
-
   # google fcm used in android
   - DOMAIN,alt1-mtalk.google.com,📢 谷歌FCM
   - DOMAIN,alt2-mtalk.google.com,📢 谷歌FCM
@@ -352,9 +348,6 @@ domain: &domain
   format: yaml
 
 rule-providers:
-  porn_domain:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/1stfine/open_clash/master/rule_provider/rule_porn.yaml"
   cn_domain:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml"
@@ -394,6 +387,15 @@ rule-providers:
   geolocation-!cn:
     <<: *domain
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.yaml"
+  porn_domain:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/1stfine/open_clash/master/rule_provider/rule_porn.yaml"
+  anti_ad:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-clash.yaml"
+  anti_ad_white:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/privacy-protection-tools/dead-horse/master/anti-ad-white-for-clash.yaml"
 
   cn_ip:
     <<: *ip
@@ -410,18 +412,3 @@ rule-providers:
   telegram_ip:
     <<: *ip
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.yaml"
-  AD:
-    <<: *ip
-    url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/AD.yaml"
-  EasyList:
-    <<: *ip
-    url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/EasyList.yaml"
-  EasyListChina:
-    <<: *ip
-    url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/EasyListChina.yaml"
-  EasyPrivacy:
-    <<: *ip
-    url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/EasyPrivacy.yaml"
-  ProgramAD:
-    <<: *ip
-    url: "https://raw.githubusercontent.com/earoftoast/clash-rules/main/ProgramAD.yaml"
