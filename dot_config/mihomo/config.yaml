@@ -91,31 +91,28 @@ dns:
   listen: :1053
   ipv6: true
   enhanced-mode: fake-ip
-  fake-ip-range: 28.0.0.1/8 # clash 以此IP段发送fakeip映射
+  fake-ip-range: 198.18.0.1/16 # clash 以此IP段发送fakeip映射
   fake-ip-filter: # 以下地址不使用fakeip
-    - "*"
     - "+.lan"
     - "+.local"
   default-nameserver: # 用于解析DNS服务器, 必须为IP
-    - 223.5.5.5 # 阿里
-    - 119.29.29.29 # 腾讯
-    - 8.8.8.8 # Google
-  proxy-server-nameserver: # 用于解析代理节点的域名
-    - https://doh.pub/dns-query
-    - 223.5.5.5
     - 8.8.8.8
-    - 208.67.222.222 # opendns
+    - 119.29.29.29
+  proxy-server-nameserver: # 用于解析代理节点的域名
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  # 并行向nameserver和fallback发送请求，并根据解析出的ip通过fallback-ip-filter过滤出需要使用fallback结果的ip
   nameserver: # 域名解析
-    - https://doh.pub/dns-query # 腾讯doh
-    - https://dns.alidns.com/dns-query # 阿里doh
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
   fallback: # 用于解析fallback-filter匹配的域名
-    - "8.8.8.8"
-    - "208.67.222.222"
-    - "tls://dns.google"
-    - "https://doh.opendns.com/dns-query"
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN # CN 的IP直接采用, 其余采用fallback的结果
+    geosite:
+      - gfw
     ipcidr: [240.0.0.0/4]
     domain:
       [
