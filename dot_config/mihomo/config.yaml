@@ -61,7 +61,7 @@ dns:
   enable: true
   prefer-h3: true # DOH 偏好 HTTP/3
   listen: 0.0.0.0:1053
-  ipv6: true
+  ipv6: true # 如果需要使用 box for magisk 的热点共享代理，需要设置为 false
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16 # clash 以此 IP 段发送 fake-ip 映射
   fake-ip-filter: # 以下地址不使用 fake-ip
