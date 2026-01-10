@@ -294,26 +294,6 @@ proxy-groups:
 # +----------------------------------------------------------+
 
 rules:
-  # 域名规则
-  - GEOIP,lan,🎯 直连,no-resolve
-  - RULE-SET,github_domain,🍮 Github
-  - RULE-SET,spotify_domain,🥛 Spotify
-  - RULE-SET,microsoft_domain,🫙 Microsoft
-  - RULE-SET,google_domain,🧊 Google
-  - RULE-SET,telegram_domain,🍭 Telegram
-  - RULE-SET,youtube_domain,🧋 YouTube
-  - RULE-SET,tracker_domain,🍡 Tracker
-  - RULE-SET,geolocation-!cn,⭐ 其他非大陆
-  - RULE-SET,cn_domain,🇨🇳 国内
-  - RULE-SET,qiufen_ad_doamin,REJECT
-  - RULE-SET,category_porn_domain,REJECT
-  - RULE-SET,porn_domain,REJECT
-
-  # IP规则, 如果域名规则不匹配则进入IP规则, 此时会使用Clash配置的DNS规则解析IP
-  - RULE-SET,google_ip,🧊 Google
-  - RULE-SET,telegram_ip,🍭 Telegram
-  - RULE-SET,cn_ip,🇨🇳 国内
-
   # 自定义规则
   # 为特定进程设置直连
   # - PROCESS-PATH,/usr/bin/linuxqq,🇨🇳 国内
@@ -385,6 +365,26 @@ rules:
   - IP-CIDR,173.194.175.188/32,📢 谷歌FCM,no-resolve
   - IP-CIDR,173.194.218.188/32,📢 谷歌FCM,no-resolve
   - IP-CIDR,209.85.233.188/32,📢 谷歌FCM,no-resolve
+
+  # 域名规则
+  - GEOIP,lan,🎯 直连,no-resolve
+  - RULE-SET,github_domain,🍮 Github
+  - RULE-SET,spotify_domain,🥛 Spotify
+  - RULE-SET,microsoft_domain,🫙 Microsoft
+  - RULE-SET,google_domain,🧊 Google
+  - RULE-SET,telegram_domain,🍭 Telegram
+  - RULE-SET,youtube_domain,🧋 YouTube
+  - RULE-SET,tracker_domain,🍡 Tracker
+  - RULE-SET,cn_domain,🇨🇳 国内
+  - RULE-SET,qiufen_ad_doamin,REJECT
+  - RULE-SET,category_porn_domain,REJECT
+  - RULE-SET,porn_domain,REJECT
+  - RULE-SET,geolocation-!cn,⭐ 其他非大陆
+
+  # IP规则, 如果域名规则不匹配则进入IP规则, 此时会使用Clash配置的DNS规则解析IP
+  - RULE-SET,google_ip,🧊 Google
+  - RULE-SET,telegram_ip,🍭 Telegram
+  - RULE-SET,cn_ip,🇨🇳 国内
 
   # 未匹配兜底
   - MATCH,🐟 漏网之鱼
