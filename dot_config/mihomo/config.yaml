@@ -79,34 +79,13 @@ dns:
     - 223.5.5.5
     - 119.29.29.29
   nameserver-policy: # 手动设定域名解析规则，优先级高于 nameserver/fallback
-    "geosite:cn,private":
+    "geosite:cn,private": # 国内域名使用国内 DNS 加速解析
       - 223.5.5.5
       - 119.29.29.29
-  nameserver: # 默认域名解析，如配置 fallback 则解析所有域名
-    - 223.5.5.5
-    - 119.29.29.29
-  fallback: # 用于解析 fallback-filter 匹配的国外域名
+  nameserver: # 默认域名解析，防止海外域名解析请求发送国内 DNS 服务器
     # - https://xxx.cloudflare-gateway.com/dns-query # 可信的 doh
-    # - https://doh.xxx.com
     - https://8.8.8.8/dns-query
     - https://1.1.1.1/dns-query
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
-    ipcidr:
-      - 240.0.0.0/4
-      - 0.0.0.0/32
-      - 127.0.0.1/32
-    domain:
-      - +.google.com,
-      - +.facebook.com,
-      - +.twitter.com,
-      - +.youtube.com,
-      - +.xn--ngstr-lra8j.com,
-      - +.google.cn,
-      - +.googleapis.cn,
-      - +.googleapis.com,
-      - +.gvt1.com,
 
 # +----------------------------------------------------------+
 # |       域名嗅探，从流量中获取域名，从而使用域名规则       |
@@ -230,7 +209,7 @@ proxy-groups:
   - name: 🛩️ 自建订阅
     type: select
     filter: '^\[自建\].*$'
-    include-all-providers: true
+    include-all: true
 
   - name: ♻ 自动选择
     type: url-test
