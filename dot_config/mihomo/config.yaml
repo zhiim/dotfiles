@@ -31,7 +31,7 @@ proxy-providers:
     <<: *p
     url: ""
     override:
-      additional-prefix: "[自建]"
+      additional-prefix: "[自]"
 
 # +----------------------------------------------------------+
 # |                      Clash 基础设置                      |
@@ -139,7 +139,7 @@ FilterUS: &FilterUS "^(?=.*(?i)(美|🇺🇸|US|USA|SJC|JFK|LAX|ORD|ATL|DFW|SFO|
 FilterTW: &FilterTW "^(?=.*(?i)(台|🇼🇸|🇹🇼|TW|tai|TPE|TSA|KHH)).*$"
 FilterOT: &FilterOT "^(?!.*(港|🇭🇰|HK|Hong|HKG|坡|🇸🇬|SG|Sing|SIN|XSP|日|🇯🇵|JP|Japan|NRT|HND|KIX|CTS|FUK|韩|🇰🇷|韓|首尔|南朝鲜|KR|KOR|Korea|South|美|🇺🇸|US|USA|SJC|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD|台|🇼🇸|🇹🇼|TW|tai|TPE|TSA|KHH)).*$"
 
-Exclude: &Exclude '^(\[备\]|\[自建\]).*$'
+Exclude: &Exclude '^(\[备\]|\[自\]).*$'
 
 auto: &auto
   type: fallback
@@ -208,7 +208,7 @@ proxy-groups:
     include-all-providers: true
   - name: 🛩️ 自建订阅
     type: select
-    filter: '^\[自建\].*$'
+    filter: '^\[自\].*$'
     include-all: true
 
   - name: ♻ 自动选择
