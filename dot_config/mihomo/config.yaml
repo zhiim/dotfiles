@@ -460,7 +460,7 @@ rule-providers:
     behavior: classical
     payload:
       # 为特定进程设置直连
-      - PROCESS-PATH,/usr/bin/linuxqq
-      - PROCESS-PATH-REGEX,\/tmp\/\.mount_linux.*\/qq
-      - PROCESS-PATH,/opt/wechat-appimage/wechat-appimage.AppImage
-      - PROCESS-PATH-REGEX,\/tmp\/\.mount_wechat.*wechat.*
+      # - PROCESS-PATH,/usr/bin/linuxqq
+      # - PROCESS-PATH-REGEX,\/tmp\/\.mount_linux.*\/qq
+      # - PROCESS-PATH,/opt/wechat-appimage/wechat-appimage.AppImage
+      # - PROCESS-PATH-REGEX,\/tmp\/\.mount_wechat.*wechat.*
