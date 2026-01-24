@@ -281,80 +281,11 @@ proxy-groups:
 # +----------------------------------------------------------+
 
 rules:
-  # 自定义规则
-  # 为特定进程设置直连
-  # - PROCESS-PATH,/usr/bin/linuxqq,🇨🇳 国内
-  # - PROCESS-PATH-REGEX,\/tmp\/\.mount_linux.*\/qq,🇨🇳 国内
-  # - PROCESS-PATH,/opt/wechat-appimage/wechat-appimage.AppImage,🇨🇳 国内
-  # - PROCESS-PATH-REGEX,\/tmp\/\.mount_wechat.*wechat.*,🇨🇳 国内
-  - DOMAIN-KEYWORD,porn,REJECT
-  - DOMAIN-KEYWORD,jav,REJECT
-  - DOMAIN-KEYWORD,missav,REJECT
-  - DOMAIN-KEYWORD,sex,REJECT
-  - DOMAIN-KEYWORD,xvideos,REJECT
-  - DOMAIN-SUFFIX,madou.club,REJECT
-  - DOMAIN-SUFFIX,wnacg.org,REJECT
-  - DOMAIN-SUFFIX,xhamster.com,REJECT
-  - DOMAIN-SUFFIX,xnxx.com,REJECT
-  - DOMAIN-SUFFIX,rou.video,REJECT
-  - DOMAIN-KEYWORD,91cg,REJECT
-  - DOMAIN-KEYWORD,51cg,REJECT
-  - DOMAIN-KEYWORD,cg51,REJECT
-  - DOMAIN-KEYWORD,cg91,REJECT
-  - DOMAIN-KEYWORD,cgw,REJECT
-  - DOMAIN-KEYWORD,51gua,REJECT
-  - DOMAIN-KEYWORD,91gua,REJECT
-  - DOMAIN-KEYWORD,gua51,REJECT
-  - DOMAIN-KEYWORD,gua91,REJECT
-  - DOMAIN-KEYWORD,mrds,REJECT
-  - DOMAIN-KEYWORD,baoliao,REJECT
-  - DOMAIN-KEYWORD,awcg,REJECT
-  - DOMAIN-KEYWORD,cigua,REJECT
-  - DOMAIN-KEYWORD,cgwang,REJECT
-  - DOMAIN-KEYWORD,52cg,REJECT
-  - DOMAIN-KEYWORD,airav,REJECT
-  - DOMAIN-KEYWORD,xmorex,REJECT
-  - DOMAIN-KEYWORD,xszav,REJECT
-  - DOMAIN-KEYWORD,videocelebs,REJECT
-  # google fcm used in android
-  - DOMAIN,alt1-mtalk.google.com,📢 谷歌FCM
-  - DOMAIN,alt2-mtalk.google.com,📢 谷歌FCM
-  - DOMAIN,alt3-mtalk.google.com,📢 谷歌FCM
-  - DOMAIN,alt4-mtalk.google.com,📢 谷歌FCM
-  - DOMAIN,alt5-mtalk.google.com,📢 谷歌FCM
-  - DOMAIN,alt6-mtalk.google.com,📢 谷歌FCM
-  - DOMAIN,alt7-mtalk.google.com,📢 谷歌FCM
-  - DOMAIN,alt8-mtalk.google.com,📢 谷歌FCM
-  - DOMAIN,mtalk.google.com,📢 谷歌FCM
-  - IP-CIDR,64.233.177.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,64.233.186.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,64.233.187.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,64.233.188.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,64.233.189.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,74.125.23.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,74.125.24.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,74.125.28.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,74.125.127.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,74.125.137.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,74.125.203.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,74.125.204.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,74.125.206.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,108.177.125.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,142.250.4.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,142.250.10.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,142.250.31.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,142.250.96.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,172.217.194.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,172.217.218.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,172.217.219.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,172.253.63.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,172.253.122.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,173.194.175.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,173.194.218.188/32,📢 谷歌FCM,no-resolve
-  - IP-CIDR,209.85.233.188/32,📢 谷歌FCM,no-resolve
-
   # 域名规则
   - GEOIP,lan,🎯 直连,no-resolve
+  - RULE-SET,direct_list,🇨🇳 国内
+  - RULE-SET,blacklist,REJECT
+  - RULE-SET,gcm,📢 谷歌FCM
   - RULE-SET,github_domain,🍮 Github
   - RULE-SET,spotify_domain,🥛 Spotify
   - RULE-SET,microsoft_domain,🫙 Microsoft
@@ -362,10 +293,10 @@ rules:
   - RULE-SET,telegram_domain,🍭 Telegram
   - RULE-SET,youtube_domain,🧋 YouTube
   - RULE-SET,tracker_domain,🍡 Tracker
-  - RULE-SET,cn_domain,🇨🇳 国内
   - RULE-SET,qiufen_ad_doamin,REJECT
   - RULE-SET,category_porn_domain,REJECT
   - RULE-SET,porn_domain,REJECT
+  - RULE-SET,cn_domain,🇨🇳 国内
   - RULE-SET,geolocation-!cn,⭐ 其他非大陆
 
   # IP规则, 如果域名规则不匹配则进入IP规则, 此时会使用Clash配置的DNS规则解析IP
@@ -450,3 +381,86 @@ rule-providers:
   cn_ip:
     <<: *mrsip
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"
+
+  # 自定义规则
+  gcm:
+    type: inline
+    behavior: classical
+    payload:
+      - DOMAIN,alt1-mtalk.google.com
+      - DOMAIN,alt2-mtalk.google.com
+      - DOMAIN,alt3-mtalk.google.com
+      - DOMAIN,alt4-mtalk.google.com
+      - DOMAIN,alt5-mtalk.google.com
+      - DOMAIN,alt6-mtalk.google.com
+      - DOMAIN,alt7-mtalk.google.com
+      - DOMAIN,alt8-mtalk.google.com
+      - DOMAIN,mtalk.google.com
+      - IP-CIDR,64.233.177.188/32
+      - IP-CIDR,64.233.186.188/32
+      - IP-CIDR,64.233.187.188/32
+      - IP-CIDR,64.233.188.188/32
+      - IP-CIDR,64.233.189.188/32
+      - IP-CIDR,74.125.23.188/32
+      - IP-CIDR,74.125.24.188/32
+      - IP-CIDR,74.125.28.188/32
+      - IP-CIDR,74.125.127.188/32
+      - IP-CIDR,74.125.137.188/32
+      - IP-CIDR,74.125.203.188/32
+      - IP-CIDR,74.125.204.188/32
+      - IP-CIDR,74.125.206.188/32
+      - IP-CIDR,108.177.125.188/32
+      - IP-CIDR,142.250.4.188/32
+      - IP-CIDR,142.250.10.188/32
+      - IP-CIDR,142.250.31.188/32
+      - IP-CIDR,142.250.96.188/32
+      - IP-CIDR,172.217.194.188/32
+      - IP-CIDR,172.217.218.188/32
+      - IP-CIDR,172.217.219.188/32
+      - IP-CIDR,172.253.63.188/32
+      - IP-CIDR,172.253.122.188/32
+      - IP-CIDR,173.194.175.188/32
+      - IP-CIDR,173.194.218.188/32
+      - IP-CIDR,209.85.233.188/32
+  blacklist:
+    type: inline
+    behavior: classical
+    payload:
+      - DOMAIN-KEYWORD,porn
+      - DOMAIN-KEYWORD,jav
+      - DOMAIN-KEYWORD,missav
+      - DOMAIN-KEYWORD,sex
+      - DOMAIN-KEYWORD,xvideos
+      - DOMAIN-SUFFIX,madou.club
+      - DOMAIN-SUFFIX,wnacg.org
+      - DOMAIN-SUFFIX,xhamster.com
+      - DOMAIN-SUFFIX,xnxx.com
+      - DOMAIN-SUFFIX,rou.video
+      - DOMAIN-KEYWORD,91cg
+      - DOMAIN-KEYWORD,51cg
+      - DOMAIN-KEYWORD,cg51
+      - DOMAIN-KEYWORD,cg91
+      - DOMAIN-KEYWORD,cgw
+      - DOMAIN-KEYWORD,51gua
+      - DOMAIN-KEYWORD,91gua
+      - DOMAIN-KEYWORD,gua51
+      - DOMAIN-KEYWORD,gua91
+      - DOMAIN-KEYWORD,mrds
+      - DOMAIN-KEYWORD,baoliao
+      - DOMAIN-KEYWORD,awcg
+      - DOMAIN-KEYWORD,cigua
+      - DOMAIN-KEYWORD,cgwang
+      - DOMAIN-KEYWORD,52cg
+      - DOMAIN-KEYWORD,airav
+      - DOMAIN-KEYWORD,xmorex
+      - DOMAIN-KEYWORD,xszav
+      - DOMAIN-KEYWORD,videocelebs
+  direct_list:
+    type: inline
+    behavior: classical
+    payload:
+      # 为特定进程设置直连
+      - PROCESS-PATH,/usr/bin/linuxqq
+      - PROCESS-PATH-REGEX,\/tmp\/\.mount_linux.*\/qq
+      - PROCESS-PATH,/opt/wechat-appimage/wechat-appimage.AppImage
+      - PROCESS-PATH-REGEX,\/tmp\/\.mount_wechat.*wechat.*
