@@ -43,25 +43,24 @@ let &t_EI = "\<Esc>[2 q"
 " |                    plugin management                     |
 " +----------------------------------------------------------+
 
-" auto install vim-plug
-let data_dir = '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin()
-
-Plug 'preservim/nerdtree'
-Plug 'xolox/vim-session'
-Plug 'xolox/vim-misc'
+" let data_dir = '~/.vim'
+" if empty(glob(data_dir . '/autoload/plug.vim'))
+"   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+"   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" endif
+"
+" call plug#begin()
+"
+" Plug 'preservim/nerdtree'
+" Plug 'xolox/vim-session'
+" Plug 'xolox/vim-misc'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
-
-call plug#end()
-
-let g:session_autosave = 'no'
-let g:session_autoload = 'no'
+"
+" call plug#end()
+"
+" let g:session_autosave = 'no'
+" let g:session_autoload = 'no'
 
 " +----------------------------------------------------------+
 " |                       key mappings                       |
