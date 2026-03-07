@@ -11,11 +11,11 @@ proxies:
 # provider 锚点
 p: &p
   type: http
-  interval: 21600
+  interval: 86400
   health-check:
     enable: true
     url: https://www.google.com/generate_204
-    interval: 3600
+    interval: 21600
 
 # url 里填写自己的订阅,名称不能重复
 proxy-providers:
@@ -141,13 +141,6 @@ FilterOT: &FilterOT "^(?!.*(港|🇭🇰|HK|Hong|HKG|坡|🇸🇬|SG|Sing|SIN|XS
 
 Exclude: &Exclude '^(\[备\]|\[自\]).*$'
 
-auto: &auto
-  type: fallback
-  interval: 200
-  lazy: true
-  url: "https://www.google.com/generate_204"
-  hidden: true
-
 default: &default
   type: select
   proxies:
@@ -213,6 +206,10 @@ proxy-groups:
 
   - name: ♻ 自动选择
     type: url-test
+    interval: 21600
+    lazy: true
+    url: "https://www.google.com/generate_204"
+    hidden: true
     exclude-filter: *Exclude
     include-all-providers: true
     tolerance: 10
