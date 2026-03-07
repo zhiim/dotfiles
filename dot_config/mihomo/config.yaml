@@ -197,7 +197,7 @@ proxy-groups:
     proxies:
       - ✈️ 主订阅
       - 🛩️ 备用订阅
-      - 🛩️ 自建订阅
+      - 🛩️ 自建节点
   - name: ✈️ 主订阅
     type: select
     exclude-filter: *Exclude
@@ -206,7 +206,7 @@ proxy-groups:
     type: select
     filter: '^\[备\].*$'
     include-all-providers: true
-  - name: 🛩️ 自建订阅
+  - name: 🛩️ 自建节点
     type: select
     filter: '^\[自\].*$'
     include-all: true
