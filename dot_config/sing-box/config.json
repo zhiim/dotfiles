@@ -171,7 +171,7 @@
         "🌏 其它地区",
         "🔴 BLOCK"
       ],
-      "default": ["🚀 全部节点"]
+      "default": "🚀 全部节点"
     },
     {
       "tag": "🍮 Github",
@@ -190,7 +190,7 @@
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": ["🥤 默认"]
+      "default": "🥤 默认"
     },
     {
       "tag": "🥛 Spotify",
@@ -209,7 +209,7 @@
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": ["🥤 默认"]
+      "default": "🥤 默认"
     },
     {
       "tag": "🫙 Microsoft",
@@ -228,7 +228,7 @@
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": ["🥤 默认"]
+      "default": "🥤 默认"
     },
     {
       "tag": "🧊 Google",
@@ -247,7 +247,7 @@
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": ["🥤 默认"]
+      "default": "🥤 默认"
     },
     {
       "tag": "🍭 Telegram",
@@ -266,7 +266,7 @@
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": ["🥤 默认"]
+      "default": "🥤 默认"
     },
     {
       "tag": "🧋 YouTube",
@@ -285,7 +285,7 @@
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": ["🥤 默认"]
+      "default": "🥤 默认"
     },
     {
       "tag": "🍡 Tracker",
@@ -304,7 +304,7 @@
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": ["🟢 DIRECT"]
+      "default": "🟢 DIRECT"
     },
     {
       "tag": "⭐ 其他非大陆",
@@ -323,7 +323,7 @@
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": ["🥤 默认"]
+      "default": "🥤 默认"
     },
     {
       "tag": "🇨🇳 国内",
@@ -342,7 +342,7 @@
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": ["🟢 DIRECT"]
+      "default": "🟢 DIRECT"
     },
     {
       "tag": "📢 谷歌FCM",
@@ -361,7 +361,7 @@
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": ["🟢 DIRECT"]
+      "default": "🟢 DIRECT"
     },
     {
       "tag": "🐟 漏网之鱼",
@@ -380,7 +380,7 @@
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": ["🟢 DIRECT"]
+      "default": "🟢 DIRECT"
     },
     {
       "tag": "🪐 GLOBAL",
@@ -398,7 +398,7 @@
         "🌏 其它地区",
         "🔴 BLOCK"
       ],
-      "default": ["🚀 全部节点"]
+      "default": "🚀 全部节点"
     }
   ],
   "route": {
