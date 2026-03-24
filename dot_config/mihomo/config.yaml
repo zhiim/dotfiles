@@ -353,7 +353,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"
   tracker_domain:
     <<: *mrs
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/meta/geo/geosite/tracker.mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tracker.mrs"
   geolocation-!cn:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"
@@ -362,7 +362,7 @@ rule-providers:
     url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml"
   category_porn_domain:
     <<: *mrs
-    url: "https://github.com/MetaCubeX/meta-rules-dat/raw/meta/geo/geosite/category-porn.mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-porn.mrs"
   porn_domain:
     <<: *domain
     url: "https://raw.githubusercontent.com/1stfine/open_clash/master/rule_provider/rule_porn.yaml"
