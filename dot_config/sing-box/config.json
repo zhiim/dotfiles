@@ -16,7 +16,7 @@
       {
         "tag": "domestic-resolver",
         "type": "udp",
-        "server": "223.5.5.5",
+        "server": "119.29.29.29",
         "server_port": 53
       },
       {
@@ -41,7 +41,7 @@
         "type": "udp",
         "detour": "🥤 默认",
         "server_port": 53,
-        "server": "1.1.1.1"
+        "server": "8.8.8.8"
       }
     ],
     "rules": [
@@ -74,7 +74,7 @@
     {
       "type": "mixed",
       "tag": "mixed-in",
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "listen_port": 7890
     },
     {
@@ -88,6 +88,26 @@
       "tag": "tproxy-in",
       "listen": "127.0.0.1",
       "listen_port": 9898
+    },
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "sing-box",
+      "address": ["172.18.0.1/30", "fdfe:dcba:9876::1/126"],
+      "mtu": 9000,
+      "auto_route": true,
+      "strict_route": true,
+      "route_exclude_address": [
+        "10.0.0.0/8",
+        "100.64.0.0/10",
+        "169.254.0.0/16",
+        "172.16.0.0/12",
+        "192.0.0.0/24",
+        "192.168.0.0/16",
+        "fc00::/7"
+      ],
+      "endpoint_independent_nat": false,
+      "stack": "gvisor"
     }
   ],
   "outbounds": [
@@ -367,7 +387,6 @@
       "tag": "🐟 漏网之鱼",
       "type": "selector",
       "outbounds": [
-        "🟢 DIRECT",
         "🥤 默认",
         "🇺🇸 美国",
         "🇯🇵 日本",
@@ -376,11 +395,12 @@
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
         "🌏 其它地区",
+        "🟢 DIRECT",
         "🚀 全部节点",
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": "🟢 DIRECT"
+      "default": "🥤 默认"
     },
     {
       "tag": "🪐 GLOBAL",
@@ -448,12 +468,12 @@
       },
       {
         "action": "route",
-        "rule_set": ["google_domain", "google_ip"],
+        "rule_set": ["google_domain"],
         "outbound": "🧊 Google"
       },
       {
         "action": "route",
-        "rule_set": ["telegram_domain", "telegram_ip"],
+        "rule_set": ["telegram_domain"],
         "outbound": "🍭 Telegram"
       },
       {
@@ -478,13 +498,28 @@
       },
       {
         "action": "route",
-        "rule_set": ["cn_domain", "cn_ip"],
+        "rule_set": ["geolocation-!cn"],
+        "outbound": "⭐ 其他非大陆"
+      },
+      {
+        "action": "route",
+        "rule_set": ["cn_domain"],
         "outbound": "🇨🇳 国内"
       },
       {
         "action": "route",
-        "rule_set": ["geolocation-!cn"],
-        "outbound": "⭐ 其他非大陆"
+        "rule_set": ["google_ip"],
+        "outbound": "🧊 Google"
+      },
+      {
+        "action": "route",
+        "rule_set": ["telegram_ip"],
+        "outbound": "🍭 Telegram"
+      },
+      {
+        "action": "route",
+        "rule_set": ["cn_ip"],
+        "outbound": "🇨🇳 国内"
       }
     ],
     "rule_set": [
