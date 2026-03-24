@@ -281,8 +281,10 @@ proxy-groups:
 rules:
   # 域名规则
   - GEOIP,lan,🎯 直连,no-resolve
-  - RULE-SET,direct_list,🇨🇳 国内
   - RULE-SET,blacklist,REJECT
+  - RULE-SET,qiufen_ad_doamin,REJECT
+  - RULE-SET,category_porn_domain,REJECT
+  - RULE-SET,direct_list,🇨🇳 国内
   - RULE-SET,google_fcm,📢 谷歌FCM
   - RULE-SET,github_domain,🍮 Github
   - RULE-SET,spotify_domain,🥛 Spotify
@@ -291,9 +293,6 @@ rules:
   - RULE-SET,telegram_domain,🍭 Telegram
   - RULE-SET,youtube_domain,🧋 YouTube
   - RULE-SET,tracker_domain,🍡 Tracker
-  - RULE-SET,qiufen_ad_doamin,REJECT
-  - RULE-SET,category_porn_domain,REJECT
-  - RULE-SET,porn_domain,REJECT
   - RULE-SET,cn_domain,🇨🇳 国内
   - RULE-SET,geolocation-!cn,⭐ 其他非大陆
 
@@ -363,9 +362,6 @@ rule-providers:
   category_porn_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-porn.mrs"
-  porn_domain:
-    <<: *domain
-    url: "https://raw.githubusercontent.com/1stfine/open_clash/master/rule_provider/rule_porn.yaml"
   cn_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"

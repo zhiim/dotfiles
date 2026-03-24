@@ -437,6 +437,26 @@
       },
       {
         "action": "route",
+        "rule_set": ["blacklist"],
+        "outbound": "🔴 BLOCK"
+      },
+      {
+        "action": "route",
+        "rule_set": ["qiufen_ad_doamin"],
+        "outbound": "🔴 BLOCK"
+      },
+      {
+        "action": "route",
+        "rule_set": ["category_porn_domain"],
+        "outbound": "🔴 BLOCK"
+      },
+      {
+        "action": "route",
+        "rule_set": ["direct_list"],
+        "outbound": "🟢 DIRECT"
+      },
+      {
+        "action": "route",
         "clash_mode": "direct",
         "outbound": "🟢 DIRECT"
       },
@@ -479,16 +499,6 @@
         "action": "route",
         "rule_set": ["tracker_domain"],
         "outbound": "🍡 Tracker"
-      },
-      {
-        "action": "route",
-        "rule_set": ["qiufen_ad_doamin"],
-        "outbound": "🔴 BLOCK"
-      },
-      {
-        "action": "route",
-        "rule_set": ["category_porn_domain"],
-        "outbound": "🔴 BLOCK"
       },
       {
         "action": "route",
@@ -614,6 +624,63 @@
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
         "format": "binary",
         "update_interval": "24h"
+      },
+      {
+        "tag": "blacklist",
+        "type": "inline",
+        "rules": [
+          {
+            "domain_suffix": [
+              "madou.club",
+              "wnacg.org",
+              "xhamster.com",
+              "xnxx.com",
+              "rou.video"
+            ],
+            "domain_keyword": [
+              "porn",
+              "jav",
+              "missav",
+              "sex",
+              "xvideos",
+              "91cg",
+              "51cg",
+              "cg51",
+              "cg91",
+              "cgw",
+              "51gua",
+              "91gua",
+              "gua51",
+              "gua91",
+              "mrds",
+              "baoliao",
+              "awcg",
+              "cigua",
+              "cgwang",
+              "52cg",
+              "airav",
+              "xmorex",
+              "xszav",
+              "videocelebs"
+            ]
+          }
+        ]
+      },
+      {
+        "tag": "direct_list",
+        "type": "inline",
+        "rules": [
+          {
+            "process_path": [
+              "/usr/bin/linuxqq",
+              "/opt/wechat-appimage/wechat-appimage.AppImage"
+            ],
+            "process_path_regex": [
+              "/tmp/\\.mount_linux.*/qq",
+              "/tmp/\\.mount_wechat.*wechat.*"
+            ]
+          }
+        ]
       }
     ],
     "auto_detect_interface": true,
@@ -628,7 +695,7 @@
       "rdrc_timeout": "7d"
     },
     "clash_api": {
-      "external_controller": "0.0.0.0:9090",
+      "external_controller": "127.0.0.1:9090",
       "external_ui": "ui",
       "external_ui_download_url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
       "secret": "",
