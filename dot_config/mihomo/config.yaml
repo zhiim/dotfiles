@@ -69,23 +69,24 @@ dns:
   ipv6: true # 如果需要使用 box for magisk 的热点共享代理，需要设置为 false
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16 # clash 以此 IP 段发送 fake-ip 映射
+  fake-ip-range6: fdfe:dcba:9876::1/64
   fake-ip-filter: # 以下地址不使用 fake-ip
     - "+.lan"
     - "+.local"
   default-nameserver: # 用于解析 DNS 服务器, 必须为 IP 且可访问
-    - 223.5.5.5
+    # - 223.5.5.5
     - 119.29.29.29
   proxy-server-nameserver: # 用于解析代理节点的域名
-    - 223.5.5.5
+    # - 223.5.5.5
     - 119.29.29.29
   nameserver-policy: # 手动设定域名解析规则，优先级高于 nameserver/fallback
     "geosite:cn,private": # 国内域名使用国内 DNS 加速解析
-      - 223.5.5.5
+      # - 223.5.5.5
       - 119.29.29.29
   nameserver: # 默认域名解析，防止海外域名解析请求发送国内 DNS 服务器
     # - https://xxx.cloudflare-gateway.com/dns-query # 可信的 doh
-    - https://8.8.8.8/dns-query
-    - https://1.1.1.1/dns-query
+    # - https://8.8.8.8/dns-query
+    # - https://1.1.1.1/dns-query
 
 # +----------------------------------------------------------+
 # |       域名嗅探，从流量中获取域名，从而使用域名规则       |
