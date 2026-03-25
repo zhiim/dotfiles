@@ -67,20 +67,19 @@
         "server": "fakeip"
       }
     ],
-    "final": "foreign",
-    "strategy": "prefer_ipv6"
+    "final": "foreign"
   },
   "inbounds": [
     {
       "type": "mixed",
       "tag": "mixed-in",
-      "listen": "0.0.0.0",
+      "listen": "::",
       "listen_port": 7890
     },
     {
       "type": "tproxy",
       "tag": "tproxy-in",
-      "listen": "0.0.0.0",
+      "listen": "::",
       "listen_port": 9898
     },
     {
@@ -467,6 +466,11 @@
       },
       {
         "action": "route",
+        "rule_set": ["google_fcm"],
+        "outbound": "📢 谷歌FCM"
+      },
+      {
+        "action": "route",
         "rule_set": ["github_domain"],
         "outbound": "🍮 Github"
       },
@@ -573,6 +577,13 @@
         "tag": "tracker_domain",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/tracker.srs",
+        "format": "binary",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "google_fcm",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/googlefcm.srs",
         "format": "binary",
         "update_interval": "24h"
       },
