@@ -14,34 +14,18 @@
         "inet6_range": "fc00::/18"
       },
       {
-        "tag": "domestic-resolver",
-        "type": "udp",
-        "server": "119.29.29.29",
-        "server_port": 53
-      },
-      {
         "tag": "domestic",
-        "type": "https",
-        "server": "doh.pub",
-        "server_port": 443,
-        "path": "/dns-query",
-        "domain_resolver": "domestic-resolver"
+        "type": "udp",
+        "server": "223.5.5.5",
+        "server_port": 53
       },
       {
         "tag": "foreign",
         "type": "https",
-        "detour": "🥤 默认",
         "server": "xxxxxx.cloudflare-gateway.com",
         "server_port": 443,
         "path": "/dns-query",
-        "domain_resolver": "foreign-resolver"
-      },
-      {
-        "tag": "foreign-resolver",
-        "type": "udp",
-        "detour": "🥤 默认",
-        "server_port": 53,
-        "server": "8.8.8.8"
+        "domain_resolver": "domestic"
       }
     ],
     "rules": [
@@ -53,6 +37,11 @@
       {
         "action": "route",
         "clash_mode": "global",
+        "server": "fakeip"
+      },
+      {
+        "action": "route",
+        "rule_set": ["google_domain"],
         "server": "fakeip"
       },
       {
@@ -361,7 +350,6 @@
       "tag": "📢 谷歌FCM",
       "type": "selector",
       "outbounds": [
-        "🟢 DIRECT",
         "🥤 默认",
         "🇺🇸 美国",
         "🇯🇵 日本",
@@ -370,11 +358,12 @@
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
         "🌏 其它地区",
+        "🟢 DIRECT",
         "🚀 全部节点",
         "♻ 自动选择",
         "🔴 BLOCK"
       ],
-      "default": "🟢 DIRECT"
+      "default": "🥤 默认"
     },
     {
       "tag": "🐟 漏网之鱼",
