@@ -25,7 +25,8 @@
         "server": "xxxxxx.cloudflare-gateway.com",
         "server_port": 443,
         "path": "/dns-query",
-        "domain_resolver": "domestic"
+        "domain_resolver": "domestic",
+        "detour": "🥤 默认"
       }
     ],
     "rules": [
