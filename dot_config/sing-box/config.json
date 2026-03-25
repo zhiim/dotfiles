@@ -409,10 +409,6 @@
     },
     "rules": [
       {
-        "network": "icmp",
-        "outbound": "🟢 DIRECT"
-      },
-      {
         "action": "sniff"
       },
       {
