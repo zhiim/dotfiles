@@ -47,6 +47,16 @@
       },
       {
         "action": "route",
+        "rule_set": ["microsoft_domain"],
+        "server": "fakeip"
+      },
+      {
+        "action": "route",
+        "rule_set": ["geolocation-!cn"],
+        "server": "fakeip"
+      },
+      {
+        "action": "route",
         "rule_set": ["cn_domain"],
         "server": "domestic"
       },
@@ -632,14 +642,18 @@
               "wnacg.org",
               "xhamster.com",
               "xnxx.com",
-              "rou.video"
+              "rou.video",
+              "airav.io",
+              "xmorex.com",
+              "xsz-av.com",
+              "xszav2.com",
+              "videocelebs.net"
             ],
             "domain_keyword": [
               "porn",
               "jav",
               "missav",
               "sex",
-              "xvideos",
               "91cg",
               "51cg",
               "cg51",
@@ -654,11 +668,7 @@
               "awcg",
               "cigua",
               "cgwang",
-              "52cg",
-              "airav",
-              "xmorex",
-              "xszav",
-              "videocelebs"
+              "52cg"
             ]
           }
         ]
