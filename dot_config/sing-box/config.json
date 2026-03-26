@@ -32,6 +32,10 @@
     ],
     "rules": [
       {
+        "query_type": ["HTTPS", "SVCB"],
+        "action": "reject"
+      },
+      {
         "action": "route",
         "clash_mode": "direct",
         "server": "domestic"
@@ -77,6 +81,23 @@
       {
         "action": "route",
         "rule_set": ["cn_domain"],
+        "server": "domestic"
+      },
+      {
+        "action": "route",
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "rule_set": "geolocation-!cn",
+            "invert": true
+          },
+          {
+            "rule_set": "cn_ip",
+            "ip_is_private": true,
+            "rule_set_ip_cidr_accept_empty": true
+          }
+        ],
         "server": "domestic"
       },
       {
