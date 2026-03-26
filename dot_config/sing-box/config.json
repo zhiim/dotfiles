@@ -14,11 +14,19 @@
         "inet6_range": "fc00::/18"
       },
       {
+        "tag": "hosts",
+        "type": "hosts",
+        "predefined": {
+          "dns.alidns.com": ["223.5.5.5", "223.6.6.6"]
+        }
+      },
+      {
         "tag": "domestic",
         "type": "https",
-        "server": "223.5.5.5",
+        "server": "dns.alidns.com",
         "server_port": 443,
-        "path": "/dns-query"
+        "path": "/dns-query",
+        "domain_resolver": "hosts"
       },
       {
         "tag": "foreign",
