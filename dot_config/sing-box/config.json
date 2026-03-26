@@ -15,9 +15,10 @@
       },
       {
         "tag": "domestic",
-        "type": "udp",
+        "type": "https",
         "server": "223.5.5.5",
-        "server_port": 53
+        "server_port": 443,
+        "path": "/dns-query"
       },
       {
         "tag": "foreign",
@@ -39,6 +40,24 @@
         "action": "route",
         "clash_mode": "global",
         "server": "fakeip"
+      },
+      {
+        "action": "route",
+        "rule_set": ["private_domain"],
+        "server": "domestic"
+      },
+      {
+        "action": "route",
+        "domain": ["time-ios.apple.com", "time1.cloud.tencent.com"],
+        "domain_suffix": ["time.edu.cn", "ntp.org.cn", "pool.ntp.org"],
+        "domain_regex": [
+          "^time[1-7]?\\..*\\.com$",
+          "^time\\..*\\.gov$",
+          "^time\\..*\\.edu\\.cn$",
+          "^time\\..*\\.apple\\.com$",
+          "^ntp[1-7]?\\..*\\.com$"
+        ],
+        "server": "domestic"
       },
       {
         "action": "route",
@@ -432,6 +451,11 @@
       },
       {
         "action": "route",
+        "rule_set": ["private_domain"],
+        "outbound": "🟢 DIRECT"
+      },
+      {
+        "action": "route",
         "rule_set": ["blacklist"],
         "outbound": "🔴 BLOCK"
       },
@@ -527,6 +551,13 @@
       }
     ],
     "rule_set": [
+      {
+        "tag": "private_domain",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/private.srs",
+        "format": "binary",
+        "update_interval": "24h"
+      },
       {
         "tag": "github_domain",
         "type": "remote",
