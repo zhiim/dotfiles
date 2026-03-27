@@ -43,7 +43,7 @@ log-level: info
 ipv6: true
 external-controller: 127.0.0.1:9090
 external-ui: ui # 前端路径 /path/to/clash/config/ui
-external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
+external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-firasans-only.zip"
 unified-delay: true # 计算延迟时是否去除握手等额外开销
 profile: # 缓存配置
   store-selected: true # 保存 API 控制的更改
