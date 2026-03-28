@@ -767,6 +767,7 @@
       "external_ui_download_url": "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-firasans-only.zip",
       "secret": "",
       "default_mode": "rule"
-    }
+    },
+    "urltest_unified_delay": true
   }
 }
