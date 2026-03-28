@@ -93,23 +93,6 @@
       },
       {
         "action": "route",
-        "type": "logical",
-        "mode": "and",
-        "rules": [
-          {
-            "rule_set": "geolocation-!cn",
-            "invert": true
-          },
-          {
-            "rule_set": "cn_ip",
-            "ip_is_private": true,
-            "rule_set_ip_cidr_accept_empty": true
-          }
-        ],
-        "server": "domestic"
-      },
-      {
-        "action": "route",
         "query_type": ["A", "AAAA"],
         "rewrite_ttl": 1,
         "server": "fakeip"
