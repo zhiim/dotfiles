@@ -99,7 +99,8 @@
         "server": "fakeip"
       }
     ],
-    "final": "foreign"
+    "final": "foreign",
+    "client_subnet": "x.x.x.x/24"
   },
   "inbounds": [
     {
@@ -438,7 +439,8 @@
   ],
   "route": {
     "default_domain_resolver": {
-      "server": "domestic"
+      "server": "domestic",
+      "client_subnet": "x.x.x.x/24"
     },
     "rules": [
       {
