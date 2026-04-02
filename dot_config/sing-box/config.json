@@ -52,6 +52,7 @@
       {
         "action": "route",
         "clash_mode": "global",
+        "rewrite_ttl": 1,
         "server": "fakeip"
       },
       {
@@ -75,16 +76,19 @@
       {
         "action": "route",
         "rule_set": ["google_domain"],
+        "rewrite_ttl": 1,
         "server": "fakeip"
       },
       {
         "action": "route",
         "rule_set": ["microsoft_domain"],
+        "rewrite_ttl": 1,
         "server": "fakeip"
       },
       {
         "action": "route",
         "rule_set": ["geolocation-!cn"],
+        "rewrite_ttl": 1,
         "server": "fakeip"
       },
       {
