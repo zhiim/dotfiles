@@ -14,6 +14,10 @@
         "inet6_range": "fc00::/18"
       },
       {
+        "tag": "system_dns",
+        "type": "local"
+      },
+      {
         "tag": "hosts",
         "type": "hosts",
         "predefined": {
@@ -46,6 +50,11 @@
       },
       {
         "action": "route",
+        "rule_set": ["captive_portal"],
+        "server": "system_dns"
+      },
+      {
+        "action": "route",
         "clash_mode": "direct",
         "server": "domestic"
       },
@@ -62,15 +71,7 @@
       },
       {
         "action": "route",
-        "domain": ["time-ios.apple.com", "time1.cloud.tencent.com"],
-        "domain_suffix": ["time.edu.cn", "ntp.org.cn", "pool.ntp.org"],
-        "domain_regex": [
-          "^time[1-7]?\\..*\\.com$",
-          "^time\\..*\\.gov$",
-          "^time\\..*\\.edu\\.cn$",
-          "^time\\..*\\.apple\\.com$",
-          "^ntp[1-7]?\\..*\\.com$"
-        ],
+        "rule_set": ["ntp_servers"],
         "server": "domestic"
       },
       {
@@ -465,6 +466,11 @@
       },
       {
         "action": "route",
+        "rule_set": ["captive_portal"],
+        "outbound": "🟢 DIRECT"
+      },
+      {
+        "action": "route",
         "rule_set": ["blacklist"],
         "outbound": "🔴 BLOCK"
       },
@@ -480,7 +486,7 @@
       },
       {
         "action": "route",
-        "rule_set": ["direct_list"],
+        "rule_set": ["direct_apps"],
         "outbound": "🟢 DIRECT"
       },
       {
@@ -714,7 +720,7 @@
         ]
       },
       {
-        "tag": "direct_list",
+        "tag": "direct_apps",
         "type": "inline",
         "rules": [
           {
@@ -725,6 +731,39 @@
             "process_path_regex": [
               "/tmp/\\.mount_linux.*/qq",
               "/tmp/\\.mount_wechat.*wechat.*"
+            ],
+            "package_name": ["com.tencent.mm", "com.tencent.mobileqq"]
+          }
+        ]
+      },
+      {
+        "tag": "ntp_servers",
+        "type": "inline",
+        "rules": [
+          {
+            "domain": ["time-ios.apple.com", "time1.cloud.tencent.com"],
+            "domain_suffix": ["time.edu.cn", "ntp.org.cn", "pool.ntp.org"],
+            "domain_regex": [
+              "^time[1-7]?\\..*\\.com$",
+              "^time\\..*\\.gov$",
+              "^time\\..*\\.edu\\.cn$",
+              "^time\\..*\\.apple\\.com$",
+              "^ntp[1-7]?\\..*\\.com$"
+            ]
+          }
+        ]
+      },
+      {
+        "tag": "captive_portal",
+        "type": "inline",
+        "rules": [
+          {
+            "domain": [
+              "nmcheck.gnome.org",
+              "www.msftconnecttest.com",
+              "msftconnecttest.com",
+              "captive.apple.com",
+              "connect.rom.miui.com"
             ]
           }
         ]
