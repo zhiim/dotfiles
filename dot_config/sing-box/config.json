@@ -27,11 +27,9 @@
       },
       {
         "tag": "domestic",
-        "type": "https",
-        "server": "dns.alidns.com",
-        "server_port": 443,
-        "path": "/dns-query",
-        "domain_resolver": "hosts"
+        "type": "udp",
+        "server": "223.5.5.5",
+        "server_port": 53
       },
       {
         "tag": "foreign",
