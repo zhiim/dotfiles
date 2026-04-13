@@ -65,6 +65,15 @@
         "rcode": "NXDOMAIN"
       },
       {
+        "action": "evaluate",
+        "server": "hosts"
+      },
+      {
+        "match_response": true,
+        "ip_accept_any": true,
+        "action": "respond"
+      },
+      {
         "clash_mode": "direct",
         "action": "route",
         "server": "domestic"
@@ -76,15 +85,34 @@
         "rewrite_ttl": 1
       },
       {
-        "rule_set": ["google_domain", "microsoft_domain", "geolocation-!cn"],
+        "rule_set": ["google_domain", "geolocation-!cn"],
         "action": "route",
         "server": "fakeip",
         "rewrite_ttl": 1
       },
       {
-        "rule_set": ["cn_domain"],
+        "rule_set": ["cn_domain", "microsoft_cn_domain"],
         "action": "route",
         "server": "domestic"
+      },
+      {
+        "action": "evaluate",
+        "server": "domestic"
+      },
+      {
+        "match_response": true,
+        "ip_accept_any": true,
+        "invert": true,
+        "action": "respond"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          { "match_response": true, "ip_is_private": true },
+          { "match_response": true, "rule_set": "cn_ip" }
+        ],
+        "action": "respond"
       },
       {
         "query_type": ["A", "AAAA"],
@@ -500,6 +528,11 @@
       },
       {
         "action": "route",
+        "rule_set": ["microsoft_cn_domain"],
+        "outbound": "🇨🇳 国内"
+      },
+      {
+        "action": "route",
         "rule_set": ["google_domain"],
         "outbound": "🧊 Google"
       },
@@ -570,6 +603,13 @@
         "tag": "microsoft_domain",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft.srs",
+        "format": "binary",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "microsoft_cn_domain",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft@cn.srs",
         "format": "binary",
         "update_interval": "24h"
       },
@@ -704,7 +744,7 @@
       "enabled": true,
       "path": "cache.db",
       "store_fakeip": true,
-      "store_rdrc": true,
+      "store_dns": true,
       "rdrc_timeout": "7d"
     },
     "clash_api": {
