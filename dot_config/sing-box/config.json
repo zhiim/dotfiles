@@ -44,62 +44,51 @@
     "rules": [
       {
         "query_type": ["HTTPS", "SVCB"],
-        "action": "reject"
+        "action": "predefined",
+        "rcode": "NOERROR"
       },
       {
+        "rule_set": ["private_domain", "fakeip_filter"],
         "action": "route",
-        "rule_set": ["captive_portal"],
         "server": "system_dns"
       },
       {
-        "action": "route",
+        "rule_set": [
+          "qiufen_ad_doamin",
+          "category_ads_domain",
+          "category_porn_domain",
+          "blacklist"
+        ],
+        "action": "predefined",
+        "rcode": "NXDOMAIN"
+      },
+      {
         "clash_mode": "direct",
+        "action": "route",
         "server": "domestic"
       },
       {
-        "action": "route",
         "clash_mode": "global",
-        "rewrite_ttl": 1,
-        "server": "fakeip"
+        "action": "route",
+        "server": "fakeip",
+        "rewrite_ttl": 1
       },
       {
+        "rule_set": ["google_domain", "microsoft_domain", "geolocation-!cn"],
         "action": "route",
-        "rule_set": ["private_domain"],
-        "server": "domestic"
+        "server": "fakeip",
+        "rewrite_ttl": 1
       },
       {
-        "action": "route",
-        "rule_set": ["ntp_servers"],
-        "server": "domestic"
-      },
-      {
-        "action": "route",
-        "rule_set": ["google_domain"],
-        "rewrite_ttl": 1,
-        "server": "fakeip"
-      },
-      {
-        "action": "route",
-        "rule_set": ["microsoft_domain"],
-        "rewrite_ttl": 1,
-        "server": "fakeip"
-      },
-      {
-        "action": "route",
-        "rule_set": ["geolocation-!cn"],
-        "rewrite_ttl": 1,
-        "server": "fakeip"
-      },
-      {
-        "action": "route",
         "rule_set": ["cn_domain"],
+        "action": "route",
         "server": "domestic"
       },
       {
-        "action": "route",
         "query_type": ["A", "AAAA"],
-        "rewrite_ttl": 1,
-        "server": "fakeip"
+        "action": "route",
+        "server": "fakeip",
+        "rewrite_ttl": 1
       }
     ],
     "final": "foreign",
@@ -459,27 +448,17 @@
       },
       {
         "action": "route",
-        "rule_set": ["private_domain"],
+        "rule_set": ["private_domain", "fakeip_filter"],
         "outbound": "🟢 DIRECT"
       },
       {
         "action": "route",
-        "rule_set": ["captive_portal"],
-        "outbound": "🟢 DIRECT"
-      },
-      {
-        "action": "route",
-        "rule_set": ["blacklist"],
-        "outbound": "🔴 BLOCK"
-      },
-      {
-        "action": "route",
-        "rule_set": ["qiufen_ad_doamin"],
-        "outbound": "🔴 BLOCK"
-      },
-      {
-        "action": "route",
-        "rule_set": ["category_porn_domain"],
+        "rule_set": [
+          "qiufen_ad_doamin",
+          "category_ads_domain",
+          "category_porn_domain",
+          "blacklist"
+        ],
         "outbound": "🔴 BLOCK"
       },
       {
@@ -642,6 +621,13 @@
         "update_interval": "24h"
       },
       {
+        "tag": "category_ads_domain",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ads.srs",
+        "format": "binary",
+        "update_interval": "24h"
+      },
+      {
         "tag": "category_porn_domain",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-porn.srs",
@@ -677,45 +663,18 @@
         "update_interval": "24h"
       },
       {
+        "tag": "fakeip_filter",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/sing-box/fakeip-filter.srs",
+        "format": "binary",
+        "update_interval": "24h"
+      },
+      {
         "tag": "blacklist",
-        "type": "inline",
-        "rules": [
-          {
-            "domain_suffix": [
-              "madou.club",
-              "wnacg.org",
-              "xhamster.com",
-              "xnxx.com",
-              "rou.video",
-              "airav.io",
-              "xmorex.com",
-              "xsz-av.com",
-              "xszav2.com",
-              "videocelebs.net"
-            ],
-            "domain_keyword": [
-              "porn",
-              "jav",
-              "missav",
-              "sex",
-              "91cg",
-              "51cg",
-              "cg51",
-              "cg91",
-              "cgw",
-              "51gua",
-              "91gua",
-              "gua51",
-              "gua91",
-              "mrds",
-              "baoliao",
-              "awcg",
-              "cigua",
-              "cgwang",
-              "52cg"
-            ]
-          }
-        ]
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/sing-box/blacklist.srs",
+        "format": "binary",
+        "update_interval": "24h"
       },
       {
         "tag": "direct_apps",
@@ -731,38 +690,6 @@
               "/tmp/\\.mount_wechat.*wechat.*"
             ],
             "package_name": ["com.tencent.mm", "com.tencent.mobileqq"]
-          }
-        ]
-      },
-      {
-        "tag": "ntp_servers",
-        "type": "inline",
-        "rules": [
-          {
-            "domain": ["time-ios.apple.com", "time1.cloud.tencent.com"],
-            "domain_suffix": ["time.edu.cn", "ntp.org.cn", "pool.ntp.org"],
-            "domain_regex": [
-              "^time[1-7]?\\..*\\.com$",
-              "^time\\..*\\.gov$",
-              "^time\\..*\\.edu\\.cn$",
-              "^time\\..*\\.apple\\.com$",
-              "^ntp[1-7]?\\..*\\.com$"
-            ]
-          }
-        ]
-      },
-      {
-        "tag": "captive_portal",
-        "type": "inline",
-        "rules": [
-          {
-            "domain": [
-              "nmcheck.gnome.org",
-              "www.msftconnecttest.com",
-              "msftconnecttest.com",
-              "captive.apple.com",
-              "connect.rom.miui.com"
-            ]
           }
         ]
       }
