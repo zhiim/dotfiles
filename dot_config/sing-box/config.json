@@ -14,10 +14,6 @@
         "inet6_range": "fc00::/18"
       },
       {
-        "tag": "system_dns",
-        "type": "local"
-      },
-      {
         "tag": "hosts",
         "type": "hosts",
         "predefined": {
@@ -50,11 +46,6 @@
         "rcode": "NOERROR"
       },
       {
-        "rule_set": ["private_domain", "fakeip_filter"],
-        "action": "route",
-        "server": "system_dns"
-      },
-      {
         "rule_set": [
           "qiufen_ad_doamin",
           "category_ads_domain",
@@ -72,6 +63,11 @@
         "match_response": true,
         "ip_accept_any": true,
         "action": "respond"
+      },
+      {
+        "rule_set": ["private_domain", "fakeip_filter"],
+        "action": "route",
+        "server": "domestic"
       },
       {
         "clash_mode": "direct",
