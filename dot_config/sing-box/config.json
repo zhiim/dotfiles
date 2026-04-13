@@ -85,15 +85,21 @@
         "rewrite_ttl": 1
       },
       {
-        "rule_set": ["google_domain", "geolocation-!cn"],
+        "rule_set": ["google_domain"],
         "action": "route",
         "server": "fakeip",
         "rewrite_ttl": 1
       },
       {
-        "rule_set": ["cn_domain", "microsoft_cn_domain"],
+        "rule_set": ["microsoft_cn_domain", "cn_domain"],
         "action": "route",
         "server": "domestic"
+      },
+      {
+        "rule_set": ["geolocation-!cn"],
+        "action": "route",
+        "server": "fakeip",
+        "rewrite_ttl": 1
       },
       {
         "action": "evaluate",
@@ -523,13 +529,13 @@
       },
       {
         "action": "route",
-        "rule_set": ["microsoft_domain"],
-        "outbound": "🫙 Microsoft"
+        "rule_set": ["microsoft_cn_domain"],
+        "outbound": "🇨🇳 国内"
       },
       {
         "action": "route",
-        "rule_set": ["microsoft_cn_domain"],
-        "outbound": "🇨🇳 国内"
+        "rule_set": ["microsoft_domain"],
+        "outbound": "🫙 Microsoft"
       },
       {
         "action": "route",
@@ -600,16 +606,16 @@
         "update_interval": "24h"
       },
       {
-        "tag": "microsoft_domain",
+        "tag": "microsoft_cn_domain",
         "type": "remote",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft.srs",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft@cn.srs",
         "format": "binary",
         "update_interval": "24h"
       },
       {
-        "tag": "microsoft_cn_domain",
+        "tag": "microsoft_domain",
         "type": "remote",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft@cn.srs",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft.srs",
         "format": "binary",
         "update_interval": "24h"
       },
