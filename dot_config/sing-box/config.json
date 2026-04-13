@@ -27,9 +27,10 @@
       },
       {
         "tag": "domestic",
-        "type": "quic",
+        "type": "https",
         "server": "dns.alidns.com",
-        "server_port": 853,
+        "server_port": 443,
+        "path": "/dns-query",
         "domain_resolver": "hosts"
       },
       {
