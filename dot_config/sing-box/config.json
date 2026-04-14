@@ -99,7 +99,8 @@
       },
       {
         "action": "evaluate",
-        "server": "domestic"
+        "server": "foreign",
+        "client_subnet": "x.x.x.x/24"
       },
       {
         "match_response": true,
@@ -114,7 +115,8 @@
           { "match_response": true, "ip_is_private": true },
           { "match_response": true, "rule_set": "cn_ip" }
         ],
-        "action": "respond"
+        "action": "route",
+        "server": "domestic"
       },
       {
         "query_type": ["A", "AAAA"],
