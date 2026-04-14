@@ -120,6 +120,10 @@
       }
     ],
     "final": "foreign",
+    "optimistic": {
+      "enabled": true,
+      "timeout": "1d"
+    },
     "client_subnet": "x.x.x.x/24"
   },
   "inbounds": [
@@ -460,6 +464,7 @@
   "route": {
     "default_domain_resolver": {
       "server": "domestic",
+      "disable_optimistic_cache": true,
       "client_subnet": "x.x.x.x/24"
     },
     "rules": [
