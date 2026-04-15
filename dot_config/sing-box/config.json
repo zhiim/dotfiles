@@ -120,6 +120,7 @@
       }
     ],
     "final": "foreign",
+    "strategy": "prefer_ipv4",
     "optimistic": {
       "enabled": true,
       "timeout": "1d"
