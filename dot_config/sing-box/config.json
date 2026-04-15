@@ -551,13 +551,16 @@
       },
       {
         "action": "route",
+        "rule_set": ["geolocation-!cn"],
+        "outbound": "⭐ 其他非大陆"
+      },
+      {
+        "action": "route",
         "rule_set": ["cn_domain"],
         "outbound": "🇨🇳 国内"
       },
       {
-        "action": "route",
-        "rule_set": ["geolocation-!cn"],
-        "outbound": "⭐ 其他非大陆"
+        "action": "resolve"
       },
       {
         "action": "route",
