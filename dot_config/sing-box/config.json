@@ -147,7 +147,7 @@
       "auto_route": true,
       "strict_route": true,
       "endpoint_independent_nat": false,
-      "stack": "gvisor"
+      "stack": "mixed"
     }
   ],
   "outbounds": [
@@ -464,6 +464,7 @@
   "route": {
     "default_domain_resolver": {
       "server": "domestic",
+      "strategy": "prefer_ipv6",
       "disable_optimistic_cache": true,
       "client_subnet": "x.x.x.x/24"
     },
@@ -560,7 +561,10 @@
         "outbound": "🇨🇳 国内"
       },
       {
-        "action": "resolve"
+        "action": "resolve",
+        "server": "foreign",
+        "strategy": "prefer_ipv4",
+        "client_subnet": "x.x.x.x/24"
       },
       {
         "action": "route",
