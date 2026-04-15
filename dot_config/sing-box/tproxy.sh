@@ -16,6 +16,9 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 start() {
+    echo "▶ 清理旧连接状态..."
+    conntrack -F 2>/dev/null || true
+
     echo "▶ 正在配置 IPv4 规则..."
 
     sysctl -w net.ipv4.ip_forward=1 >/dev/null
@@ -170,6 +173,9 @@ stop() {
     ip6tables -t mangle -D OUTPUT -m owner ! --uid-owner $PROXY_USER -j SINGBOX_MASK6 2>/dev/null || true
     ip6tables -t mangle -F SINGBOX_MASK6 2>/dev/null || true
     ip6tables -t mangle -X SINGBOX_MASK6 2>/dev/null || true
+
+    echo "▶ 清理连接状态..."
+    conntrack -F 2>/dev/null || true
 
     echo "✅ TPROXY 规则清理完毕！"
 }
