@@ -70,18 +70,30 @@
         "server": "domestic"
       },
       {
+        "rule_set": ["direct_apps"],
+        "action": "route",
+        "server": "domestic"
+      },
+      {
         "clash_mode": "direct",
         "action": "route",
         "server": "domestic"
       },
       {
         "clash_mode": "global",
+        "query_type": ["A", "AAAA"],
         "action": "route",
         "server": "fakeip",
         "rewrite_ttl": 1
       },
       {
+        "clash_mode": "global",
+        "action": "route",
+        "server": "foreign"
+      },
+      {
         "rule_set": ["google_domain", "geolocation-!cn"],
+        "query_type": ["A", "AAAA"],
         "action": "route",
         "server": "fakeip",
         "rewrite_ttl": 1
