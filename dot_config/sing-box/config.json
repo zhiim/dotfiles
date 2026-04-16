@@ -734,7 +734,11 @@
         "type": "inline",
         "rules": [
           {
-            "process_path": ["/usr/bin/linuxqq", "/opt/wechat/wechat"]
+            "process_path": [
+              "/usr/bin/linuxqq",
+              "/opt/wechat/wechat",
+              "/usr/bin/krdc"
+            ]
           },
           {
             "process_path_regex": ["/tmp/\\.mount_linux.*/qq", "/opt/wechat/.*"]
