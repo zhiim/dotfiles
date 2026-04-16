@@ -734,14 +734,12 @@
         "type": "inline",
         "rules": [
           {
-            "process_path": [
-              "/usr/bin/linuxqq",
-              "/opt/wechat-appimage/wechat-appimage.AppImage"
-            ],
-            "process_path_regex": [
-              "/tmp/\\.mount_linux.*/qq",
-              "/tmp/\\.mount_wechat.*wechat.*"
-            ],
+            "process_path": ["/usr/bin/linuxqq", "/opt/wechat/wechat"]
+          },
+          {
+            "process_path_regex": ["/tmp/\\.mount_linux.*/qq", "/opt/wechat/.*"]
+          },
+          {
             "package_name": ["com.tencent.mm", "com.tencent.mobileqq"]
           }
         ]
