@@ -3,11 +3,12 @@
 # ==========================================
 # 配置区域
 # ==========================================
-PROXY_USER="singbox_tproxy"
+PROXY_USER="singbox"
 PROXY_PORT="9898"
 FWMARK="1"
 TABLE_V4="100"
 TABLE_V6="101"
+ENABLE_IPV6="true"
 
 # 检查是否以 root 权限运行
 if [ "$EUID" -ne 0 ]; then
@@ -25,7 +26,6 @@ start() {
     echo "▶ 正在配置 IPv4 规则..."
 
     sysctl -w net.ipv4.ip_forward=1 >/dev/null
-    sysctl -w net.ipv6.conf.all.forwarding=1 >/dev/null
 
     # 1. IPv4 路由策略
     ip rule add fwmark $FWMARK table $TABLE_V4 2>/dev/null || true
@@ -83,56 +83,60 @@ start() {
     iptables -t mangle -A OUTPUT -m owner ! --uid-owner $PROXY_USER -j SINGBOX_MASK
 
 
-    echo "▶ 正在配置 IPv6 规则..."
+    if [ "$ENABLE_IPV6" = "true" ]; then
+        echo "▶ 正在配置 IPv6 规则..."
 
-    # 1. IPv6 路由策略
-    ip -6 rule add fwmark $FWMARK table $TABLE_V6 2>/dev/null || true
-    ip -6 route add local ::/0 dev lo table $TABLE_V6 2>/dev/null || true
+        sysctl -w net.ipv6.conf.all.forwarding=1 >/dev/null
 
-    # 2. IPv6 DIVERT6 链
-    ip6tables -t mangle -N DIVERT6
-    ip6tables -t mangle -A DIVERT6 -j MARK --set-mark $FWMARK
-    ip6tables -t mangle -A DIVERT6 -j ACCEPT
-    ip6tables -t mangle -I PREROUTING -p tcp -m socket -j DIVERT6
+        # 1. IPv6 路由策略
+        ip -6 rule add fwmark $FWMARK table $TABLE_V6 2>/dev/null || true
+        ip -6 route add local ::/0 dev lo table $TABLE_V6 2>/dev/null || true
 
-    # 3. IPv6 SINGBOX6 链
-    ip6tables -t mangle -N SINGBOX6
-    ip6tables -t mangle -A SINGBOX6 -d fe80::/10 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-    ip6tables -t mangle -A SINGBOX6 -d fc00::/7 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-    ip6tables -t mangle -A SINGBOX6 -d fe80::/10 -j RETURN
-    ip6tables -t mangle -A SINGBOX6 -d fc00::/7 -j RETURN
-    ip6tables -t mangle -A SINGBOX6 -d ::1/128 -j RETURN
-    ip6tables -t mangle -A SINGBOX6 -d ff00::/8 -j RETURN
+        # 2. IPv6 DIVERT6 链
+        ip6tables -t mangle -N DIVERT6
+        ip6tables -t mangle -A DIVERT6 -j MARK --set-mark $FWMARK
+        ip6tables -t mangle -A DIVERT6 -j ACCEPT
+        ip6tables -t mangle -I PREROUTING -p tcp -m socket -j DIVERT6
 
-    # 绕过本机公网 IPv6 地址
-    v6address=($(ip -6 addr show | grep inet6 | grep -v "::1" | awk '{print $2}' | cut -d/ -f1))
-    for a in "${v6address[@]}"; do
-        ip6tables -t mangle -A SINGBOX6 -d "$a" -j RETURN
-    done
+        # 3. IPv6 SINGBOX6 链
+        ip6tables -t mangle -N SINGBOX6
+        ip6tables -t mangle -A SINGBOX6 -d fe80::/10 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+        ip6tables -t mangle -A SINGBOX6 -d fc00::/7 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+        ip6tables -t mangle -A SINGBOX6 -d fe80::/10 -j RETURN
+        ip6tables -t mangle -A SINGBOX6 -d fc00::/7 -j RETURN
+        ip6tables -t mangle -A SINGBOX6 -d ::1/128 -j RETURN
+        ip6tables -t mangle -A SINGBOX6 -d ff00::/8 -j RETURN
 
-    # 绕过 tailscale
-    ip6tables -t mangle -I SINGBOX6 1 -i tailscale0 -j RETURN
-    ip6tables -t mangle -I SINGBOX6 2 -d fd7a:115c:a1e0::/48 -j RETURN
+        # 绕过本机公网 IPv6 地址
+        v6address=($(ip -6 addr show | grep inet6 | grep -v "::1" | awk '{print $2}' | cut -d/ -f1))
+        for a in "${v6address[@]}"; do
+            ip6tables -t mangle -A SINGBOX6 -d "$a" -j RETURN
+        done
 
-    ip6tables -t mangle -A SINGBOX6 -p udp -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-    ip6tables -t mangle -A SINGBOX6 -p tcp -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-    ip6tables -t mangle -A PREROUTING -j SINGBOX6
+        # 绕过 tailscale
+        ip6tables -t mangle -I SINGBOX6 1 -i tailscale0 -j RETURN
+        ip6tables -t mangle -I SINGBOX6 2 -d fd7a:115c:a1e0::/48 -j RETURN
 
-    # 4. IPv6 SINGBOX_MASK6 链
-    ip6tables -t mangle -N SINGBOX_MASK6
-    ip6tables -t mangle -A SINGBOX_MASK6 -d fe80::/10 -p udp --dport 53 -j MARK --set-mark $FWMARK
-    ip6tables -t mangle -A SINGBOX_MASK6 -d fc00::/7 -p udp --dport 53 -j MARK --set-mark $FWMARK
-    ip6tables -t mangle -A SINGBOX_MASK6 -d fe80::/10 -j RETURN
-    ip6tables -t mangle -A SINGBOX_MASK6 -d fc00::/7 -j RETURN
-    ip6tables -t mangle -A SINGBOX_MASK6 -d ::1/128 -j RETURN
-    ip6tables -t mangle -A SINGBOX_MASK6 -d ff00::/8 -j RETURN
+        ip6tables -t mangle -A SINGBOX6 -p udp -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+        ip6tables -t mangle -A SINGBOX6 -p tcp -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+        ip6tables -t mangle -A PREROUTING -j SINGBOX6
 
-    ip6tables -t mangle -I SINGBOX_MASK6 1 -d fd7a:115c:a1e0::/48 -j RETURN
-    ip6tables -t mangle -I SINGBOX_MASK6 2 -m mark --mark 0x40000 -j RETURN
+        # 4. IPv6 SINGBOX_MASK6 链
+        ip6tables -t mangle -N SINGBOX_MASK6
+        ip6tables -t mangle -A SINGBOX_MASK6 -d fe80::/10 -p udp --dport 53 -j MARK --set-mark $FWMARK
+        ip6tables -t mangle -A SINGBOX_MASK6 -d fc00::/7 -p udp --dport 53 -j MARK --set-mark $FWMARK
+        ip6tables -t mangle -A SINGBOX_MASK6 -d fe80::/10 -j RETURN
+        ip6tables -t mangle -A SINGBOX_MASK6 -d fc00::/7 -j RETURN
+        ip6tables -t mangle -A SINGBOX_MASK6 -d ::1/128 -j RETURN
+        ip6tables -t mangle -A SINGBOX_MASK6 -d ff00::/8 -j RETURN
 
-    ip6tables -t mangle -A SINGBOX_MASK6 -p tcp -j MARK --set-mark $FWMARK
-    ip6tables -t mangle -A SINGBOX_MASK6 -p udp -j MARK --set-mark $FWMARK
-    ip6tables -t mangle -A OUTPUT -m owner ! --uid-owner $PROXY_USER -j SINGBOX_MASK6
+        ip6tables -t mangle -I SINGBOX_MASK6 1 -d fd7a:115c:a1e0::/48 -j RETURN
+        ip6tables -t mangle -I SINGBOX_MASK6 2 -m mark --mark 0x40000 -j RETURN
+
+        ip6tables -t mangle -A SINGBOX_MASK6 -p tcp -j MARK --set-mark $FWMARK
+        ip6tables -t mangle -A SINGBOX_MASK6 -p udp -j MARK --set-mark $FWMARK
+        ip6tables -t mangle -A OUTPUT -m owner ! --uid-owner $PROXY_USER -j SINGBOX_MASK6
+    fi
 
     echo "✅ TPROXY 规则应用成功！"
 }
@@ -158,24 +162,26 @@ stop() {
     iptables -t mangle -X SINGBOX_MASK 2>/dev/null || true
 
 
-    echo "▶ 正在清除 IPv6 规则..."
+    if [ "$ENABLE_IPV6" = "true" ]; then
+        echo "▶ 正在清除 IPv6 规则..."
 
-    # 清理 IPv6 路由
-    ip -6 rule del fwmark $FWMARK table $TABLE_V6 2>/dev/null || true
-    ip -6 route del local ::/0 dev lo table $TABLE_V6 2>/dev/null || true
+        # 清理 IPv6 路由
+        ip -6 rule del fwmark $FWMARK table $TABLE_V6 2>/dev/null || true
+        ip -6 route del local ::/0 dev lo table $TABLE_V6 2>/dev/null || true
 
-    # 清理 IPv6 规则和链
-    ip6tables -t mangle -D PREROUTING -p tcp -m socket -j DIVERT6 2>/dev/null || true
-    ip6tables -t mangle -F DIVERT6 2>/dev/null || true
-    ip6tables -t mangle -X DIVERT6 2>/dev/null || true
+        # 清理 IPv6 规则和链
+        ip6tables -t mangle -D PREROUTING -p tcp -m socket -j DIVERT6 2>/dev/null || true
+        ip6tables -t mangle -F DIVERT6 2>/dev/null || true
+        ip6tables -t mangle -X DIVERT6 2>/dev/null || true
 
-    ip6tables -t mangle -D PREROUTING -j SINGBOX6 2>/dev/null || true
-    ip6tables -t mangle -F SINGBOX6 2>/dev/null || true
-    ip6tables -t mangle -X SINGBOX6 2>/dev/null || true
+        ip6tables -t mangle -D PREROUTING -j SINGBOX6 2>/dev/null || true
+        ip6tables -t mangle -F SINGBOX6 2>/dev/null || true
+        ip6tables -t mangle -X SINGBOX6 2>/dev/null || true
 
-    ip6tables -t mangle -D OUTPUT -m owner ! --uid-owner $PROXY_USER -j SINGBOX_MASK6 2>/dev/null || true
-    ip6tables -t mangle -F SINGBOX_MASK6 2>/dev/null || true
-    ip6tables -t mangle -X SINGBOX_MASK6 2>/dev/null || true
+        ip6tables -t mangle -D OUTPUT -m owner ! --uid-owner $PROXY_USER -j SINGBOX_MASK6 2>/dev/null || true
+        ip6tables -t mangle -F SINGBOX_MASK6 2>/dev/null || true
+        ip6tables -t mangle -X SINGBOX_MASK6 2>/dev/null || true
+    fi
     
     echo "▶ 关闭 sing-box 服务..."
     systemctl stop sing-box
