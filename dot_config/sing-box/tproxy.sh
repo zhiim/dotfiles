@@ -55,8 +55,9 @@ start() {
         iptables -t mangle -A SINGBOX -d "$a" -j RETURN
     done
 
-    # 绕过 tailscale
+    # 从 tailscale0 进入本机的流量绕过
     iptables -t mangle -I SINGBOX 1 -i tailscale0 -j RETURN
+    # 目的地址为 tailscale IP 段的流量绕过
     iptables -t mangle -I SINGBOX 2 -d 100.64.0.0/10 -j RETURN
 
     iptables -t mangle -A SINGBOX -p udp -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
@@ -75,7 +76,9 @@ start() {
     iptables -t mangle -A SINGBOX_MASK -d 224.0.0.0/4 -j RETURN
     iptables -t mangle -A SINGBOX_MASK -d 255.255.255.255/32 -j RETURN
 
+    # 本机发出的目的地址为 tailscale IP 段的流量绕过
     iptables -t mangle -I SINGBOX_MASK 1 -d 100.64.0.0/10 -j RETURN
+    # 本机发出的由 tailscale 产生的流量绕过
     iptables -t mangle -I SINGBOX_MASK 2 -m mark --mark 0x40000 -j RETURN
 
     iptables -t mangle -A SINGBOX_MASK -p tcp -j MARK --set-mark $FWMARK
