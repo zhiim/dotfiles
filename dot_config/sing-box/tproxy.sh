@@ -60,6 +60,9 @@ start() {
     # 目的地址为 tailscale IP 段的流量绕过
     iptables -t mangle -I SINGBOX 2 -d 100.64.0.0/10 -j RETURN
 
+    # 来自 libvirt 虚拟机的流量绕过（需要给虚拟机设置公共 DNS）
+    # iptables -t mangle -I SINGBOX 1 -i virbr0 -j RETURN
+
     iptables -t mangle -A SINGBOX -p udp -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
     iptables -t mangle -A SINGBOX -p tcp -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
     iptables -t mangle -A PREROUTING -j SINGBOX
@@ -119,6 +122,9 @@ start() {
         # 绕过 tailscale
         ip6tables -t mangle -I SINGBOX6 1 -i tailscale0 -j RETURN
         ip6tables -t mangle -I SINGBOX6 2 -d fd7a:115c:a1e0::/48 -j RETURN
+
+        # 来自 libvirt 虚拟机的流量绕过
+        # ip6tables -t mangle -I SINGBOX6 1 -i virbr0 -j RETURN
 
         ip6tables -t mangle -A SINGBOX6 -p udp -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
         ip6tables -t mangle -A SINGBOX6 -p tcp -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
