@@ -21,7 +21,7 @@ start() {
     conntrack -F 2>/dev/null || true
 
     echo "▶ 启动 sing-box 服务..."
-    systemctl restart sing-box
+    systemctl start sing-box
 
     echo "▶ 正在配置 IPv4 规则..."
 
