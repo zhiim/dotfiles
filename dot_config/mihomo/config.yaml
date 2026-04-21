@@ -41,6 +41,7 @@ allow-lan: true
 mode: rule
 log-level: info
 ipv6: true
+find-process-mode: strict
 external-controller: 127.0.0.1:9090
 external-ui: ui # 前端路径 /path/to/clash/config/ui
 external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-firasans-only.zip"
@@ -50,13 +51,13 @@ profile: # 缓存配置
   store-fake-ip: true # 保存 fake-ip 映射表
 tcp-concurrent: true
 geodata-mode: true # geo 配置
+geo-auto-update: true
+geo-update-interval: 24
 geox-url: # 自定义GEO下载地址, 启用cdn加速下载
   geoip: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
   geosite: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
   mmdb: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
   asn: "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
-find-process-mode: strict
-global-client-fingerprint: chrome
 
 # +----------------------------------------------------------+
 # |                         DNS 设置                         |
@@ -64,29 +65,32 @@ global-client-fingerprint: chrome
 
 dns:
   enable: true
-  prefer-h3: true # DOH 偏好 HTTP/3
   listen: 0.0.0.0:1053
   ipv6: true # 如果需要使用 box for magisk 的热点共享代理，需要设置为 false
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16 # clash 以此 IP 段发送 fake-ip 映射
   fake-ip-range6: fdfe:dcba:9876::1/64
-  fake-ip-filter: # 以下地址不使用 fake-ip
-    - "+.lan"
-    - "+.local"
+  fake-ip-filter:
+    - RULE-SET,private_domain,real-ip
+    - RULE-SET,fakeip_filter,real-ip
+    - RULE-SET,google_domain,fake-ip
+    - RULE-SET,geolocation-!cn,fake-ip
+    - RULE-SET,cn_domain,real-ip
+    - MATCH,fake-ip
+  fake-ip-filter-mode: rule
   default-nameserver: # 用于解析 DNS 服务器, 必须为 IP 且可访问
-    # - 223.5.5.5
-    - 119.29.29.29
-  proxy-server-nameserver: # 用于解析代理节点的域名
-    # - 223.5.5.5
+    - 223.5.5.5
     - 119.29.29.29
   nameserver-policy: # 手动设定域名解析规则，优先级高于 nameserver/fallback
     "geosite:cn,private": # 国内域名使用国内 DNS 加速解析
-      # - 223.5.5.5
-      - 119.29.29.29
+      - https://dns.alidns.com/dns-query
+    "geosite:category-ads-all,category-porn": rcode://success
+  proxy-server-nameserver: # 用于解析代理节点的域名
+    - 223.5.5.5
+    - 119.29.29.29
   nameserver: # 默认域名解析，防止海外域名解析请求发送国内 DNS 服务器
-    # - https://xxx.cloudflare-gateway.com/dns-query # 可信的 doh
-    # - https://8.8.8.8/dns-query
-    # - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query#🥤 默认
+    # - 8.8.8.8 # 需要国内可访问的 dns 用于第一次运行解析订阅链接
 
 # +----------------------------------------------------------+
 # |       域名嗅探，从流量中获取域名，从而使用域名规则       |
@@ -110,8 +114,7 @@ sniffer:
 # +----------------------------------------------------------+
 
 mixed-port: 7890
-# redir-port: 9797 # box for magisk 需要这两个端口
-# tproxy-port: 9898
+tproxy-port: 9898
 
 ## tun赋权  ##
 # Linux: sudo setcap cap_net_bind_service,cap_net_admin=+ep /path/to/clash
@@ -120,8 +123,7 @@ mixed-port: 7890
 # Windows: 以管理员身份运行
 tun:
   enable: false # 默认关闭
-  device: clash_tun
-  inet6-address:
+  device: mihomo
   stack: mixed
   dns-hijack:
     - "any:53"
@@ -281,10 +283,13 @@ proxy-groups:
 rules:
   # 域名规则
   - GEOIP,lan,🎯 直连,no-resolve
-  - RULE-SET,blacklist,REJECT
+  - RULE-SET,private_domain,🎯 直连
+  - RULE-SET,fakeip_filter,🎯 直连
   - RULE-SET,qiufen_ad_doamin,REJECT
+  - RULE-SET,category_ads_domain,REJECT
   - RULE-SET,category_porn_domain,REJECT
-  - RULE-SET,direct_list,🇨🇳 国内
+  - RULE-SET,blacklist,REJECT
+  - RULE-SET,direct_apps,🎯 直连
   - RULE-SET,google_fcm,📢 谷歌FCM
   - RULE-SET,github_domain,🍮 Github
   - RULE-SET,spotify_domain,🥛 Spotify
@@ -293,14 +298,12 @@ rules:
   - RULE-SET,telegram_domain,🍭 Telegram
   - RULE-SET,youtube_domain,🧋 YouTube
   - RULE-SET,tracker_domain,🍡 Tracker
-  - RULE-SET,cn_domain,🇨🇳 国内
   - RULE-SET,geolocation-!cn,⭐ 其他非大陆
-
+  - RULE-SET,cn_domain,🇨🇳 国内
   # IP规则, 如果域名规则不匹配则进入IP规则, 此时会使用Clash配置的DNS规则解析IP
   - RULE-SET,google_ip,🧊 Google
   - RULE-SET,telegram_ip,🍭 Telegram
   - RULE-SET,cn_ip,🇨🇳 国内
-
   # 未匹配兜底
   - MATCH,🐟 漏网之鱼
 
@@ -332,6 +335,9 @@ mrsip: &mrsip
   format: mrs
 
 rule-providers:
+  private_domain:
+    <<: *mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"
   github_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"
@@ -353,19 +359,24 @@ rule-providers:
   tracker_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tracker.mrs"
+  google_fcm:
+    <<: *domain
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/GoogleFCM.yaml"
   geolocation-!cn:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"
   qiufen_ad_doamin:
     <<: *domain
-    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml"
+    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
+  category_ads_domain:
+    <<: *mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads.mrs"
   category_porn_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-porn.mrs"
   cn_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"
-
   google_ip:
     <<: *mrsip
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"
@@ -375,54 +386,19 @@ rule-providers:
   cn_ip:
     <<: *mrsip
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"
-
-  google_fcm:
-    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Ruleset/GoogleFCM.list"
-    behavior: classical
-    interval: 86400
-    format: text
-    type: http
-
-  # 自定义规则
+  fakeip_filter:
+    <<: *mrs
+    url: "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/mihomo/fakeip_filter.mrs"
   blacklist:
-    type: inline
-    behavior: classical
-    payload:
-      - DOMAIN-KEYWORD,porn
-      - DOMAIN-KEYWORD,jav
-      - DOMAIN-KEYWORD,missav
-      - DOMAIN-KEYWORD,sex
-      - DOMAIN-KEYWORD,xvideos
-      - DOMAIN-SUFFIX,madou.club
-      - DOMAIN-SUFFIX,wnacg.org
-      - DOMAIN-SUFFIX,xhamster.com
-      - DOMAIN-SUFFIX,xnxx.com
-      - DOMAIN-SUFFIX,rou.video
-      - DOMAIN-KEYWORD,91cg
-      - DOMAIN-KEYWORD,51cg
-      - DOMAIN-KEYWORD,cg51
-      - DOMAIN-KEYWORD,cg91
-      - DOMAIN-KEYWORD,cgw
-      - DOMAIN-KEYWORD,51gua
-      - DOMAIN-KEYWORD,91gua
-      - DOMAIN-KEYWORD,gua51
-      - DOMAIN-KEYWORD,gua91
-      - DOMAIN-KEYWORD,mrds
-      - DOMAIN-KEYWORD,baoliao
-      - DOMAIN-KEYWORD,awcg
-      - DOMAIN-KEYWORD,cigua
-      - DOMAIN-KEYWORD,cgwang
-      - DOMAIN-KEYWORD,52cg
-      - DOMAIN-KEYWORD,airav
-      - DOMAIN-KEYWORD,xmorex
-      - DOMAIN-KEYWORD,xszav
-      - DOMAIN-KEYWORD,videocelebs
-  direct_list:
+    <<: *mrs
+    url: "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/mihomo/blacklist.mrs"
+  direct_apps:
     type: inline
     behavior: classical
     payload:
       # 为特定进程设置直连
-      # - PROCESS-PATH,/usr/bin/linuxqq
-      # - PROCESS-PATH-REGEX,\/tmp\/\.mount_linux.*\/qq
-      # - PROCESS-PATH,/opt/wechat-appimage/wechat-appimage.AppImage
-      # - PROCESS-PATH-REGEX,\/tmp\/\.mount_wechat.*wechat.*
+      - PROCESS-PATH,/usr/bin/linuxqq
+      - PROCESS-PATH,/opt/wechat/wechat
+      - PROCESS-PATH,/usr/bin/krdc
+      - PROCESS-PATH-REGEX,\/tmp\/\.mount_linux.*\/qq
+      - PROCESS-PATH-REGEX,\/opt\/wechat\/.*

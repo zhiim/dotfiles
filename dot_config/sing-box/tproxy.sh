@@ -4,6 +4,7 @@
 # 配置区域
 # ==========================================
 PROXY_USER="singbox"
+SERVICE_NAME="sing-box"
 CHAIN_NAME="SINGBOX"
 PROXY_PORT="9898"
 FWMARK="1"
@@ -25,7 +26,7 @@ start() {
     conntrack -F 2>/dev/null || true
 
     echo "▶ 启动 sing-box 服务..."
-    systemctl start sing-box
+    systemctl start $SERVICE_NAME
 
     echo "▶ 正在配置 IPv4 规则..."
 
@@ -43,9 +44,12 @@ start() {
 
     # 3. IPv4 SINGBOX 链 (处理局域网转发到本机的流量)
     iptables -t mangle -N $CHAIN_NAME
-    iptables -t mangle -A $CHAIN_NAME -d 10.0.0.0/8 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-    iptables -t mangle -A $CHAIN_NAME -d 172.16.0.0/12 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-    iptables -t mangle -A $CHAIN_NAME -d 192.168.0.0/16 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+    # iptables -t mangle -A $CHAIN_NAME -d 10.0.0.0/8 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+    # iptables -t mangle -A $CHAIN_NAME -d 172.16.0.0/12 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+    # iptables -t mangle -A $CHAIN_NAME -d 192.168.0.0/16 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+    iptables -t mangle -A $CHAIN_NAME -d 10.0.0.0/8 -p udp --dport 53 -j REDIRECT --to-ports 1053
+    iptables -t mangle -A $CHAIN_NAME -d 172.16.0.0/12 -p udp --dport 53 -j REDIRECT --to-ports 1053
+    iptables -t mangle -A $CHAIN_NAME -d 192.168.0.0/16 -p udp --dport 53 -j REDIRECT --to-ports 1053
     iptables -t mangle -A $CHAIN_NAME -d 10.0.0.0/8 -j RETURN
     iptables -t mangle -A $CHAIN_NAME -d 172.16.0.0/12 -j RETURN
     iptables -t mangle -A $CHAIN_NAME -d 192.168.0.0/16 -j RETURN
@@ -110,8 +114,10 @@ start() {
 
         # 3. IPv6 SINGBOX6 链
         ip6tables -t mangle -N ${CHAIN_NAME}6
-        ip6tables -t mangle -A ${CHAIN_NAME}6 -d fe80::/10 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-        ip6tables -t mangle -A ${CHAIN_NAME}6 -d fc00::/7 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+        # ip6tables -t mangle -A ${CHAIN_NAME}6 -d fe80::/10 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+        # ip6tables -t mangle -A ${CHAIN_NAME}6 -d fc00::/7 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+        ip6tables -t mangle -A ${CHAIN_NAME}6 -d fe80::/10 -p udp --dport 53 -j REDIRECT --to-ports 1053
+        ip6tables -t mangle -A ${CHAIN_NAME}6 -d fc00::/7 -p udp --dport 53 -j REDIRECT --to-ports 1053
         ip6tables -t mangle -A ${CHAIN_NAME}6 -d fe80::/10 -j RETURN
         ip6tables -t mangle -A ${CHAIN_NAME}6 -d fc00::/7 -j RETURN
         ip6tables -t mangle -A ${CHAIN_NAME}6 -d ::1/128 -j RETURN
@@ -197,7 +203,7 @@ stop() {
     fi
     
     echo "▶ 关闭 sing-box 服务..."
-    systemctl stop sing-box
+    systemctl stop $SERVICE_NAME
 
     echo "▶ 清理连接状态..."
     conntrack -F 2>/dev/null || true
