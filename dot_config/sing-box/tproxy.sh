@@ -3,14 +3,28 @@
 # ==========================================
 # 配置区域
 # ==========================================
-PROXY_USER="singbox"
-SERVICE_NAME="sing-box"
-CHAIN_NAME="SINGBOX"
-PROXY_PORT="9898"
+PROXY_MODE="singbox"
+TPROXY_PORT="9898"
 FWMARK="1"
+ENABLE_IPV6="true"
 TABLE_V4="100"
 TABLE_V6="101"
-ENABLE_IPV6="true"
+PROXY_VIRT="true"  # 是否带离 lbvirt 流量（如不代理需要为虚拟机设置公共 DNS）
+
+if [ "$PROXY_MODE" = "singbox" ]; then
+    PROXY_USER="singbox"
+    SERVICE_NAME="sing-box"
+    CHAIN_NAME="SINGBOX"
+elif [ "$PROXY_MODE" = "mihomo" ]; then
+    PROXY_USER="mihomo"
+    SERVICE_NAME="mihomo"
+    CHAIN_NAME="MIHOMO"
+    DNS_PORT="1053"
+else
+    echo "无效的 PROXY_MODE 设置: $PROXY_MODE"
+    echo "请将 PROXY_MODE 设置为 'singbox' 或 'mihomo'"
+    exit
+fi
 
 # 检查是否以 root 权限运行
 if [ "$EUID" -ne 0 ]; then
@@ -25,12 +39,28 @@ start() {
     echo "▶ 清理旧连接状态..."
     conntrack -F 2>/dev/null || true
 
-    echo "▶ 启动 sing-box 服务..."
+    echo "▶ 启动 ${SERVICE_NAME} 服务..."
     systemctl start $SERVICE_NAME
 
     echo "▶ 正在配置 IPv4 规则..."
 
     sysctl -w net.ipv4.ip_forward=1 >/dev/null
+
+    if [ "$PROXY_MODE" = "mihomo" ]; then
+        # 劫持 dns 流量到 mihomo
+        iptables -t nat -N MIHOMO_DNS
+        # 绕过 tailscale 流量
+        iptables -t nat -A MIHOMO_DNS -m mark --mark 0x40000 -j RETURN
+        # 将目标为 53 端口的流量重定向到 Clash 的 DNS 端口
+        iptables -t nat -A MIHOMO_DNS -p udp --dport 53 -j REDIRECT --to-ports $DNS_PORT
+        iptables -t nat -A MIHOMO_DNS -p tcp --dport 53 -j REDIRECT --to-ports $DNS_PORT
+        # 处理局域网设备的 DNS 请求
+        iptables -t nat -A PREROUTING -p udp --dport 53 -j MIHOMO_DNS
+        iptables -t nat -A PREROUTING -p tcp --dport 53 -j MIHOMO_DNS
+        # 处理本机的 DNS 请求
+        iptables -t nat -A OUTPUT -p udp --dport 53 -m owner ! --uid-owner $PROXY_USER -j MIHOMO_DNS
+        iptables -t nat -A OUTPUT -p tcp --dport 53 -m owner ! --uid-owner $PROXY_USER -j MIHOMO_DNS
+    fi
 
     # 1. IPv4 路由策略
     ip rule add fwmark $FWMARK table $TABLE_V4 2>/dev/null || true
@@ -44,12 +74,15 @@ start() {
 
     # 3. IPv4 SINGBOX 链 (处理局域网转发到本机的流量)
     iptables -t mangle -N $CHAIN_NAME
-    # iptables -t mangle -A $CHAIN_NAME -d 10.0.0.0/8 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-    # iptables -t mangle -A $CHAIN_NAME -d 172.16.0.0/12 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-    # iptables -t mangle -A $CHAIN_NAME -d 192.168.0.0/16 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-    iptables -t mangle -A $CHAIN_NAME -d 10.0.0.0/8 -p udp --dport 53 -j REDIRECT --to-ports 1053
-    iptables -t mangle -A $CHAIN_NAME -d 172.16.0.0/12 -p udp --dport 53 -j REDIRECT --to-ports 1053
-    iptables -t mangle -A $CHAIN_NAME -d 192.168.0.0/16 -p udp --dport 53 -j REDIRECT --to-ports 1053
+    if [ "$PROXY_MODE" = "singbox" ]; then
+        # 劫持局域网设备到本设备的 DNS 请求
+        iptables -t mangle -A $CHAIN_NAME -d 10.0.0.0/8 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+        iptables -t mangle -A $CHAIN_NAME -d 10.0.0.0/8 -p tcp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+        iptables -t mangle -A $CHAIN_NAME -d 172.16.0.0/12 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+        iptables -t mangle -A $CHAIN_NAME -d 172.16.0.0/12 -p tcp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+        iptables -t mangle -A $CHAIN_NAME -d 192.168.0.0/16 -p udp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+        iptables -t mangle -A $CHAIN_NAME -d 192.168.0.0/16 -p tcp --dport 53 -j TPROXY --on-ip 127.0.0.1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+    fi
     iptables -t mangle -A $CHAIN_NAME -d 10.0.0.0/8 -j RETURN
     iptables -t mangle -A $CHAIN_NAME -d 172.16.0.0/12 -j RETURN
     iptables -t mangle -A $CHAIN_NAME -d 192.168.0.0/16 -j RETURN
@@ -69,17 +102,25 @@ start() {
     iptables -t mangle -I $CHAIN_NAME 2 -d 100.64.0.0/10 -j RETURN
 
     # 来自 libvirt 虚拟机的流量绕过（需要给虚拟机设置公共 DNS）
-    # iptables -t mangle -I SINGBOX 1 -i virbr0 -j RETURN
+    if [ "$PROXY_VIRT" = "true" ]; then
+        iptables -t mangle -I $CHAIN_NAME 1 -i virbr0 -j RETURN
+    fi
 
-    iptables -t mangle -A $CHAIN_NAME -p udp -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-    iptables -t mangle -A $CHAIN_NAME -p tcp -j TPROXY --on-ip 127.0.0.1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+    iptables -t mangle -A $CHAIN_NAME -p udp -j TPROXY --on-ip 127.0.0.1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+    iptables -t mangle -A $CHAIN_NAME -p tcp -j TPROXY --on-ip 127.0.0.1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
     iptables -t mangle -A PREROUTING -j $CHAIN_NAME
 
     # 4. IPv4 SINGBOX_MASK 链 (处理本机流量)
     iptables -t mangle -N ${CHAIN_NAME}_MASK
-    iptables -t mangle -A ${CHAIN_NAME}_MASK -d 10.0.0.0/8 -p udp --dport 53 -j MARK --set-mark $FWMARK
-    iptables -t mangle -A ${CHAIN_NAME}_MASK -d 172.16.0.0/12 -p udp --dport 53 -j MARK --set-mark $FWMARK
-    iptables -t mangle -A ${CHAIN_NAME}_MASK -d 192.168.0.0/16 -p udp --dport 53 -j MARK --set-mark $FWMARK
+    if [ "$PROXY_MODE" = "singbox" ]; then
+        # 劫持本机的 DNS 流量
+        iptables -t mangle -A ${CHAIN_NAME}_MASK -d 10.0.0.0/8 -p udp --dport 53 -j MARK --set-mark $FWMARK
+        iptables -t mangle -A ${CHAIN_NAME}_MASK -d 10.0.0.0/8 -p tcp --dport 53 -j MARK --set-mark $FWMARK
+        iptables -t mangle -A ${CHAIN_NAME}_MASK -d 172.16.0.0/12 -p udp --dport 53 -j MARK --set-mark $FWMARK
+        iptables -t mangle -A ${CHAIN_NAME}_MASK -d 172.16.0.0/12 -p tcp --dport 53 -j MARK --set-mark $FWMARK
+        iptables -t mangle -A ${CHAIN_NAME}_MASK -d 192.168.0.0/16 -p udp --dport 53 -j MARK --set-mark $FWMARK
+        iptables -t mangle -A ${CHAIN_NAME}_MASK -d 192.168.0.0/16 -p tcp --dport 53 -j MARK --set-mark $FWMARK
+    fi
     iptables -t mangle -A ${CHAIN_NAME}_MASK -d 10.0.0.0/8 -j RETURN
     iptables -t mangle -A ${CHAIN_NAME}_MASK -d 172.16.0.0/12 -j RETURN
     iptables -t mangle -A ${CHAIN_NAME}_MASK -d 192.168.0.0/16 -j RETURN
@@ -102,6 +143,22 @@ start() {
 
         sysctl -w net.ipv6.conf.all.forwarding=1 >/dev/null
 
+        if [ "$PROXY_MODE" = "mihomo" ]; then
+            # 劫持 dns 流量到 mihomo
+            ip6tables -t nat -N MIHOMO_DNS6
+            # 绕过 tailscale 流量
+            ip6tables -t nat -A MIHOMO_DNS6 -m mark --mark 0x40000 -j RETURN
+            # 将目标为 53 端口的流量重定向到 Clash 的 DNS 端口
+            ip6tables -t nat -A MIHOMO_DNS6 -p udp --dport 53 -j REDIRECT --to-ports $DNS_PORT
+            ip6tables -t nat -A MIHOMO_DNS6 -p tcp --dport 53 -j REDIRECT --to-ports $DNS_PORT
+            # 处理局域网设备的 DNS 请求
+            ip6tables -t nat -A PREROUTING -p udp --dport 53 -j MIHOMO_DNS6
+            ip6tables -t nat -A PREROUTING -p tcp --dport 53 -j MIHOMO_DNS6
+            # 处理本机的 DNS 请求
+            ip6tables -t nat -A OUTPUT -p udp --dport 53 -m owner ! --uid-owner $PROXY_USER -j MIHOMO_DNS6
+            ip6tables -t nat -A OUTPUT -p tcp --dport 53 -m owner ! --uid-owner $PROXY_USER -j MIHOMO_DNS6
+        fi
+
         # 1. IPv6 路由策略
         ip -6 rule add fwmark $FWMARK table $TABLE_V6 2>/dev/null || true
         ip -6 route add local ::/0 dev lo table $TABLE_V6 2>/dev/null || true
@@ -114,10 +171,12 @@ start() {
 
         # 3. IPv6 SINGBOX6 链
         ip6tables -t mangle -N ${CHAIN_NAME}6
-        # ip6tables -t mangle -A ${CHAIN_NAME}6 -d fe80::/10 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-        # ip6tables -t mangle -A ${CHAIN_NAME}6 -d fc00::/7 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-        ip6tables -t mangle -A ${CHAIN_NAME}6 -d fe80::/10 -p udp --dport 53 -j REDIRECT --to-ports 1053
-        ip6tables -t mangle -A ${CHAIN_NAME}6 -d fc00::/7 -p udp --dport 53 -j REDIRECT --to-ports 1053
+        if [ "$PROXY_MODE" = "singbox" ]; then
+            ip6tables -t mangle -A ${CHAIN_NAME}6 -d fe80::/10 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+            ip6tables -t mangle -A ${CHAIN_NAME}6 -d fe80::/10 -p tcp --dport 53 -j TPROXY --on-ip ::1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+            ip6tables -t mangle -A ${CHAIN_NAME}6 -d fc00::/7 -p udp --dport 53 -j TPROXY --on-ip ::1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+            ip6tables -t mangle -A ${CHAIN_NAME}6 -d fc00::/7 -p tcp --dport 53 -j TPROXY --on-ip ::1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+        fi
         ip6tables -t mangle -A ${CHAIN_NAME}6 -d fe80::/10 -j RETURN
         ip6tables -t mangle -A ${CHAIN_NAME}6 -d fc00::/7 -j RETURN
         ip6tables -t mangle -A ${CHAIN_NAME}6 -d ::1/128 -j RETURN
@@ -134,16 +193,22 @@ start() {
         ip6tables -t mangle -I ${CHAIN_NAME}6 2 -d fd7a:115c:a1e0::/48 -j RETURN
 
         # 来自 libvirt 虚拟机的流量绕过
-        # ip6tables -t mangle -I SINGBOX6 1 -i virbr0 -j RETURN
+        if [ "$PROXY_VIRT" = "true" ]; then
+            ip6tables -t mangle -I ${CHAIN_NAME}6 1 -i virbr0 -j RETURN
+        fi
 
-        ip6tables -t mangle -A ${CHAIN_NAME}6 -p udp -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
-        ip6tables -t mangle -A ${CHAIN_NAME}6 -p tcp -j TPROXY --on-ip ::1 --on-port $PROXY_PORT --tproxy-mark $FWMARK
+        ip6tables -t mangle -A ${CHAIN_NAME}6 -p udp -j TPROXY --on-ip ::1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
+        ip6tables -t mangle -A ${CHAIN_NAME}6 -p tcp -j TPROXY --on-ip ::1 --on-port $TPROXY_PORT --tproxy-mark $FWMARK
         ip6tables -t mangle -A PREROUTING -j ${CHAIN_NAME}6
 
         # 4. IPv6 SINGBOX_MASK6 链
         ip6tables -t mangle -N ${CHAIN_NAME}_MASK6
-        ip6tables -t mangle -A ${CHAIN_NAME}_MASK6 -d fe80::/10 -p udp --dport 53 -j MARK --set-mark $FWMARK
-        ip6tables -t mangle -A ${CHAIN_NAME}_MASK6 -d fc00::/7 -p udp --dport 53 -j MARK --set-mark $FWMARK
+        if [ "$PROXY_MODE" = "singbox" ]; then
+            ip6tables -t mangle -A ${CHAIN_NAME}_MASK6 -d fe80::/10 -p udp --dport 53 -j MARK --set-mark $FWMARK
+            ip6tables -t mangle -A ${CHAIN_NAME}_MASK6 -d fe80::/10 -p tcp --dport 53 -j MARK --set-mark $FWMARK
+            ip6tables -t mangle -A ${CHAIN_NAME}_MASK6 -d fc00::/7 -p udp --dport 53 -j MARK --set-mark $FWMARK
+            ip6tables -t mangle -A ${CHAIN_NAME}_MASK6 -d fc00::/7 -p tcp --dport 53 -j MARK --set-mark $FWMARK
+        fi
         ip6tables -t mangle -A ${CHAIN_NAME}_MASK6 -d fe80::/10 -j RETURN
         ip6tables -t mangle -A ${CHAIN_NAME}_MASK6 -d fc00::/7 -j RETURN
         ip6tables -t mangle -A ${CHAIN_NAME}_MASK6 -d ::1/128 -j RETURN
@@ -157,11 +222,21 @@ start() {
         ip6tables -t mangle -A OUTPUT -m owner ! --uid-owner $PROXY_USER -j ${CHAIN_NAME}_MASK6
     fi
 
-    echo "✅ TPROXY 规则应用成功！"
+    echo "▶ TPROXY 规则应用成功！"
 }
 
 stop() {
     echo "▶ 正在清除 IPv4 规则..."
+
+    if [ "$PROXY_MODE" = "mihomo" ]; then
+        # 清理 mihomo DNS 规则
+        iptables -t nat -D PREROUTING -p udp --dport 53 -j MIHOMO_DNS 2>/dev/null || true
+        iptables -t nat -D PREROUTING -p tcp --dport 53 -j MIHOMO_DNS 2>/dev/null || true
+        iptables -t nat -D OUTPUT -p udp --dport 53 -m owner ! --uid-owner $PROXY_USER -j MIHOMO_DNS 2>/dev/null || true
+        iptables -t nat -D OUTPUT -p tcp --dport 53 -m owner ! --uid-owner $PROXY_USER -j MIHOMO_DNS 2>/dev/null || true
+        iptables -t nat -F MIHOMO_DNS 2>/dev/null || true
+        iptables -t nat -X MIHOMO_DNS 2>/dev/null || true
+    fi
 
     # 清理 IPv4 路由
     ip rule del fwmark $FWMARK table $TABLE_V4 2>/dev/null || true
@@ -184,6 +259,16 @@ stop() {
     if [ "$ENABLE_IPV6" = "true" ]; then
         echo "▶ 正在清除 IPv6 规则..."
 
+        if [ "$PROXY_MODE" = "mihomo" ]; then
+            # 清理 mihomo DNS 规则
+            ip6tables -t nat -D PREROUTING -p udp --dport 53 -j MIHOMO_DNS6 2>/dev/null || true
+            ip6tables -t nat -D PREROUTING -p tcp --dport 53 -j MIHOMO_DNS6 2>/dev/null || true
+            ip6tables -t nat -D OUTPUT -p udp --dport 53 -m owner ! --uid-owner $PROXY_USER -j MIHOMO_DNS6 2>/dev/null || true
+            ip6tables -t nat -D OUTPUT -p tcp --dport 53 -m owner ! --uid-owner $PROXY_USER -j MIHOMO_DNS6 2>/dev/null || true
+            ip6tables -t nat -F MIHOMO_DNS6 2>/dev/null || true
+            ip6tables -t nat -X MIHOMO_DNS6 2>/dev/null || true
+        fi
+
         # 清理 IPv6 路由
         ip -6 rule del fwmark $FWMARK table $TABLE_V6 2>/dev/null || true
         ip -6 route del local ::/0 dev lo table $TABLE_V6 2>/dev/null || true
@@ -201,14 +286,14 @@ stop() {
         ip6tables -t mangle -F ${CHAIN_NAME}_MASK6 2>/dev/null || true
         ip6tables -t mangle -X ${CHAIN_NAME}_MASK6 2>/dev/null || true
     fi
-    
-    echo "▶ 关闭 sing-box 服务..."
+
+    echo "▶ 关闭 ${SERVICE_NAME} 服务..."
     systemctl stop $SERVICE_NAME
 
     echo "▶ 清理连接状态..."
     conntrack -F 2>/dev/null || true
 
-    echo "✅ TPROXY 规则清理完毕！"
+    echo "▶ TPROXY 规则清理完毕！"
 }
 
 case "$1" in
