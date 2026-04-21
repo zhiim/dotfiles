@@ -70,7 +70,7 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16 # clash 以此 IP 段发送 fake-ip 映射
   fake-ip-range6: fdfe:dcba:9876::1/64
-  fake-ip-filter:
+  fake-ip-filter: # fakeip 分流，让国内域名走 real-ip，其余走 fake-ip
     - RULE-SET,private_domain,real-ip
     - RULE-SET,fakeip_filter,real-ip
     - RULE-SET,google_domain,fake-ip
@@ -81,16 +81,24 @@ dns:
   default-nameserver: # 用于解析 DNS 服务器, 必须为 IP 且可访问
     - 223.5.5.5
     - 119.29.29.29
-  nameserver-policy: # 手动设定域名解析规则，优先级高于 nameserver/fallback
-    "geosite:cn,private": # 国内域名使用国内 DNS 加速解析
+  nameserver-policy: # real-ip 的分流规则，国内外域名分流
+    "sub.skky.indevs.in": # 国内可访问的境外 dns 解析订阅链接
+      - 8.8.8.8
+    "rule-set:blacklist,qiufen_ad_doamin":
+      - rcode://success # 通过不解析 dns 拦截
+    "geosite:category-ads-all,category-porn":
+      - rcode://success
+    "rule-set:private_domain,fakeip_filter":
       - https://dns.alidns.com/dns-query
-    "geosite:category-ads-all,category-porn": rcode://success
+    "rule-set:google_domain,geolocation-!cn":
+      - https://8.8.8.8/dns-query#🥤 默认
+    "geosite:cn":
+      - https://dns.alidns.com/dns-query
   proxy-server-nameserver: # 用于解析代理节点的域名
     - 223.5.5.5
     - 119.29.29.29
-  nameserver: # 默认域名解析，防止海外域名解析请求发送国内 DNS 服务器
+  nameserver: # 默认域名解析，用于兜底 nameserver-policy 无法匹配的域名
     - https://8.8.8.8/dns-query#🥤 默认&ecs=114.114.114.114/24&ecs-override=true
-    # - 8.8.8.8 # 需要国内可访问的 dns 用于第一次运行解析订阅链接
 
 # +----------------------------------------------------------+
 # |       域名嗅探，从流量中获取域名，从而使用域名规则       |
