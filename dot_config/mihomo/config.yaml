@@ -73,6 +73,10 @@ dns:
   fake-ip-filter: # fakeip 分流，让国内域名走 real-ip，其余走 fake-ip
     - RULE-SET,private_domain,real-ip
     - RULE-SET,fakeip_filter,real-ip
+    - RULE-SET,qiufen_ad_doamin,real-ip # 传递给 real-ip 实现不解析
+    - RULE-SET,category_ads_domain,real-ip
+    - RULE-SET,category_porn_domain,real-ip
+    - RULE-SET,blacklist,real-ip
     - RULE-SET,google_domain,fake-ip
     - RULE-SET,geolocation-!cn,fake-ip
     - RULE-SET,cn_domain,real-ip
