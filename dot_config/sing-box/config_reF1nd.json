@@ -483,6 +483,9 @@
         "action": "sniff"
       },
       {
+        "action": "sniff-override-destination"
+      },
+      {
         "action": "hijack-dns",
         "protocol": "dns"
       },
@@ -571,7 +574,8 @@
         "outbound": "🇨🇳 国内"
       },
       {
-        "action": "resolve"
+        "action": "resolve",
+        "match_only": true
       },
       {
         "action": "route",
@@ -760,6 +764,7 @@
       "external_ui_download_url": "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-firasans-only.zip",
       "secret": "",
       "default_mode": "rule"
-    }
+    },
+    "urltest_unified_delay": true
   }
 }
