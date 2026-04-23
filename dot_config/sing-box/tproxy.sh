@@ -102,7 +102,7 @@ start() {
     iptables -t mangle -I $CHAIN_NAME 2 -d 100.64.0.0/10 -j RETURN
 
     # 来自 libvirt 虚拟机的流量绕过（需要给虚拟机设置公共 DNS）
-    if [ "$PROXY_VIRT" = "true" ]; then
+    if [ "$PROXY_VIRT" = "false" ]; then
         iptables -t mangle -I $CHAIN_NAME 1 -i virbr0 -j RETURN
     fi
 
@@ -193,7 +193,7 @@ start() {
         ip6tables -t mangle -I ${CHAIN_NAME}6 2 -d fd7a:115c:a1e0::/48 -j RETURN
 
         # 来自 libvirt 虚拟机的流量绕过
-        if [ "$PROXY_VIRT" = "true" ]; then
+        if [ "$PROXY_VIRT" = "false" ]; then
             ip6tables -t mangle -I ${CHAIN_NAME}6 1 -i virbr0 -j RETURN
         fi
 
