@@ -99,8 +99,8 @@ dns:
     "geosite:cn":
       - https://dns.alidns.com/dns-query
   proxy-server-nameserver: # 用于解析代理节点的域名
-    - 223.5.5.5
-    - 119.29.29.29
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
   nameserver: # 默认域名解析，用于兜底 nameserver-policy 无法匹配的域名
     - https://8.8.8.8/dns-query#🥤 默认&ecs=114.114.114.114/24&ecs-override=true
 
