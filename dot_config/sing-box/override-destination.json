@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain": ["nmcheck.gnome.org", "career.hit.edu.cn"],
+      "domain_suffix": [],
+      "domain_regex": []
+    }
+  ]
+}
