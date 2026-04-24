@@ -473,6 +473,7 @@
     }
   ],
   "route": {
+    "default_http_client": "proxy",
     "default_domain_resolver": {
       "server": "domestic",
       "strategy": "prefer_ipv6",
@@ -761,5 +762,14 @@
       "secret": "",
       "default_mode": "rule"
     }
-  }
+  },
+  "http_clients": [
+    {
+      "tag": "direct"
+    },
+    {
+      "tag": "proxy",
+      "detour": "🥤 默认"
+    }
+  ]
 }

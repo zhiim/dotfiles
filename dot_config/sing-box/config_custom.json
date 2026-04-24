@@ -473,6 +473,7 @@
     }
   ],
   "route": {
+    "default_http_client": "proxy",
     "default_domain_resolver": {
       "server": "domestic",
       "strategy": "prefer_ipv6",
@@ -481,6 +482,10 @@
     "rules": [
       {
         "action": "sniff"
+      },
+      {
+        "rule_set": ["override_destination"],
+        "action": "sniff-override-destination"
       },
       {
         "action": "hijack-dns",
@@ -504,10 +509,6 @@
           "blacklist"
         ],
         "outbound": "🔴 BLOCK"
-      },
-      {
-        "rule_set": ["override_destination"],
-        "action": "sniff-override-destination"
       },
       {
         "action": "route",
@@ -774,5 +775,14 @@
       "default_mode": "rule"
     },
     "urltest_unified_delay": true
-  }
+  },
+  "http_clients": [
+    {
+      "tag": "direct"
+    },
+    {
+      "tag": "proxy",
+      "detour": "🥤 默认"
+    }
+  ]
 }
