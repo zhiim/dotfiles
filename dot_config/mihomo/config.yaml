@@ -400,10 +400,10 @@ rule-providers:
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"
   fakeip_filter:
     <<: *mrs
-    url: "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/mihomo/fakeip_filter.mrs"
+    url: "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/mihomo/rule_set/fakeip_filter.mrs"
   blacklist:
     <<: *mrs
-    url: "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/mihomo/blacklist.mrs"
+    url: "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/mihomo/rule_set/blacklist.mrs"
   direct_apps:
     type: inline
     behavior: classical
