@@ -92,7 +92,7 @@
         "server": "foreign"
       },
       {
-        "rule_set": ["google_domain", "geolocation-!cn"],
+        "rule_set": ["google_domain", "microsoft_domain", "geolocation-!cn"],
         "query_type": ["A", "AAAA"],
         "action": "route",
         "server": "fakeip",

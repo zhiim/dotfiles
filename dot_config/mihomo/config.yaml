@@ -78,6 +78,7 @@ dns:
     - RULE-SET,category_porn_domain,real-ip
     - RULE-SET,blacklist,real-ip
     - RULE-SET,google_domain,fake-ip
+    - RULE-SET,microsoft_domain,fake-ip
     - RULE-SET,geolocation-!cn,fake-ip
     - RULE-SET,cn_domain,real-ip
     - MATCH,fake-ip
@@ -94,7 +95,7 @@ dns:
       - rcode://success
     "rule-set:private_domain,fakeip_filter":
       - https://dns.alidns.com/dns-query
-    "rule-set:google_domain,geolocation-!cn":
+    "rule-set:google_domain,microsoft_domain,geolocation-!cn":
       - https://8.8.8.8/dns-query#🥤 默认
     "geosite:cn":
       - https://dns.alidns.com/dns-query
