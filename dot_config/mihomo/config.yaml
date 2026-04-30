@@ -63,6 +63,10 @@ geox-url: # 自定义GEO下载地址, 启用cdn加速下载
 # |                         DNS 设置                         |
 # +----------------------------------------------------------+
 
+hosts:
+  dns.alidns.com: [223.5.5.5, 223.6.6.6]
+  dns.google: [8.8.8.8, 8.8.4.4]
+
 dns:
   enable: true
   listen: 0.0.0.0:1053
@@ -88,7 +92,7 @@ dns:
     - 119.29.29.29
   nameserver-policy: # real-ip 的分流规则，国内外域名分流
     "sub.skky.indevs.in": # 国内可访问的境外 dns 解析订阅链接
-      - 8.8.8.8
+      - https://dns.alidns.com/dns-query
     "+.cloudflare-ech.com":
       - https://dns.alidns.com/dns-query
     "rule-set:blacklist,qiufen_ad_doamin":
@@ -98,14 +102,13 @@ dns:
     "rule-set:private_domain,fakeip_filter":
       - https://dns.alidns.com/dns-query
     "rule-set:google_domain,microsoft_domain,geolocation-!cn":
-      - https://8.8.8.8/dns-query#🥤 默认
+      - https://dns.google/dns-query#🥤 默认
     "geosite:cn":
       - https://dns.alidns.com/dns-query
   proxy-server-nameserver: # 用于解析代理节点的域名
     - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
   nameserver: # 默认域名解析，用于兜底 nameserver-policy 无法匹配的域名
-    - https://8.8.8.8/dns-query#🥤 默认&ecs=114.114.114.114/24&ecs-override=true
+    - https://dns.google/dns-query#🥤 默认&ecs=114.114.114.114/24&ecs-override=true
 
 # +----------------------------------------------------------+
 # |       域名嗅探，从流量中获取域名，从而使用域名规则       |
