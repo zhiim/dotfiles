@@ -89,6 +89,8 @@ dns:
   nameserver-policy: # real-ip 的分流规则，国内外域名分流
     "sub.skky.indevs.in": # 国内可访问的境外 dns 解析订阅链接
       - 8.8.8.8
+    "+.cloudflare-ech.com":
+      - https://dns.alidns.com/dns-query
     "rule-set:blacklist,qiufen_ad_doamin":
       - rcode://success # 通过不解析 dns 拦截
     "geosite:category-ads-all,category-porn":
