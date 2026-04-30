@@ -22,6 +22,8 @@ proxy-providers:
   main:
     <<: *p
     url: ""
+    override:
+      ip-version: ipv6-prefer
   fallback1:
     <<: *p
     url: ""
