@@ -95,8 +95,6 @@ dns:
   nameserver-policy: # real-ip 的分流规则，国内外域名分流
     "sub.skky.indevs.in": # 国内可访问的境外 dns 解析订阅链接
       - https://dns.alidns.com/dns-query
-    "+.cloudflare-ech.com":
-      - https://dns.alidns.com/dns-query
     "rule-set:blacklist,qiufen_ad_doamin":
       - rcode://success # 通过不解析 dns 拦截
     "geosite:category-ads-all,category-porn":
@@ -108,7 +106,7 @@ dns:
     "geosite:cn":
       - https://dns.alidns.com/dns-query
   proxy-server-nameserver: # 用于解析代理节点的域名
-    - https://dns.alidns.com/dns-query
+    - https://skky.cloudflare-gateway.com/dns-query
   nameserver: # 默认域名解析，用于兜底 nameserver-policy 无法匹配的域名
     - https://dns.google/dns-query#🥤 默认&ecs=114.114.114.114/24&ecs-override=true
 
