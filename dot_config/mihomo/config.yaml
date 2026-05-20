@@ -133,6 +133,7 @@ sniffer:
 
 mixed-port: 7890
 tproxy-port: 9898
+redir-port: 9797
 
 ## tun赋权  ##
 # Linux: sudo setcap cap_net_bind_service,cap_net_admin=+ep /path/to/clash
@@ -420,3 +421,4 @@ rule-providers:
       - PROCESS-PATH,/usr/bin/krdc
       - PROCESS-PATH-REGEX,\/tmp\/\.mount_linux.*\/qq
       - PROCESS-PATH-REGEX,\/opt\/wechat\/.*
+      - PROCESS-NAME,com.tencent.mm
