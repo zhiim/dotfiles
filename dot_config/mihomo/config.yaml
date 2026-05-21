@@ -278,7 +278,7 @@ proxy-groups:
     <<: *default
   - name: 🫙 Microsoft
     <<: *default
-  - name: 🍿 apple
+  - name: 🍿 Apple
     <<: *direct
   - name: 🧊 Google
     <<: *default
@@ -315,7 +315,7 @@ rules:
   - RULE-SET,github_domain,🍮 Github
   - RULE-SET,spotify_domain,🥛 Spotify
   - RULE-SET,microsoft_domain,🫙 Microsoft
-  - RULE-SET,apple_domain,🍿 apple
+  - RULE-SET,apple_domain,🍿 Apple
   - RULE-SET,google_domain,🧊 Google
   - RULE-SET,telegram_domain,🍭 Telegram
   - RULE-SET,youtube_domain,🧋 YouTube
