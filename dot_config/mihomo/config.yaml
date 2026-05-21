@@ -278,6 +278,8 @@ proxy-groups:
     <<: *default
   - name: 🫙 Microsoft
     <<: *default
+  - name: 🍿 apple
+    <<: *direct
   - name: 🧊 Google
     <<: *default
   - name: 🍭 Telegram
@@ -313,6 +315,7 @@ rules:
   - RULE-SET,github_domain,🍮 Github
   - RULE-SET,spotify_domain,🥛 Spotify
   - RULE-SET,microsoft_domain,🫙 Microsoft
+  - RULE-SET,apple_domain,🍿 apple
   - RULE-SET,google_domain,🧊 Google
   - RULE-SET,telegram_domain,🍭 Telegram
   - RULE-SET,youtube_domain,🧋 YouTube
@@ -366,6 +369,9 @@ rule-providers:
   microsoft_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"
+  apple_domain:
+    <<: *mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"
   google_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
