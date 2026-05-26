@@ -1,129 +1,33 @@
-// -*- mode: jsonc -*-
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
-    // Choose the order of the modules
+    "include": [
+        "~/.config/waybar/modules.jsonc"
+    ],
+    "layer":"top",
+    "position": "top",
+    "fixed-center": true,
+    "reload_style_on_change": true,
     "modules-left": [
-        "hyprland/window",
-        "network#speed",
+        "custom/applauncher",
+        "custom/screenshot",
+        "mpris",
+	"custom/clipboard",
+        "niri/window",
+        "network#speed"
     ],
     "modules-center": [
-        "hyprland/workspaces"
+        "niri/workspaces",
     ],
     "modules-right": [
         "tray",
-        "custom/power_profile",
         "cpu",
         "memory",
-        "pulseaudio",
+        "group/backlight",
+        "group/audio",
         "bluetooth",
-        "backlight",
         "network",
         "battery",
-        "clock"
+        "power-profiles-daemon",
+        "clock",
+        "group/powermenu"
     ],
-    // Modules configuration
-    "hyprland/window": {
-      "format": " {initialTitle}"  
-    },
-    "network#speed": {
-        "format": " {bandwidthDownBytes}  {bandwidthUpBytes}",
-        "interval": 1
-    },
-    "hyprland/workspaces": {
-        "format": "{name}",
-        "format-icons": {
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        },
-        "on-click": "activate",
-        "on-scroll-up": "hyprctl dispatch workspace e+1",
-        "on-scroll-down": "hyprctl dispatch workspace e-1"
-    },
-    "tray": {
-        // "icon-size": 21,
-        "spacing": 10
-        // "icons": {
-        //   "blueman": "bluetooth",
-        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
-        // }
-    },
-    "custom/power_profile": {
-        "exec": "bash ~/.config/waybar/scripts/power_profile.sh",
-        "return-type": "json",
-        "interval": 2,
-        "format": "{text}"
-    },
-    "cpu": {
-        "format": " {usage}%"
-    },
-    "memory": {
-        "format": " {}%"
-    },
-    "pulseaudio": {
-        "scroll-step": 5, // %, can be a float
-        "format": "{icon} {volume}% {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "󰏶",
-            "headset": "",
-            "phone": "",
-            "portable": "󰄜",
-            "car": "",
-            "default": ["", "", ""]
-        }
-    },
-    "bluetooth": {
-        "format": " {status}",
-        "format-disabled": "", // an empty format will hide the module
-        "format-connected": " {device_alias}",
-        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
-        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{icon} {percent}%",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
-    },
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{icon} ({signalStrength}%)",
-        "format-ethernet": " {ifname}",
-        "tooltip-format": "󰔣 {ifname} via {gwaddr}",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-        "format-linked": " {ifname} (No IP)",
-        "format-disconnected": "⚠ Disconnected",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"]
-    },
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-full": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt": "{icon} {time}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-        "clock": {
-        // "timezone": "America/New_York",
-        "tooltip-format": "<big>{:%Y %B %d}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
-    }
 }

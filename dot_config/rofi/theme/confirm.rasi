@@ -1,0 +1,122 @@
+/*****----- Configuration -----*****/
+configuration {
+    show-icons:                 false;
+}
+
+@import                          "./colors.rasi"
+
+/*****----- Global Properties (Fonts & Colors) -----*****/
+* {
+    font:                        "JetBrainsMono Nerd Font 14";
+}
+
+/*****----- Main Window -----*****/
+window {
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    fullscreen:                  false;
+    width:                       320px;     /* 【修改】总宽度从 400px 缩小到 320px */
+    x-offset:                    0px;
+    y-offset:                    0px;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      1px solid;
+    border-radius:               12px;
+    border-color:                @selected;
+    cursor:                      "default";
+    background-color:            @background;
+}
+
+/*****----- Main Box -----*****/
+mainbox {
+    enabled:                     true;
+    spacing:                     15px;      /* 【修改】标题和按钮的间距稍微缩紧 */
+    margin:                      0px;
+    padding:                     20px;      /* 【修改】整体外边距稍微缩紧 */
+    background-color:            transparent;
+    children:                    [ "inputbar", "listview" ]; 
+}
+
+/*****----- Inputbar (Used as Title) -----*****/
+inputbar {
+    enabled:                     true;
+    spacing:                     0px;
+    padding:                     12px;
+    border:                      0px;
+    border-radius:               8px;
+    background-color:            @active;
+    text-color:                  var(selected-foreground);
+    children:                    [ "dummy", "prompt", "dummy" ]; 
+}
+
+dummy {
+    background-color:            transparent;
+    expand:                      true;
+}
+
+prompt {
+    enabled:                     true;
+    background-color:            transparent;
+    text-color:                  inherit;
+    font:                        "JetBrainsMono Nerd Font Bold 14";
+}
+
+/*****----- Listview (Used as Buttons) -----*****/
+listview {
+    enabled:                     true;
+    columns:                     2; 
+    lines:                       1; 
+    cycle:                       true;
+    scrollbar:                   false;
+    layout:                      vertical;
+
+    spacing:                     15px;      /* 【修改】两个按钮之间的间距稍微缩紧 */
+    background-color:            transparent;
+    cursor:                      "default";
+}
+
+/*****----- Elements (Square Buttons) -----*****/
+element {
+    enabled:                     true;
+    padding:                     10px 0px;  /* 【核心修改】大幅减少上下边距，消除空旷感 */
+    border:                      1px solid;
+    border-radius:               12px;
+    border-color:                @background-alt; 
+    background-color:            @background-alt;
+    text-color:                  @foreground;
+    cursor:                      pointer;
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5; 
+    font:                        "JetBrainsMono Nerd Font 40"; /* 【修改】字体稍微加大，配合变小的按钮，视觉上更饱满 */
+}
+
+/* --- 按钮状态样式 --- */
+element normal.normal,
+element alternate.normal {
+    background-color:            var(background-alt);
+    text-color:                  var(foreground);
+}
+element normal.urgent,
+element alternate.urgent,
+element selected.active {
+    background-color:            var(urgent);
+    text-color:                  var(background);
+}
+element normal.active,
+element alternate.active,
+element selected.urgent {
+    background-color:            var(active);
+    text-color:                  var(background);
+}
+element selected.normal {
+    background-color:            var(selected);
+    text-color:                  var(selected-foreground);
+    border-color:                var(selected);
+}

@@ -1,0 +1,13 @@
+/* * ~/.config/rofi/colors.rasi.template
+ * Matugen template for Rofi
+ */
+
+* {
+    background:                  #18120bFF;
+    background-alt:              #3b342bFF;
+    foreground:                  #ede0d4FF;
+    selected-foreground:         #452b00FF;
+    selected:                    #f5bc6fFF;
+    active:                      #b9cda0FF;
+    urgent:                      #ffb4abFF;
+}
