@@ -11,15 +11,15 @@ layout {
 
     focus-ring {
         width 3
-        active-color "#2b638b"
-        inactive-color "#72787e"
-        urgent-color   "#ba1a1a"
+        active-color "#99ccf9"
+        inactive-color "#8c9198"
+        urgent-color   "#ffb4ab"
     }
 
     border {
-        active-color   "#2b638b"
-        inactive-color "#72787e"
-        urgent-color   "#ba1a1a"
+        active-color   "#99ccf9"
+        inactive-color "#8c9198"
+        urgent-color   "#ffb4ab"
     }
 }
 
