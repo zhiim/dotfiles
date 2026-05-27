@@ -25,7 +25,7 @@ configuration {
 /*	drun-categories: ;*/
 /*	drun-exclude-categories: ;*/
 /*	drun-show-actions: false;*/
-	drun-display-format: "[<span weight='bold'>{name}</span>][<span weight='light'><i>({generic})</i></span>]  [<span weight='light' size='small'>{comment}</span>]";
+	drun-display-format: "[<span weight='bold'>{name}</span>][<span weight='light'><i>({generic})</i></span>]";
 /*	drun-url-launcher: "xdg-open";*/
 /*	disable-history: false;*/
 /*	ignored-prefixes: "";*/
