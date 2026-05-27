@@ -60,6 +60,10 @@ table ip proxy_tproxy {
 
         $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
 
+        $( if [ "$PROXY_MODE" = "mihomo" ]; then
+            echo "meta l4proto { tcp, udp } th dport 53 return"
+        fi )
+
         # 3. 绕过本机所有公网/局域网 IP
         fib daddr type local return
 
@@ -86,6 +90,10 @@ table ip proxy_tproxy {
         meta mark 0x40000 return
         ip daddr 100.64.0.0/10 return
 
+        $( if [ "$PROXY_MODE" = "mihomo" ]; then
+            echo "meta l4proto { tcp, udp } th dport 53 return"
+        fi )
+
         # 3. 绕过本机 IP
         fib daddr type local return
 
@@ -108,7 +116,7 @@ table ip proxy_tproxy {
 table ip proxy_mihomo_dns {
     # 局域网发往本机的 DNS 请求
     chain prerouting {
-        type nat hook prerouting priority -155; policy accept;
+        type nat hook prerouting priority dstnat; policy accept;
         iifname \"tailscale0\" return
         ip daddr 100.64.0.0/10 return
         $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
@@ -116,7 +124,7 @@ table ip proxy_mihomo_dns {
     }
     # 本机发出的 DNS 请求
     chain output {
-        type nat hook output priority -155; policy accept;
+        type nat hook output priority dstnat; policy accept;
         meta mark 0x40000 return
         ip daddr 100.64.0.0/10 return
         skuid \"$PROXY_USER\" return
@@ -153,6 +161,10 @@ table ip6 proxy_tproxy {
 
         $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
 
+        $( if [ "$PROXY_MODE" = "mihomo" ]; then
+            echo "meta l4proto { tcp, udp } th dport 53 return"
+        fi )
+
         fib daddr type local return
 
         $( if [ "$PROXY_MODE" = "singbox" ]; then
@@ -172,6 +184,10 @@ table ip6 proxy_tproxy {
         meta mark 0x40000 return
         ip6 daddr fd7a:115c:a1e0::/48 return
 
+        $( if [ "$PROXY_MODE" = "mihomo" ]; then
+            echo "meta l4proto { tcp, udp } th dport 53 return"
+        fi )
+
         fib daddr type local return
 
         $( if [ "$PROXY_MODE" = "singbox" ]; then
@@ -188,14 +204,14 @@ table ip6 proxy_tproxy {
         nft_config="$nft_config
 table ip6 proxy_mihomo_dns {
     chain prerouting {
-        type nat hook prerouting priority -155; policy accept;
+        type nat hook prerouting priority dstnat; policy accept;
         iifname \"tailscale0\" return
         ip6 daddr fd7a:115c:a1e0::/48 return
         $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
         meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT
     }
     chain output {
-        type nat hook output priority -155; policy accept;
+        type nat hook output priority dstnat; policy accept;
         meta mark 0x40000 return
         ip6 daddr fd7a:115c:a1e0::/48 return
         skuid \"$PROXY_USER\" return
