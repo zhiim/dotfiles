@@ -3,11 +3,12 @@
  */
 
 * {
-    background:                  #18120bFF;
-    background-alt:              #3b342bFF;
-    foreground:                  #ede0d4FF;
-    selected-foreground:         #452b00FF;
-    selected:                    #f5bc6fFF;
-    active:                      #b9cda0FF;
+    background:                  #101418FF;
+    background-alt:              #313539FF;
+    foreground:                  #e0e2e8FF;
+    selected-foreground:         #003351FF;
+    selected:                    #99ccf9FF;
+    outline:                     #8c9198FF;
+    active:                      #d1bfe7FF;
     urgent:                      #ffb4abFF;
 }

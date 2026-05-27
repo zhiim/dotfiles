@@ -1,7 +1,7 @@
 @import "./colors.rasi"
 
 * {
-    font: "Montserrat 9";
+    font: "JetBrainsMono Nerd Font Mono 14";
 
     bg0:  #242424A9;
     bg1:  #363636;

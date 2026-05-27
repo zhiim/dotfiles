@@ -7,7 +7,7 @@ configuration {
 
 /*****----- Global Properties (Fonts & Colors) -----*****/
 * {
-    font:                        "JetBrainsMono Nerd Font 14";
+    font:                        "JetBrainsMono Nerd Font Mono 14";
 }
 
 /*****----- Main Window -----*****/
@@ -16,14 +16,14 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       320px;     /* 【修改】总宽度从 400px 缩小到 320px */
+    width:                       260px;     /* 【修改】总宽度从 400px 缩小到 320px */
     x-offset:                    0px;
     y-offset:                    0px;
     margin:                      0px;
     padding:                     0px;
-    border:                      1px solid;
+    border:                      2px solid;
     border-radius:               12px;
-    border-color:                @selected;
+    border-color:                @outline;
     cursor:                      "default";
     background-color:            @background;
 }
@@ -59,7 +59,7 @@ prompt {
     enabled:                     true;
     background-color:            transparent;
     text-color:                  inherit;
-    font:                        "JetBrainsMono Nerd Font Bold 14";
+    font:                        "JetBrainsMono Nerd Font Mono Bold 14";
 }
 
 /*****----- Listview (Used as Buttons) -----*****/
@@ -71,7 +71,7 @@ listview {
     scrollbar:                   false;
     layout:                      vertical;
 
-    spacing:                     15px;      /* 【修改】两个按钮之间的间距稍微缩紧 */
+    spacing:                     30px;      /* 【修改】两个按钮之间的间距稍微缩紧 */
     background-color:            transparent;
     cursor:                      "default";
 }
@@ -94,7 +94,7 @@ element-text {
     cursor:                      inherit;
     vertical-align:              0.5;
     horizontal-align:            0.5; 
-    font:                        "JetBrainsMono Nerd Font 40"; /* 【修改】字体稍微加大，配合变小的按钮，视觉上更饱满 */
+    font:                        "JetBrainsMono Nerd Font Mono 40"; /* 【修改】字体稍微加大，配合变小的按钮，视觉上更饱满 */
 }
 
 /* --- 按钮状态样式 --- */
