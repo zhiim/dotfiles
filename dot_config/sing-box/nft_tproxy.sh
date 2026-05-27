@@ -10,7 +10,7 @@ FWMARK="1"
 ENABLE_IPV6="true"
 TABLE_V4="100"
 TABLE_V6="101"
-PROXY_VIRT="true"  # 是否带离 libvirt 流量
+PROXY_VIRT="true"  # 是否代理 libvirt 流量
 
 if [ "$PROXY_MODE" = "singbox" ]; then
     PROXY_USER="singbox"
@@ -37,11 +37,13 @@ fi
 apply_nft_rules_v4() {
     local nft_config="
 table ip proxy_tproxy {
+    # 保留地址需要绕过
     set reserved_v4 {
         type ipv4_addr
         flags interval
         elements = { 10.0.0.0/8, 127.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 224.0.0.0/4, 255.255.255.255/32 }
     }
+    # 可能为上游网关的 DNS 地址
     set nat_v4 {
         type ipv4_addr
         flags interval
@@ -55,29 +57,28 @@ table ip proxy_tproxy {
         # 1. DIVERT：处理已建立连接的包，优化性能
         meta l4proto tcp socket transparent 1 meta mark set $FWMARK accept
 
-        # 2. 绕过 tailscale 和 libvirt
+        # 2. 绕过 tailscale
         iifname \"tailscale0\" return
         ip daddr 100.64.0.0/10 return
 
-        # 绕过 libvirt 流量走 redir
+        # 3. 绕过 libvirt，让 libvirt 流量走后续的 redir
         iifname \"virbr0\" return
 
+        # 4. DNS 劫持逻辑：sing-box 直接劫持发往局域网的 DNS 流量，mihomo 则直接绕过由后续处理
+        $( if [ "$PROXY_MODE" = "singbox" ]; then
+            echo "ip daddr @nat_v4 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK tproxy to :$TPROXY_PORT"
+        fi )
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 return"
         fi )
 
-        # 3. 绕过本机所有公网/局域网 IP
+        # 5. 绕过本机所有公网/局域网 IP
         fib daddr type local return
 
-        # 4. Sing-box DNS 劫持逻辑 (劫持发往局域网 IP 的 DNS 请求)
-        $( if [ "$PROXY_MODE" = "singbox" ]; then
-            echo "ip daddr @nat_v4 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK tproxy to :$TPROXY_PORT"
-        fi )
-
-        # 5. 绕过发往保留地址的普通流量
+        # 6. 绕过发往保留地址的普通流量
         ip daddr @reserved_v4 return
 
-        # 6. TPROXY 接管剩余所有公网流量
+        # 7. TPROXY 接管剩余所有公网流量
         meta l4proto { tcp, udp } meta mark set $FWMARK tproxy to :$TPROXY_PORT
     }
 
@@ -92,17 +93,16 @@ table ip proxy_tproxy {
         meta mark 0x40000 return
         ip daddr 100.64.0.0/10 return
 
+        # 3. DNS 本机劫持逻辑
+        $( if [ "$PROXY_MODE" = "singbox" ]; then
+            echo "ip daddr @nat_v4 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK"
+        fi )
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 return"
         fi )
 
-        # 3. 绕过本机 IP
+        # 4. 绕过本机 IP
         fib daddr type local return
-
-        # 4. Sing-box DNS 本机劫持逻辑
-        $( if [ "$PROXY_MODE" = "singbox" ]; then
-            echo "ip daddr @nat_v4 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK"
-        fi )
 
         # 5. 绕过保留地址
         ip daddr @reserved_v4 return
@@ -110,31 +110,36 @@ table ip proxy_tproxy {
         # 6. 为本机发出的公网流量打标签以交由策略路由处理
         meta l4proto { tcp, udp } meta mark set $FWMARK
     }
-}"
-
-    # 若使用 Mihomo，额外追加 NAT 表用于 DNS 重定向
-    if [ "$PROXY_MODE" = "mihomo" ]; then
-        nft_config="$nft_config
-table ip proxy_mihomo_dns {
-    # 局域网发往本机的 DNS 请求
+}
+# proxy_tproxy table 绕过的流量将进入 proxy_redir
+table ip proxy_redir {
+    set reserved_v4 {
+        type ipv4_addr
+        flags interval
+        elements = { 10.0.0.0/8, 127.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 224.0.0.0/4, 255.255.255.255/32 }
+    }
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
         iifname \"tailscale0\" return
         ip daddr 100.64.0.0/10 return
         $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
-        meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT
+        $( if [ "$PROXY_MODE" = "mihomo" ]; then
+            echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
+        fi )
+        fib daddr type local return
+        ip daddr @reserved_v4 return
         meta l4proto tcp redirect to :$REDIRECT_PORT
     }
-    # 本机发出的 DNS 请求
     chain output {
         type nat hook output priority dstnat; policy accept;
         skuid \"$PROXY_USER\" return
         meta mark 0x40000 return
         ip daddr 100.64.0.0/10 return
-        meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT
+        $( if [ "$PROXY_MODE" = "mihomo" ]; then
+            echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
+        fi )
     }
 }"
-    fi
 
     # 应用规则
     echo "$nft_config" | nft -f -
@@ -162,17 +167,16 @@ table ip6 proxy_tproxy {
         iifname \"tailscale0\" return
         ip6 daddr fd7a:115c:a1e0::/48 return
 
-        $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
+        iifname \"virbr0\" return
 
+        $( if [ "$PROXY_MODE" = "singbox" ]; then
+            echo "ip6 daddr @nat_v6 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK tproxy to :$TPROXY_PORT"
+        fi )
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 return"
         fi )
 
         fib daddr type local return
-
-        $( if [ "$PROXY_MODE" = "singbox" ]; then
-            echo "ip6 daddr @nat_v6 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK tproxy to :$TPROXY_PORT"
-        fi )
 
         ip6 daddr @reserved_v6 return
 
@@ -187,41 +191,48 @@ table ip6 proxy_tproxy {
         meta mark 0x40000 return
         ip6 daddr fd7a:115c:a1e0::/48 return
 
+        $( if [ "$PROXY_MODE" = "singbox" ]; then
+            echo "ip6 daddr @nat_v6 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK"
+        fi )
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 return"
         fi )
 
         fib daddr type local return
 
-        $( if [ "$PROXY_MODE" = "singbox" ]; then
-            echo "ip6 daddr @nat_v6 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK"
-        fi )
-
         ip6 daddr @reserved_v6 return
 
         meta l4proto { tcp, udp } meta mark set $FWMARK
     }
-}"
-
-    if [ "$PROXY_MODE" = "mihomo" ]; then
-        nft_config="$nft_config
-table ip6 proxy_mihomo_dns {
+}
+table ip6 proxy_redir {
+    set reserved_v6 {
+        type ipv6_addr
+        flags interval
+        elements = { ::1/128, fc00::/7, fe80::/10, ff00::/8 }
+    }
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
         iifname \"tailscale0\" return
         ip6 daddr fd7a:115c:a1e0::/48 return
         $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
-        meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT
+        $( if [ "$PROXY_MODE" = "mihomo" ]; then
+            echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
+        fi )
+        fib daddr type local return
+        ip6 daddr @reserved_v6 return
+        meta l4proto tcp redirect to :$REDIRECT_PORT
     }
     chain output {
         type nat hook output priority dstnat; policy accept;
         skuid \"$PROXY_USER\" return
         meta mark 0x40000 return
         ip6 daddr fd7a:115c:a1e0::/48 return
-        meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT
+        $( if [ "$PROXY_MODE" = "mihomo" ]; then
+            echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
+        fi )
     }
 }"
-    fi
 
     echo "$nft_config" | nft -f -
 }
@@ -272,11 +283,11 @@ stop() {
 
     echo "▶ 卸载 nftables 代理表..."
     nft delete table ip proxy_tproxy 2>/dev/null || true
-    nft delete table ip proxy_mihomo_dns 2>/dev/null || true
+    nft delete table ip proxy_redir 2>/dev/null || true
 
     if [ "$ENABLE_IPV6" = "true" ]; then
         nft delete table ip6 proxy_tproxy 2>/dev/null || true
-        nft delete table ip6 proxy_mihomo_dns 2>/dev/null || true
+        nft delete table ip6 proxy_redir 2>/dev/null || true
     fi
 
     echo "▶ 关闭 ${SERVICE_NAME} 服务..."
