@@ -5,6 +5,7 @@
 # ==========================================
 PROXY_MODE="singbox"
 TPROXY_PORT="9898"
+REDIRECT_PORT="9797"
 FWMARK="1"
 ENABLE_IPV6="true"
 TABLE_V4="100"
@@ -58,7 +59,8 @@ table ip proxy_tproxy {
         iifname \"tailscale0\" return
         ip daddr 100.64.0.0/10 return
 
-        $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
+        # 绕过 libvirt 流量走 redir
+        iifname \"virbr0\" return
 
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 return"
@@ -121,13 +123,14 @@ table ip proxy_mihomo_dns {
         ip daddr 100.64.0.0/10 return
         $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
         meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT
+        meta l4proto tcp redirect to :$REDIRECT_PORT
     }
     # 本机发出的 DNS 请求
     chain output {
         type nat hook output priority dstnat; policy accept;
+        skuid \"$PROXY_USER\" return
         meta mark 0x40000 return
         ip daddr 100.64.0.0/10 return
-        skuid \"$PROXY_USER\" return
         meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT
     }
 }"
@@ -212,9 +215,9 @@ table ip6 proxy_mihomo_dns {
     }
     chain output {
         type nat hook output priority dstnat; policy accept;
+        skuid \"$PROXY_USER\" return
         meta mark 0x40000 return
         ip6 daddr fd7a:115c:a1e0::/48 return
-        skuid \"$PROXY_USER\" return
         meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT
     }
 }"
