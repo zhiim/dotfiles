@@ -5,43 +5,43 @@ if ! command -v notify-send &> /dev/null || ! command -v xdg-open &> /dev/null; 
     exit 1
 fi
 
-LAST_CHECK_TIME=0
-COOLDOWN=2
 PORTAL_URL="http://connect.rom.miui.com/generate_204"
+LOCK_DIR="/tmp/wifi_portal_check.lock"  # 目录锁，确保 wifi 认证通知和点击反馈的原子性
 
 check_portal() {
-    local current_time
-    current_time=$(date +%s)
+    # 使用后台子shell执行，避免阻塞
+    (
+        # 如果无法创建锁目录，直接退出
+        if ! mkdir "$LOCK_DIR" 2>/dev/null; then
+            exit 0
+        fi
+        # 确保子shell退出时释放锁
+        trap 'rmdir "$LOCK_DIR" 2>/dev/null' EXIT
 
-    # 防抖逻辑
-    if (( current_time - LAST_CHECK_TIME > COOLDOWN )); then
-        LAST_CHECK_TIME=$current_time
+        sleep 1
+        # 强制检查当前网络状态
+        STATE=$(nmcli networking connectivity check)
+        echo "当前网络状态: $STATE"
 
-        # 使用后台子shell执行，避免阻塞
-        (
-            sleep 1
-            # 强制检查当前网络状态
-            STATE=$(nmcli networking connectivity check)
-            echo "当前网络状态: $STATE"
+        if [ "$STATE" = "portal" ]; then
+            echo "WIFI 需要认证..."
+            ACTION=$(notify-send \
+                -a "网络管理" \
+                -u critical \
+                -i network-manager \
+                -t 0 \
+                -w \
+                -A "default=打开认证" \
+                "Wi-Fi 认证" "当前连接需要网页登录。点击此通知打开认证页面。")
 
-            if [ "$STATE" = "portal" ]; then
-                echo "WIFI 需要认证..."
-                ACTION=$(notify-send \
-                    -a "网络管理" \
-                    -u critical \
-                    -i network-manager \
-                    -t 0 \
-                    -w \
-                    -A "default=打开认证" \
-                    "Wi-Fi 认证" "当前连接需要网页登录。点击此通知打开认证页面。")
-
-                if [ "$ACTION" = "default" ]; then
-                    xdg-open "$PORTAL_URL"
-                fi
+            if [ "$ACTION" = "default" ]; then
+                xdg-open "$PORTAL_URL"
             fi
-        ) &
-    fi
+        fi
+    ) &
 }
+
+rm -rf "$LOCK_DIR"
 
 echo "网络认证监听脚本已启动..."
 
