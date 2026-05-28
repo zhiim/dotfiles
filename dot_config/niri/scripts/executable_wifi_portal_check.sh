@@ -30,7 +30,7 @@ check_portal() {
                     -a "网络管理" \
                     -u critical \
                     -i network-manager \
-                    -t 15000 \
+                    -t 0 \
                     -w \
                     -A "default=打开认证" \
                     "Wi-Fi 认证" "当前连接需要网页登录。点击此通知打开认证页面。")
