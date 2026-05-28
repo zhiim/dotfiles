@@ -51,28 +51,15 @@
   "tray": {
     "spacing": 7,
   },
-  "cpu": {
-    "format": "{usage}%",
-    "on-click": "wezterm --config enable_tab_bar=false start --always-new-process --class btop -- btop",
-  },
-  "memory": {
-    "format": "{percentage}%",
-    "on-click": "wezterm --config enable_tab_bar=false start --always-new-process --class btop -- btop",
-  },
   "group/screen": {
     "orientation": "inherit",
     "drawer": {
       "transition-left-to-right": false,
     },
     "modules": [
-      "custom/backlight-icon",
-      "backlight/slider",
-      "backlight"
+      "backlight",
+      "backlight/slider"
     ],
-  },
-  "custom/backlight-icon": {
-    "tooltip": false,
-    "format": "󰃠",
   },
   "backlight": {
     "tooltip": true,
@@ -139,6 +126,13 @@
     "tooltip-format-disconnected": "网络未连接\n---\n左键：打开面板",
     "on-click": "wezterm --config enable_tab_bar=false --config initial_cols=60 start --always-new-process --class wlctl -- wlctl",
   },
+  "group/performance": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-left-to-right": false,
+    },
+    "modules": ["battery", "cpu", "memory", "power-profiles-daemon"],
+  },
   "battery": {
     "interval": 60,
     "states": {
@@ -158,6 +152,14 @@
       "balanced": "",
       "power-saver": "",
     },
+  },
+  "cpu": {
+    "format": "{usage}%",
+    "on-click": "wezterm --config enable_tab_bar=false start --always-new-process --class btop -- btop",
+  },
+  "memory": {
+    "format": "{percentage}%",
+    "on-click": "wezterm --config enable_tab_bar=false start --always-new-process --class btop -- btop",
   },
   "clock": {
     "interval": 60,

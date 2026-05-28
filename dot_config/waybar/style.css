@@ -108,49 +108,20 @@ window#waybar.empty #window {
   margin: 5px 3px 5px 3px;
 }
 
-#cpu,
-#memory {
-  background-color: @surface_container_high;
-  color: @tertiary;
-  padding: 0px 5px;
-  margin: 5px 0px 5px 0px;
-}
-
-#cpu {
-  border-radius: 5px 0px 0px 5px;
-  margin: 5px 0px 5px 3px;
-}
-
-#memory {
-  border-radius: 0px 5px 5px 0px;
-  margin: 5px 3px 5px 0px;
-}
-
-#custom-backlight-icon,
 #backlight,
 #backlight-slider {
   background-color: @surface_container_high;
   color: @secondary;
 }
 
-#custom-backlight-icon {
+#backlight {
   padding: 0px 5px;
   margin: 5px 3px 5px 3px;
 }
 
-#backlight,
 #backlight-slider {
   padding: 0px 5px;
-}
-
-#backlight {
-  margin: 8px 3px 8px 0px;
-  border-radius: 0px 5px 5px 0px;
-}
-
-#backlight-slider {
-  margin: 8px 0px 8px 3px;
-  border-radius: 5px 0px 0px 5px;
+  margin: 8px 3px 8px 3px;
 }
 
 #backlight-slider slider {
@@ -213,6 +184,57 @@ window#waybar.empty #window {
   background: @secondary;
 }
 
+#battery {
+  padding: 0px 5px;
+  margin: 5px 3px 5px 3px;
+}
+
+#battery {
+  background-color: @surface_container_high;
+  color: @tertiary;
+}
+
+#battery.critical:not(.charging) {
+  background-color: @error;
+  color: @on_error;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#cpu,
+#memory,
+#power-profiles-daemon {
+  background-color: @surface_container_high;
+  color: @tertiary;
+  padding: 0px 5px;
+}
+
+#cpu {
+  border-radius: 5px 0px 0px 5px;
+  margin: 5px 0px 5px 3px;
+}
+
+#memory {
+  border-radius: 0px 0px 0px 0px;
+  margin: 5px 0px 5px 0px;
+}
+
+#power-profiles-daemon {
+  border-radius: 0px 5px 5px 0px;
+  margin: 5px 3px 5px 0px;
+}
+
+#power-profiles-daemon.performance {
+  color: @error;
+}
+
+#power-profiles-daemon.power-saver {
+  color: #1aa052;
+}
+
 #network,
 #bluetooth {
   background-color: @surface_container_high;
@@ -229,43 +251,6 @@ window#waybar.empty #window {
 #network {
   border-radius: 0px 5px 5px 0px;
   margin: 5px 3px 5px 0px;
-}
-
-#battery,
-#power-profiles-daemon {
-  background-color: @surface_container_high;
-  color: @secondary;
-  padding: 0px 5px;
-  margin: 5px 0px 5px 0px;
-}
-
-#battery {
-  border-radius: 5px 0px 0px 5px;
-  margin: 5px 0px 5px 3px;
-}
-
-#power-profiles-daemon {
-  color: @tertiary;
-  border-radius: 0px 5px 5px 0px;
-  margin: 5px 3px 5px 0px;
-}
-
-#power-profiles-daemon.performance {
-  color: @error;
-}
-
-#power-profiles-daemon.power-saver {
-  color: #1aa052;
-}
-
-#battery.critical:not(.charging) {
-  background-color: @error;
-  color: @on_error;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: steps(12);
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
 
 #clock {

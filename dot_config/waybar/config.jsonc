@@ -19,14 +19,11 @@
     ],
     "modules-right": [
         "tray",
-        "cpu",
-        "memory",
         "group/screen",
         "group/audio",
+        "group/performance",
         "bluetooth",
         "network",
-        "battery",
-        "power-profiles-daemon",
         "clock",
         "group/powermenu"
     ],
