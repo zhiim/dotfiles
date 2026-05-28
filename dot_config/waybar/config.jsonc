@@ -21,7 +21,7 @@
         "tray",
         "cpu",
         "memory",
-        "group/backlight",
+        "group/screen",
         "group/audio",
         "bluetooth",
         "network",

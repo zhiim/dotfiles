@@ -183,6 +183,8 @@ window-rule {
     match app-id="btop"
     match app-id="calcure"
     match app-id="virt-manager"
+    match app-id="org.telegram.desktop"
+    match app-id="peazip"
 
     open-floating true
 }
@@ -436,8 +438,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+X       { toggle-window-floating; }
-    Mod+Shift+X { switch-focus-between-floating-and-tiling; }
+    Mod+N       { toggle-window-floating; }
+    Mod+Shift+N { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,

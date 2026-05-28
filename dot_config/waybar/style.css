@@ -126,20 +126,31 @@ window#waybar.empty #window {
   margin: 5px 3px 5px 0px;
 }
 
+#custom-backlight-icon,
 #backlight,
 #backlight-slider {
   background-color: @surface_container_high;
   color: @secondary;
 }
 
-#backlight {
-  padding: 0px 3px;
+#custom-backlight-icon {
+  padding: 0px 5px;
   margin: 5px 3px 5px 3px;
 }
 
+#backlight,
 #backlight-slider {
   padding: 0px 5px;
-  margin: 8px 3px 8px 3px;
+}
+
+#backlight {
+  margin: 8px 3px 8px 0px;
+  border-radius: 0px 5px 5px 0px;
+}
+
+#backlight-slider {
+  margin: 8px 0px 8px 3px;
+  border-radius: 5px 0px 0px 5px;
 }
 
 #backlight-slider slider {
