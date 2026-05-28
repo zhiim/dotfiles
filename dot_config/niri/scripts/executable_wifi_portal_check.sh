@@ -6,7 +6,7 @@ if ! command -v notify-send &> /dev/null || ! command -v xdg-open &> /dev/null; 
 fi
 
 LAST_CHECK_TIME=0
-COOLDOWN=5
+COOLDOWN=2
 PORTAL_URL="http://connect.rom.miui.com/generate_204"
 
 check_portal() {

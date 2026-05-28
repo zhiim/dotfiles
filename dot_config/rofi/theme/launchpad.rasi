@@ -1,7 +1,7 @@
 @import "./colors.rasi"
 
 * {
-    font: "JetBrainsMono Nerd Font Mono 14";
+    font: "JetBrainsMono Nerd Font Propo 14";
 
     bg0:  #242424A9;
     bg1:  #363636;
