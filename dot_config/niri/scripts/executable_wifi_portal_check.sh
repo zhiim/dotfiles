@@ -18,7 +18,6 @@ check_portal() {
         # 确保子shell退出时释放锁
         trap 'rmdir "$LOCK_DIR" 2>/dev/null' EXIT
 
-        sleep 1
         # 强制检查当前网络状态
         STATE=$(nmcli networking connectivity check)
         echo "当前网络状态: $STATE"
@@ -35,7 +34,7 @@ check_portal() {
                 "Wi-Fi 认证" "当前连接需要网页登录。点击此通知打开认证页面。")
 
             if [ "$ACTION" = "default" ]; then
-                xdg-open "$PORTAL_URL"
+                systemd-run --user xdg-open "$PORTAL_URL"
             fi
         fi
     ) &
