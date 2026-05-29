@@ -27,7 +27,7 @@ tooltip label {
 
 #custom-applauncher {
   padding: 0px 5px;
-  margin: 5px 5px 5px 3px;
+  margin: 5px 3px 5px 3px;
   background-color: @primary;
   color: @on_primary;
 }
@@ -63,7 +63,7 @@ tooltip label {
 }
 
 #window label {
-  font-size: 0.89em; /* 原 16px */
+  font-size: 0.8em; /* 原 16px */
 }
 
 window#waybar.empty #window {
