@@ -184,6 +184,7 @@ window-rule {
     match app-id="peazip"
     match app-id="org.remmina.Remmina"
     match app-id="antigravity"
+    match app-id="io.github.xiaoyifang.goldendict_ng"
 
     open-floating true
 }
@@ -208,6 +209,7 @@ binds {
     Mod+D hotkey-overlay-title="Run an Application: Rofi" { spawn "rofi" "-show" "drun"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
     Super+V { spawn-sh "rofi -modi clipboard:/home/xu/.local/bin/cliphist-rofi-img -show clipboard -show-icons"; }
+    Super+X { spawn-sh "goldendict $(wl-paste --primary)"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -242,33 +244,33 @@ binds {
     Mod+Q repeat=false { close-window; }
 
     Mod+Left  { focus-column-left; }
-    // Mod+Down  { focus-window-down; }
-    // Mod+Up    { focus-window-up; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
     Mod+Right { focus-column-right; }
     Mod+H     { focus-column-left; }
-    // Mod+J     { focus-window-down; }
-    // Mod+K     { focus-window-up; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
     Mod+L     { focus-column-right; }
 
     Mod+Ctrl+Left  { move-column-left; }
-    // Mod+Ctrl+Down  { move-window-down; }
-    // Mod+Ctrl+Up    { move-window-up; }
+    Mod+Ctrl+Down  { move-window-down; }
+    Mod+Ctrl+Up    { move-window-up; }
     Mod+Ctrl+Right { move-column-right; }
     Mod+Ctrl+H     { move-column-left; }
-    // Mod+Ctrl+J     { move-window-down; }
-    // Mod+Ctrl+K     { move-window-up; }
+    Mod+Ctrl+J     { move-window-down; }
+    Mod+Ctrl+K     { move-window-up; }
     Mod+Ctrl+L     { move-column-right; }
 
     // Alternative commands that move across workspaces when reaching
     // the first or last window in a column.
-    Mod+Down     { focus-window-or-workspace-down; }
-    Mod+Up     { focus-window-or-workspace-up; }
-    Mod+J     { focus-window-or-workspace-down; }
-    Mod+K     { focus-window-or-workspace-up; }
-    Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
-    Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
-    Mod+Ctrl+Down     { move-window-down-or-to-workspace-down; }
-    Mod+Ctrl+Up     { move-window-up-or-to-workspace-up; }
+    // Mod+Down     { focus-window-or-workspace-down; }
+    // Mod+Up     { focus-window-or-workspace-up; }
+    // Mod+J     { focus-window-or-workspace-down; }
+    // Mod+K     { focus-window-or-workspace-up; }
+    // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
+    // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
+    // Mod+Ctrl+Down     { move-window-down-or-to-workspace-down; }
+    // Mod+Ctrl+Up     { move-window-up-or-to-workspace-up; }
 
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
