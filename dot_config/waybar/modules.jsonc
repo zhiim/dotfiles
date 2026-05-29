@@ -114,6 +114,7 @@
     "on-click": "wezterm --config enable_tab_bar=false --config initial_cols=60 start --always-new-process --class bluetui -- bluetui",
   },
   "network": {
+    "family": "ipv4_6",
     "format-disconnected": "{icon}",
     "format-wifi": "{icon}",
     "format-ethernet": "{icon}",
