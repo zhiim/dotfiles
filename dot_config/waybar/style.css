@@ -267,7 +267,7 @@ window#waybar.empty #window {
 #custom-logout {
   color: @error;
   margin: 5px 3px;
-  padding: 0px 10px;
+  padding: 0px 8px;
   background-color: @surface_container_high;
 }
 
