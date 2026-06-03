@@ -1,95 +1,185 @@
 @import "./colors.rasi"
 
+/*****----- Configuration -----*****/
+configuration {
+    modi:                       "drun";
+    show-icons:                 true;
+    display-drun:               "";
+    drun-display-format:        "{name}";
+}
+
 * {
-    font: "JetBrainsMono Nerd Font Propo 14";
+    font:   "JetBrainsMono Nerd Font Propo 12";
 
-    bg0:  #242424A9;
-    bg1:  #363636;
-    bg2:  #f5f5f520;
-    bg3:  #f5f5f540;
-    bg4:  #0860f2E6;
+    /* For Screens with 1920x1080 resolution */
+    screen-margin:               120px 150px;
+    box-spacing:                 40px;
+    icon-size:                   96px;
+    element-padding:             15px;
+    element-spacing:             15px;
 
-    fg0:  #f5f5f5;
-    fg1:  #f5f5f580;
-
-    background-color: transparent;
-    text-color:       @foreground;
-    padding:          0px;
-    margin:           0px;
+    /* For Screens with 1366x768 resolution */
+    /*
+    screen-margin:               120px 60px;
+    box-spacing:                 40px;
+    icon-size:                   64px;
+    element-padding:             20px;
+    element-spacing:             10px;
+    */
+    /* Use this as reference and create for your screen resolution */
 }
 
+/*****----- Main Window -----*****/
 window {
-  fullscreen: true;
-  padding: 1em;
-  background-color: @bg0;
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    fullscreen:                  true;
+    width:                       1366px;
+    height:                      768px;
+    x-offset:                    0px;
+    y-offset:                    0px;
+
+    enabled:                     true;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @selected;
+    background-color:            @background;
+    cursor:                      "default";
 }
 
+/*****----- Main Box -----*****/
 mainbox {
-  padding:  8px;
-  background-color: @bg0;
+    enabled:                     true;
+    spacing:                     @box-spacing;
+    margin:                      @screen-margin;
+    padding:                     0px;
+    border:                      0px solid;
+    border-radius:               0px 0px 0px 0px;
+    border-color:                @selected;
+    background-color:            transparent;
+    children:                    [ "inputbar", "listview" ];
 }
 
+/*****----- Inputbar -----*****/
 inputbar {
-  background-color: @bg2;
-
-  margin:   0px calc( 50% - 120px );
-  padding:  8px 8px;
-  spacing:  4px;
-
-  border:         1px;
-  border-radius:  5px;
-  border-color:   @selected;
-
-  children: [icon-search,entry];
+    enabled:                     true;
+    spacing:                     10px;
+    margin:                      0px 50% 0px 0px;
+    padding:                     15px;
+    border:                      0px solid;
+    border-radius:               100%;
+    border-color:                @selected;
+    background-color:            @selected;
+    text-color:                  @background;
+    children:                    [ "prompt", "entry" ];
 }
 
 prompt {
-  enabled:  false;
+    enabled:                     true;
+    background-color:            inherit;
+    text-color:                  inherit;
 }
-
-icon-search {
-  expand:   false;
-  filename: "search";
-  vertical-align: 0.5;
+textbox-prompt-colon {
+    enabled:                     true;
+    expand:                      false;
+    str:                         "::";
+    background-color:            inherit;
+    text-color:                  inherit;
 }
-
 entry {
-  placeholder:        "Search";
-  placeholder-color:  @bg2;
+    enabled:                     true;
+    background-color:            inherit;
+    text-color:                  inherit;
+    cursor:                      text;
+    placeholder:                 "Search...";
+    placeholder-color:           inherit;
 }
 
+/*****----- Listview -----*****/
 listview {
-  margin:   48px calc( 50% - 560px );
-  spacing:  48px;
-  columns:  6;
-  fixed-columns: true;
+    enabled:                     true;
+    columns:                     8;
+    lines:                       3;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+
+    spacing:                     @element-spacing;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @selected;
+    background-color:            transparent;
+    text-color:                  @foreground;
+    cursor:                      "default";
+}
+scrollbar {
+    handle-width:                5px ;
+    handle-color:                @selected;
+    border-radius:               0px;
+    background-color:            @background-alt;
 }
 
-element, element-text, element-icon {
-  cursor: pointer;
-}
-
+/*****----- Elements -----*****/
 element {
-  padding:      8px;
-  spacing:      4px;
-
-  orientation:    vertical;
-  border-radius:  16px;
+    enabled:                     true;
+    spacing:                     @element-spacing;
+    margin:                      0px;
+    padding:                     @element-padding;
+    border:                      0px solid;
+    border-radius:               30px;
+    border-color:                @selected;
+    background-color:            transparent;
+    text-color:                  @foreground;
+    orientation:                 vertical;
+    cursor:                      pointer;
 }
-
-element selected {
-  background-color: @selected;
+element normal.normal {
+    background-color:            @background;
+    text-color:                  @foreground;
 }
-
+element selected.normal {
+    border:                      0px 0px 4px 0px;
+    border-color:                @selected;
+    background-color:            @background-alt;
+    text-color:                  @foreground;
+}
 element-icon {
-  size: 4em;
-  horizontal-align: 0.5;
+    background-color:            transparent;
+    text-color:                  inherit;
+    size:                        @icon-size;
+    cursor:                      inherit;
 }
-
 element-text {
-  horizontal-align: 0.5;
+    background-color:            transparent;
+    text-color:                  inherit;
+    highlight:                   inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
 }
 
-element-text selected {
-  text-color: @selected-foreground;
+/*****----- Message -----*****/
+error-message {
+    padding:                     150px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @selected;
+    background-color:            @background;
+    text-color:                  @foreground;
+}
+textbox {
+    background-color:            @background;
+    text-color:                  @foreground;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    highlight:                   none;
 }

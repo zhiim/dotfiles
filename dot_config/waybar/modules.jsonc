@@ -2,7 +2,7 @@
   "custom/applauncher": {
     "tooltip-format": "左键：软件启动菜单\n右键：打开终端",
     "format": "",
-    "on-click": "rofi -show drun",
+    "on-click": "rofi -show drun -theme ~/.config/rofi/theme/launchpad.rasi",
     "on-click-right":"wezterm"
   },
   "custom/screenshot" :{
