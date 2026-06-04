@@ -10,16 +10,33 @@ layout {
     default-column-width { proportion 0.5; }
 
     focus-ring {
-        width 3
-        active-color "#99ccf9"
-        inactive-color "#8c9198"
+        active-color "#f5bc6f"
+        inactive-color "#9c8f80"
         urgent-color   "#ffb4ab"
     }
 
     border {
-        active-color   "#99ccf9"
-        inactive-color "#8c9198"
+        active-color   "#f5bc6f"
+        inactive-color "#9c8f80"
         urgent-color   "#ffb4ab"
     }
+
+    shadow {
+        color "#00000070"
+    }
+
+    tab-indicator {
+        active-color   "#f5bc6f"
+        inactive-color "#9c8f80"
+        urgent-color   "#ffb4ab"
+    }
+
+    insert-hint {
+        color "#f5bc6f80"
+    }
+}
+
+overview {
+	backdrop-color "#18120b"
 }
 
