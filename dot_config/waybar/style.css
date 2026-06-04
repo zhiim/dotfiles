@@ -32,29 +32,6 @@ tooltip label {
   color: @on_primary;
 }
 
-#custom-screenshot,
-#mpris,
-#custom-clipboard {
-  background-color: @surface_container_high;
-  color: @tertiary;
-  padding: 0px 5px;
-  margin: 5px 0px 5px 0px;
-}
-
-#custom-screenshot {
-  border-radius: 5px 0px 0px 5px;
-  margin: 5px 0px 5px 3px;
-}
-
-#mpris {
-  border-radius: 0px;
-}
-
-#custom-clipboard {
-  border-radius: 0px 5px 5px 0px;
-  margin: 5px 3px 5px 0px;
-}
-
 #window {
   background-color: @surface_container_high;
   color: @on_surface;
@@ -72,7 +49,7 @@ window#waybar.empty #window {
 
 #network.speed {
   padding: 0px 5px;
-  font-size: 0.8em; /* 原 16px */
+  font-size: 0.7em; /* 原 16px */
   background-color: @surface_container_high;
   border-radius: 5px;
   color: @secondary;
@@ -94,7 +71,6 @@ window#waybar.empty #window {
 
 #workspaces button:hover {
   background: @surface_container_highest;
-  color: @on_surface;
 }
 
 #workspaces button.active {
@@ -108,20 +84,46 @@ window#waybar.empty #window {
   margin: 5px 3px 5px 3px;
 }
 
+#custom-notification,
+#custom-clipboard {
+  background-color: @surface_container_high;
+  color: @tertiary;
+  padding: 0px 5px;
+  margin: 5px 0px 5px 0px;
+}
+
+#custom-notification {
+  border-radius: 5px 0px 0px 5px;
+  margin: 5px 0px 5px 3px;
+}
+
+#custom-clipboard {
+  border-radius: 0px 5px 5px 0px;
+  margin: 5px 3px 5px 0px;
+}
+
+#custom-backlight-control,
 #backlight,
 #backlight-slider {
   background-color: @surface_container_high;
   color: @secondary;
 }
 
-#backlight {
+#custom-backlight-control {
   padding: 0px 5px;
   margin: 5px 3px 5px 3px;
 }
 
+#backlight {
+  padding: 0px 5px 0 3px;
+  margin: 5px 3px 5px 0px;
+  border-radius: 0px 5px 5px 0px;
+}
+
 #backlight-slider {
-  padding: 0px 5px;
-  margin: 8px 3px 8px 3px;
+  padding: 0px 3px 0 5px;
+  margin: 5px 0px 5px 3px;
+  border-radius: 5px 0px 0px 5px;
 }
 
 #backlight-slider slider {
@@ -146,20 +148,28 @@ window#waybar.empty #window {
   background: @secondary;
 }
 
-#pulseaudio {
-  padding: 0px 5px;
-  margin: 5px 3px 5px 3px;
-}
-
-#pulseaudio-slider {
-  padding: 0px 5px;
-  margin: 8px 3px 8px 3px;
-}
-
+#wireplumber,
 #pulseaudio-slider,
 #pulseaudio {
   background-color: @surface_container_high;
   color: @secondary;
+}
+
+#wireplumber {
+  padding: 0px 5px;
+  margin: 5px 3px 5px 3px;
+}
+
+#pulseaudio {
+  padding: 0px 5px;
+  margin: 5px 3px 5px 0px;
+  border-radius: 0px 5px 5px 0px;
+}
+
+#pulseaudio-slider {
+  padding: 0px 5px;
+  margin: 5px 0px 5px 3px;
+  border-radius: 5px 0px 0px 5px;
 }
 
 #pulseaudio-slider slider {
@@ -182,26 +192,6 @@ window#waybar.empty #window {
   min-width: 0px;
   border-radius: 5px;
   background: @secondary;
-}
-
-#battery {
-  padding: 0px 5px;
-  margin: 5px 3px 5px 3px;
-}
-
-#battery {
-  background-color: @surface_container_high;
-  color: @tertiary;
-}
-
-#battery.critical:not(.charging) {
-  background-color: @error;
-  color: @on_error;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: steps(12);
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
 
 #cpu,
@@ -253,6 +243,26 @@ window#waybar.empty #window {
   margin: 5px 3px 5px 0px;
 }
 
+#battery {
+  padding: 0px 5px;
+  margin: 5px 3px 5px 3px;
+}
+
+#battery {
+  background-color: @surface_container_high;
+  color: @tertiary;
+}
+
+#battery.critical:not(.charging) {
+  background-color: @error;
+  color: @on_error;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
 #clock {
   background-color: @surface_container_high;
   color: @primary;
@@ -267,27 +277,23 @@ window#waybar.empty #window {
 #custom-logout {
   color: @error;
   margin: 5px 3px;
-  padding: 0px 8px;
+  padding: 0px 5px;
   background-color: @surface_container_high;
 }
 
-#custom-wlogout {
-  border-radius: 50%;
-}
-
 #custom-reboot {
-  margin: 8px 0px 8px 3px;
+  margin: 5px 0px 5px 3px;
   border-radius: 5px 0px 0px 5px;
   padding: 0px 5px 0px 5px;
 }
 
 #custom-logout {
-  margin: 8px 0px 8px 0px;
+  margin: 5px 0px 5px 0px;
   border-radius: 0px;
 }
 
 #custom-lockscreen {
-  margin: 8px 3px 8px 0px;
+  margin: 5px 3px 5px 0px;
   border-radius: 0px 5px 5px 0px;
   padding: 0px 5px 0px 5px;
 }

@@ -21,9 +21,9 @@
 	"custom/clipboard",
         "group/screen",
         "group/audio",
-        "group/performance",
         "bluetooth",
         "network",
+        "group/performance",
         "clock",
         "group/powermenu"
     ],
