@@ -5,33 +5,32 @@
     "on-click": "rofi -show drun -theme ~/.config/rofi/theme/launchpad.rasi",
     "on-click-right":"wezterm"
   },
-  "custom/screenshot" :{
-    "format": "",
-    "tooltip-format": "左键：选区截图\n右键：窗口截图\n中键：全屏截图",
-    "on-click":"niri msg action screenshot",
-    "on-click-right": "niri msg action screenshot-screen",
-    "on-click-middle":"niri msg action screenshot-window"
+  "custom/notification" :{
+    "tooltip": true,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂜",
+      "dnd-notification": "󰂠",
+      "dnd-none": "󰪓",
+      "inhibited-notification": "󰂛",
+      "inhibited-none": "󰪑",
+      "dnd-inhibited-notification": "󰂛",
+      "dnd-inhibited-none": "󰪑"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true,
+    "tooltip-format":"左键：打开通知中心\n右键：开启勿扰模式"
   },
   "custom/clipboard":{
     "format":"󰅍",
     "on-click":"rofi -modi clipboard:/home/xu/.local/bin/cliphist-rofi-img -show clipboard -show-icons",
     "on-click-right":"rm -f ~/.cache/cliphist/db",
     "tooltip-format":"左键：打开剪贴板\n右键：清除剪贴板历史"
-  },
-  "mpris": {
-    "format": "{player_icon}",
-    "format-paused": "{status_icon}",
-    "player-icons": {
-      "default": "",
-      "spotify": "",
-      "chrome": "",
-      "firefox": "",
-    },
-    "status-icons": {
-      "paused": "",
-    },
-    "toooltip": "{dynamic}",
-    "enable-tooltip-len-limits": true,
   },
   "niri/window": {
     "format": "{app_id}",
@@ -58,9 +57,22 @@
       "transition-left-to-right": false,
     },
     "modules": [
-      "backlight",
-      "backlight/slider"
+      "custom/backlight-control",
+      "backlight/slider",
+      "backlight"
     ],
+  },
+  "custom/backlight-control": {
+    "format": "{icon}",
+    "format-icons": {
+      "light": "󰃠",
+      "dark": ""
+    },
+    "exec": "~/.config/waybar/scripts/dark-mode-manager.sh get",
+    "return-type": "json",
+    "signal": 8,
+    "on-click": "~/.config/waybar/scripts/dark-mode-manager.sh toggle",
+    "tooltip-format": "左键：切换亮暗模式"
   },
   "backlight": {
     "tooltip": true,
@@ -78,10 +90,20 @@
     "drawer": {
       "transition-left-to-right": false,
     },
-    "modules": ["pulseaudio", "pulseaudio/slider"],
+    "modules": [
+      "wireplumber",
+      "pulseaudio/slider",
+      "pulseaudio"
+    ],
+  },
+  "wireplumber": {
+    "format": "",
+    "format-muted": "",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "tooltip-format": "左键：静音",
   },
   "pulseaudio": {
-    "tooltip-format": "左键：静音\n右键：关闭麦克风",
+    "tooltip-format": "左键：关闭麦克风",
     "format": "{icon}{volume}% {format_source}",
     "format-source": "{volume}%",
     "format-source-muted": "",
@@ -93,8 +115,7 @@
       // "speaker":"󰓃"
       "speaker": ["", "", ""],
     },
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
     "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.05+ -l 1.0",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.05-"
   },

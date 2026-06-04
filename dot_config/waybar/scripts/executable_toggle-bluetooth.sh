@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 # 检查蓝牙的 rfkill 状态
 # 'rfkill list bluetooth' 会输出蓝牙设备的信息
 # 'grep -q "Soft blocked: yes"' 在输出中安静地 (-q) 查找 "Soft blocked: yes" 字符串

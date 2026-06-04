@@ -1,0 +1,373 @@
+@import "colors.css";
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font Propo", "Noto Sans CJK SC";
+  transition: 0.3s;
+  font-size: 16px; /* 1em（基准） */
+}
+
+.floating-notifications.background .notification-row {
+  padding: 1rem;
+}
+
+.floating-notifications.background .notification-row .notification-background {
+  border-radius: 0.5rem;
+  background-color: @surface_container;
+  color: @on_surface;
+  border: 0.1rem solid @outline_variant;
+}
+
+.floating-notifications.background
+  .notification-row
+  .notification-background
+  .notification {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.floating-notifications.background
+  .notification-row
+  .notification-background
+  .notification.critical {
+  border: 0.1rem solid @error;
+}
+
+.floating-notifications.background
+  .notification-row
+  .notification-background
+  .notification
+  .notification-content
+  .summary {
+  margin: 0.2rem 0.5rem;
+  color: @primary;
+  font-weight: bold;
+}
+
+.floating-notifications.background
+  .notification-row
+  .notification-background
+  .notification
+  .notification-content
+  .body {
+  margin: 0.2rem 0.5rem;
+  color: @on_surface_variant;
+}
+
+.floating-notifications.background
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > * {
+  min-height: 3rem;
+}
+
+.floating-notifications.background
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > *
+  .notification-action {
+  border-radius: 0.5rem;
+  color: @on_surface;
+  background-color: @surface_container_high;
+  border: 0.1rem solid @outline_variant;
+}
+
+.floating-notifications.background
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > *
+  .notification-action:hover {
+  background-color: @surface_container_highest;
+}
+
+.floating-notifications.background
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > *
+  .notification-action:active {
+  background-color: @surface_variant;
+}
+
+.floating-notifications.background
+  .notification-row
+  .notification-background
+  .close-button {
+  margin: 0.5rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  color: @on_error_container;
+  background-color: @error_container;
+}
+
+.floating-notifications.background
+  .notification-row
+  .notification-background
+  .close-button:hover {
+  color: @on_error;
+  background-color: @error;
+}
+
+.floating-notifications.background
+  .notification-row
+  .notification-background
+  .close-button:active {
+  color: @on_error;
+  background-color: @error;
+}
+
+.control-center {
+  border-radius: 0.5rem;
+  margin: 1rem;
+  background-color: @surface;
+  color: @on_surface;
+  padding: 1rem;
+  border: 0.1rem solid @outline_variant;
+}
+
+.control-center .widget-title {
+  color: @primary;
+  font-weight: bold;
+}
+
+.control-center .widget-title button {
+  border-radius: 0.5rem;
+  color: @on_surface;
+  background-color: @surface_container;
+  border: 0.05rem solid @outline_variant;
+  padding: 0.25rem;
+}
+
+.control-center .widget-title button:hover {
+  background-color: @surface_container_high;
+}
+
+.control-center .widget-title button:active {
+  background-color: @surface_variant;
+}
+
+.control-center .notification-row .notification-background {
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+  background-color: @surface_container;
+  color: @on_surface;
+  border: 0.1rem solid @outline_variant;
+}
+
+.control-center .notification-row .notification-background .notification {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification.critical {
+  border: 0.1rem solid @error;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  .notification-content {
+  color: @on_surface;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  .notification-content
+  .summary {
+  margin: 0.5rem;
+  color: @primary;
+  font-weight: bold;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  .notification-content
+  .body {
+  margin: 0.5rem;
+  color: @on_surface_variant;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > * {
+  min-height: 3rem;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > *
+  .notification-action {
+  border-radius: 0.5rem;
+  color: @on_surface;
+  background-color: @surface_container_high;
+  border: 0.1rem solid @outline_variant;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > *
+  .notification-action:hover {
+  background-color: @surface_container_highest;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .notification
+  > *:last-child
+  > *
+  .notification-action:active {
+  background-color: @surface_variant;
+}
+
+.control-center .notification-row .notification-background .close-button {
+  margin: 0.5rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  color: @on_error_container;
+  background-color: @error_container;
+}
+
+.control-center .notification-row .notification-background .close-button:hover {
+  color: @on_error;
+  background-color: @error;
+}
+
+.control-center
+  .notification-row
+  .notification-background
+  .close-button:active {
+  color: @on_error;
+  background-color: @error;
+}
+
+progressbar,
+progress,
+trough {
+  border-radius: 0.5rem;
+}
+
+.notification.critical progress {
+  background-color: @error;
+}
+
+.notification.low progress,
+.notification.normal progress {
+  background-color: @primary;
+}
+
+trough {
+  background-color: @surface_container_highest;
+}
+
+.control-center trough {
+  background-color: @surface_variant;
+}
+
+.control-center-dnd {
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+.control-center-dnd slider {
+  background: @surface_container_high;
+  border-radius: 0.5rem;
+}
+
+.widget-dnd {
+  color: @on_surface_variant;
+}
+
+.widget-dnd > switch {
+  border-radius: 0.5rem;
+  background: @surface_container_highest;
+  border: 0.1rem solid @outline_variant;
+}
+
+.widget-dnd > switch:checked slider {
+  background: @primary;
+}
+
+.widget-dnd > switch slider {
+  background: @outline;
+  border-radius: 0.5rem;
+  margin: 0.25rem;
+}
+
+.widget-mpris {
+  padding: 0.6rem;
+}
+
+/* carousel indicator dots */
+.widget-mpris carouselindicatordots {
+  color: @outline_variant;
+}
+
+/* player container */
+.widget-mpris-player {
+  margin: 0.6rem;
+  border-radius: 0.8rem;
+  border: 0.1rem solid @outline;
+}
+
+/* title and subtitle */
+.widget-mpris-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: @primary;
+  margin-right: 0.5rem;
+}
+.widget-mpris-subtitle {
+  color: @secondary;
+  margin-right: 0.5rem;
+}
+
+/* album art image container */
+.widget-mpris-player image {
+  border-radius: 0.5rem;
+  margin: 0.75rem 0 0 0.75rem;
+}
+/* album art */
+.widget-mpris-album-art {
+  background-color: @lightOP;
+  opacity: 1;
+}
+
+/* control buttons */
+.widget-mpris-player button {
+  -gtk-icon-size: 2rem;
+  margin: 0 1rem 1rem 1rem;
+}
+.widget-mpris-player button:hover {
+  color: @tertiary;
+}
+
+/* blur background image */
+.mpris-background {
+  opacity: 0.3;
+  filter: blur(0.5rem);
+}

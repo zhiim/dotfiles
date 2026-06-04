@@ -10,7 +10,6 @@ layout {
     default-column-width { proportion 0.5; }
 
     focus-ring {
-        width 3
         active-color "{{colors.primary.default.hex}}"
         inactive-color "{{colors.outline.default.hex}}"
         urgent-color   "{{colors.error.default.hex}}"
@@ -21,5 +20,23 @@ layout {
         inactive-color "{{colors.outline.default.hex}}"
         urgent-color   "{{colors.error.default.hex}}"
     }
+
+    shadow {
+        color "{{colors.shadow.default.hex}}70"
+    }
+
+    tab-indicator {
+        active-color   "{{colors.primary.default.hex}}"
+        inactive-color "{{colors.outline.default.hex}}"
+        urgent-color   "{{colors.error.default.hex}}"
+    }
+
+    insert-hint {
+        color "{{colors.primary.default.hex}}80"
+    }
+}
+
+overview {
+	backdrop-color "{{colors.background.default.hex}}"
 }
 

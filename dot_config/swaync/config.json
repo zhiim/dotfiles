@@ -1,0 +1,30 @@
+{
+  "positionX": "right",
+  "positionY": "top",
+  "layer": "overlay",
+  "layer-shell": true,
+  "cssPriority": "application",
+  "control-center-layer": "overlay",
+  "notification-2fa-action": true,
+  "timeout": 10,
+  "timeout-low": 5,
+  "timeout-critical": 0,
+  "notification-window-width": 400,
+  "image-visibility": "when-available",
+  "script-fail-notify": true,
+  "hide-on-clear": false,
+  "hide-on-action": true,
+  "fit-to-screen": false,
+  "control-center-height": 600,
+  "control-center-width": 400,
+  "keyboard-shortcuts": true,
+  "notification-icon-size": 48,
+  "widgets": ["title", "dnd", "mpris", "notifications"],
+  "widget-config": {
+    "mpris": {
+      "autohide": true,
+      "image-size": 56,
+      "blur-image": false
+    }
+  }
+}

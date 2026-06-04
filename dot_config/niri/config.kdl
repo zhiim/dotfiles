@@ -141,6 +141,7 @@ binds {
     Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
     Super+V { spawn-sh "rofi -modi clipboard:/home/xu/.local/bin/cliphist-rofi-img -show clipboard -show-icons"; }
     Super+X { spawn-sh "goldendict $(wl-paste --primary)"; }
+    Super+B { spawn-sh "swaync-client -t -sw"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

@@ -4,13 +4,11 @@
     ],
     "layer":"top",
     "position": "top",
+    "height": 36,
     "fixed-center": true,
     "reload_style_on_change": true,
     "modules-left": [
         "custom/applauncher",
-        "custom/screenshot",
-        "mpris",
-	"custom/clipboard",
         "niri/window",
         "network#speed"
     ],
@@ -19,6 +17,8 @@
     ],
     "modules-right": [
         "tray",
+        "custom/notification",
+	"custom/clipboard",
         "group/screen",
         "group/audio",
         "group/performance",
