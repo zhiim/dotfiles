@@ -57,12 +57,12 @@ auto_set_dark_mode() {
     if [[ 10#${CURRENT_TIME} -ge 10#${DARK_TIME} || 10#${CURRENT_TIME} -lt 10#${LIGHT_TIME} ]]; then
         set_dark_mode
         if [[ ${SILENT} == false ]]; then
-            notify-send "Dark mode enabled" --urgency=low
+            notify-send "Dark mode enabled" --urgency=low -h int:transient:1
         fi
     else
         set_light_mode
         if [[ ${SILENT} == false ]]; then
-            notify-send "Light mode enabled" --urgency=low
+            notify-send "Light mode enabled" --urgency=low -h int:transient:1
         fi
     fi
 }

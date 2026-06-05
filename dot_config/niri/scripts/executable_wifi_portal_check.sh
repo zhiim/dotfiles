@@ -26,6 +26,7 @@ check_portal() {
             echo "WIFI 需要认证..."
             ACTION=$(notify-send \
                 -a "网络管理" \
+                -h int:transient:1 \
                 -u critical \
                 -i network-manager \
                 -t 0 \
