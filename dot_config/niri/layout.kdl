@@ -10,33 +10,23 @@ layout {
     default-column-width { proportion 0.5; }
 
     focus-ring {
-        active-color "#f5bc6f"
-        inactive-color "#9c8f80"
-        urgent-color   "#ffb4ab"
-    }
-
-    border {
-        active-color   "#f5bc6f"
-        inactive-color "#9c8f80"
-        urgent-color   "#ffb4ab"
-    }
-
-    shadow {
-        color "#00000070"
+        active-color "#805611"
+        inactive-color "#817567"
+        urgent-color   "#ba1a1a"
     }
 
     tab-indicator {
-        active-color   "#f5bc6f"
-        inactive-color "#9c8f80"
-        urgent-color   "#ffb4ab"
+        active-color   "#805611"
+        inactive-color "#817567"
+        urgent-color   "#ba1a1a"
     }
 
     insert-hint {
-        color "#f5bc6f80"
+        color "#80561180"
     }
 }
 
 overview {
-	backdrop-color "#18120b"
+	backdrop-color "#fff8f4"
 }
 
