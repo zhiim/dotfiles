@@ -110,6 +110,7 @@ window-rule {
     match app-id="calcure"
     match app-id="virt-manager"
     match app-id="org.telegram.desktop"
+    match app-id="Peazip"
     match app-id="peazip"
     match app-id="org.remmina.Remmina"
     match app-id="antigravity"
