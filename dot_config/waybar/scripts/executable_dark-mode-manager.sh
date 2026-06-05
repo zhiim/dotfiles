@@ -13,16 +13,16 @@ get_dark_mode() {
 }
 
 set_dark_mode() {
-    gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 2>/dev/null
-    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark' 2>/dev/null
     matugen image "${CURRENT_WALLPAPER}" --source-color-index 0 -m dark 2>/dev/null
+    gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 2>/dev/null
+    # gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark" 2>/dev/null
     echo "Set to dark mode"
 }
 
 set_light_mode() {
-    gsettings set org.gnome.desktop.interface color-scheme "prefer-light" 2>/dev/null
-    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita' 2>/dev/null
     matugen image "${CURRENT_WALLPAPER}" --source-color-index 0 -m light 2>/dev/null
+    gsettings set org.gnome.desktop.interface color-scheme "prefer-light" 2>/dev/null
+    # gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3" 2>/dev/null
     echo "Set to light mode"
 }
 
@@ -32,8 +32,8 @@ toggle_dark_mode() {
     else
         set_dark_mode
     fi
-    sleep 1
-    pkill -RTMIN+8 waybar
+    sleep 0.5
+    pkill -SIGUSR2 waybar
 }
 
 auto_set_dark_mode() {

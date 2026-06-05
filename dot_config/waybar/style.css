@@ -84,6 +84,22 @@ window#waybar.empty #window {
   margin: 5px 3px 5px 3px;
 }
 
+#tray menu {
+  padding: 5px 5px;
+  margin: 5px 3px 5px 3px;
+  background-color: @surface;
+  color: @on_surface;
+}
+
+#tray menu menuitem {
+  background-color: transparent;
+  color: @on_surface;
+}
+
+#tray menu menuitem:hover {
+  background-color: @surface_container_high;
+}
+
 #custom-notification,
 #custom-clipboard {
   background-color: @surface_container_high;

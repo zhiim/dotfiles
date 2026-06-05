@@ -4,7 +4,7 @@ contrast = 0
 [templates.waybar]
 input_path = '~/.config/matugen/templates/waybar.css'
 output_path = '~/.config/waybar/colors.css'
-post_hook = 'pkill -SIGUSR2 waybar'
+# post_hook = 'pkill -SIGUSR2 waybar'
 
 [templates.rofi]
 input_path = '~/.config/matugen/templates/rofi.rasi'
@@ -24,3 +24,19 @@ post_hook = 'niri msg action load-config-file'
 input_path = '~/.config/matugen/templates/swaync.css'
 output_path = '~/.config/swaync/colors.css'
 post_hook = 'swaync-client -rs'
+
+[templates.gtk3]
+input_path = '~/.config/matugen/templates/gtk.css'
+output_path = '~/.config/gtk-3.0/colors.css'
+
+[templates.gtk4]
+input_path = '~/.config/matugen/templates/gtk.css'
+output_path = '~/.config/gtk-4.0/colors.css'
+
+[templates.kvantum_kvconfig]
+input_path = '~/.config/matugen/templates/kvantum.kvconfig'
+output_path = '~/.config/Kvantum/matugen/matugen.kvconfig'
+
+[templates.kvantum_svg]
+input_path = '~/.config/matugen/templates/kvantum.svg'
+output_path = '~/.config/Kvantum/matugen/matugen.svg'

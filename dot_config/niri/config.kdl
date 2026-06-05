@@ -415,4 +415,5 @@ binds {
 
 environment {
     LANG "zh_CN.UTF-8"
+    QT_STYLE_OVERRIDE "kvantum"
 }
