@@ -1,8 +1,5 @@
 #!/usr/bin/bash
 
-LIGHT_TIME="08:00"
-DARK_TIME="18:00"
-
 MODE=$1
 CURRENT_SCHEME=$(gsettings get org.gnome.desktop.interface color-scheme)
 CURRENT_WALLPAPER=$(pgrep -a swaybg | grep -oP '(?<=-i )[^ ]+' | head -n 1)
@@ -18,33 +15,55 @@ get_dark_mode() {
 set_dark_mode() {
     gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 2>/dev/null
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark' 2>/dev/null
-    matugen image "${CURRENT_WALLPAPER}" --source-color-index 0 -m dark
+    matugen image "${CURRENT_WALLPAPER}" --source-color-index 0 -m dark 2>/dev/null
+    echo "Set to dark mode"
 }
 
 set_light_mode() {
     gsettings set org.gnome.desktop.interface color-scheme "prefer-light" 2>/dev/null
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita' 2>/dev/null
-    matugen image "${CURRENT_WALLPAPER}" --source-color-index 0 -m light
+    matugen image "${CURRENT_WALLPAPER}" --source-color-index 0 -m light 2>/dev/null
+    echo "Set to light mode"
 }
 
 toggle_dark_mode() {
-    if [[ "${CURRENT_SCHEME}" == "'prefer-dark'" ]]; then
+    if [[ ${CURRENT_SCHEME} == "'prefer-dark'" ]]; then
         set_light_mode
     else
         set_dark_mode
     fi
-
+    sleep 1
     pkill -RTMIN+8 waybar
 }
 
 auto_set_dark_mode() {
-    CURRENT_TIME=$(date +%H:%M)
-    if [[ "${CURRENT_TIME}" > "${DARK_TIME}" || "${CURRENT_TIME}" < "${LIGHT_TIME}" ]]; then
+    LIGHT_TIME=${2//:/}
+    DARK_TIME=${3//:/}
+    SILENT=$4 # Optional argument to suppress notifications
+    echo $LIGHT_TIME
+    echo $DARK_TIME
+
+    if [[ -z ${SILENT} ]]; then
+        SILENT=false
+    fi
+
+    if [[ -z ${LIGHT_TIME} || -z ${DARK_TIME} ]]; then
+        echo "Usage: $0 auto <light_time> <dark_time> [silent]"
+        exit 1
+    fi
+
+    CURRENT_TIME=$(date +%H%M)
+    echo $CURRENT_TIME
+    if [[ 10#${CURRENT_TIME} -ge 10#${DARK_TIME} || 10#${CURRENT_TIME} -lt 10#${LIGHT_TIME} ]]; then
         set_dark_mode
-        notify-send "Dark mode enabled" --urgency=low
+        if [[ ${SILENT} == false ]]; then
+            notify-send "Dark mode enabled" --urgency=low
+        fi
     else
         set_light_mode
-        notify-send "Light mode enabled" --urgency=low
+        if [[ ${SILENT} == false ]]; then
+            notify-send "Light mode enabled" --urgency=low
+        fi
     fi
 }
 
@@ -53,7 +72,7 @@ if [[ ${MODE} == "get" ]]; then
 elif [[ ${MODE} == "toggle" ]]; then
     toggle_dark_mode
 elif [[ ${MODE} == "auto" ]]; then
-    auto_set_dark_mode
+    auto_set_dark_mode "$@"
 else
     echo "Usage: $0 [get|toggle|auto]"
 fi

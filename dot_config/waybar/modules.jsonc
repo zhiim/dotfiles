@@ -5,6 +5,25 @@
     "on-click": "rofi -show drun -theme ~/.config/rofi/theme/launchpad.rasi",
     "on-click-right":"wezterm"
   },
+  "niri/window": {
+    "format": "{app_id}",
+    "icon": true,
+    "icon-size": 16
+  },
+  "network#speed": {
+    "format": " {bandwidthDownBytes}  {bandwidthUpBytes}",
+    "interval": 1
+  },
+  "niri/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "active": "󰜋",
+      "default": "",
+    },
+  },
+  "tray": {
+    "spacing": 7,
+  },
   "custom/notification" :{
     "tooltip": true,
     "format": "{icon}",
@@ -31,25 +50,6 @@
     "on-click":"rofi -modi clipboard:/home/xu/.local/bin/cliphist-rofi-img -show clipboard -show-icons",
     "on-click-right":"rm -f ~/.cache/cliphist/db",
     "tooltip-format":"左键：打开剪贴板\n右键：清除剪贴板历史"
-  },
-  "niri/window": {
-    "format": "{app_id}",
-    "icon": true,
-    "icon-size": 16
-  },
-  "network#speed": {
-    "format": " {bandwidthDownBytes}  {bandwidthUpBytes}",
-    "interval": 1
-  },
-  "niri/workspaces": {
-    "format": "{icon}",
-    "format-icons": {
-      "active": "󰜋",
-      "default": "",
-    },
-  },
-  "tray": {
-    "spacing": 7,
   },
   "group/screen": {
     "orientation": "inherit",
@@ -190,7 +190,7 @@
     "tooltip-format": "<big>{:%Y/%m/%d %A}</big>\n---\n<tt>{calendar}</tt>\n---\n左键：打开日历",
     "calendar": {
       "format": {
-        "today": "<span><b>[<u>{}</u>]</b></span>"
+        "today": "<span><i><b><u>{}</u></b></i></span>"
       },
     },
     "max-length": 25,
