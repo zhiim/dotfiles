@@ -117,6 +117,7 @@ window-rule {
     match app-id="io.github.xiaoyifang.goldendict_ng"
     match app-id="spotify"
     match title="KOReader"
+    match app-id="waypaper"
 
     open-floating true
 }
@@ -142,7 +143,9 @@ binds {
     Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
     Super+V { spawn-sh "rofi -modi clipboard:/home/xu/.local/bin/cliphist-rofi-img -show clipboard -show-icons"; }
     Super+X { spawn-sh "goldendict $(wl-paste --primary)"; }
-    Super+B { spawn-sh "swaync-client -t -sw"; }
+    Super+N { spawn-sh "swaync-client -t -sw"; }
+    Super+B { spawn-sh "/home/xu/.config/waybar/scripts/dark-mode-manager.sh auto 8:00 18:00 silent"; }
+    Super+P { spawn-sh "waypaper"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -374,8 +377,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+N       { toggle-window-floating; }
-    Mod+Shift+N { switch-focus-between-floating-and-tiling; }
+    Mod+G       { toggle-window-floating; }
+    Mod+Shift+G { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,

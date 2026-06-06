@@ -2,7 +2,7 @@
 
 MODE=$1
 CURRENT_SCHEME=$(gsettings get org.gnome.desktop.interface color-scheme)
-CURRENT_WALLPAPER=$(pgrep -a swaybg | grep -oP '(?<=-i )[^ ]+' | head -n 1)
+CURRENT_WALLPAPER=$(cat /home/xu/.config/waypaper/current_wallpaper)
 
 get_dark_mode() {
     if [[ ${CURRENT_SCHEME} == "'prefer-dark'" ]]; then
