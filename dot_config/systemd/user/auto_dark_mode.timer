@@ -1,0 +1,12 @@
+[Unit]
+Description="Timer for auto switch light/dark mode"
+After=waybar.service
+
+[Timer]
+OnCalendar=*-*-* 8:00:05
+OnCalendar=*-*-* 18:00:05
+Persistent=true
+Unit=auto_dark_mode.service
+
+[Install]
+WantedBy=default.target

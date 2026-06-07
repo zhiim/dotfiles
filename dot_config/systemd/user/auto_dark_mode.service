@@ -1,0 +1,5 @@
+[Unit]
+Description="Auto switch light/dark mode"
+
+[Service]
+ExecStart=%h/.config/waybar/scripts/dark-mode-manager.sh auto 8:00 18:00
