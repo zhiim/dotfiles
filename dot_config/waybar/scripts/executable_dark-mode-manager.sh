@@ -53,18 +53,14 @@ auto_set_dark_mode() {
     CURRENT_TIME=$(date +%H%M)
     echo $CURRENT_TIME
     if [[ 10#${CURRENT_TIME} -ge 10#${DARK_TIME} || 10#${CURRENT_TIME} -lt 10#${LIGHT_TIME} ]]; then
-        if [[ ${CURRENT_SCHEME} != "'prefer-dark'" ]]; then
-            set_dark_mode
-            if [[ ${SILENT} == false ]]; then
-                notify-send "Dark mode enabled" --urgency=low -h int:transient:1
-            fi
+        set_dark_mode
+        if [[ ${SILENT} == false ]]; then
+            notify-send "Dark mode enabled" --urgency=low -h int:transient:1
         fi
     else
-        if [[ ${CURRENT_SCHEME} != "'prefer-light'" ]]; then
-            set_light_mode
-            if [[ ${SILENT} == false ]]; then
-                notify-send "Light mode enabled" --urgency=low -h int:transient:1
-            fi
+        set_light_mode
+        if [[ ${SILENT} == false ]]; then
+            notify-send "Light mode enabled" --urgency=low -h int:transient:1
         fi
     fi
 }
