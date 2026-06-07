@@ -2,7 +2,7 @@
 
 MODE=$1
 CURRENT_SCHEME=$(gsettings get org.gnome.desktop.interface color-scheme)
-CURRENT_WALLPAPER=$(cat /home/xu/.config/waypaper/current_wallpaper)
+CURRENT_WALLPAPER=$(cat $HOME/.cache/current_wallpaper)
 
 get_dark_mode() {
     if [[ ${CURRENT_SCHEME} == "'prefer-dark'" ]]; then
@@ -16,14 +16,12 @@ set_dark_mode() {
     matugen image "${CURRENT_WALLPAPER}" --source-color-index 0 -m dark 2>/dev/null
     gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 2>/dev/null
     # gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark" 2>/dev/null
-    echo "Set to dark mode"
 }
 
 set_light_mode() {
     matugen image "${CURRENT_WALLPAPER}" --source-color-index 0 -m light 2>/dev/null
     gsettings set org.gnome.desktop.interface color-scheme "prefer-light" 2>/dev/null
     # gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3" 2>/dev/null
-    echo "Set to light mode"
 }
 
 toggle_dark_mode() {
@@ -55,14 +53,18 @@ auto_set_dark_mode() {
     CURRENT_TIME=$(date +%H%M)
     echo $CURRENT_TIME
     if [[ 10#${CURRENT_TIME} -ge 10#${DARK_TIME} || 10#${CURRENT_TIME} -lt 10#${LIGHT_TIME} ]]; then
-        set_dark_mode
-        if [[ ${SILENT} == false ]]; then
-            notify-send "Dark mode enabled" --urgency=low -h int:transient:1
+        if [[ ${CURRENT_SCHEME} != "'prefer-dark'" ]]; then
+            set_dark_mode
+            if [[ ${SILENT} == false ]]; then
+                notify-send "Dark mode enabled" --urgency=low -h int:transient:1
+            fi
         fi
     else
-        set_light_mode
-        if [[ ${SILENT} == false ]]; then
-            notify-send "Light mode enabled" --urgency=low -h int:transient:1
+        if [[ ${CURRENT_SCHEME} != "'prefer-light'" ]]; then
+            set_light_mode
+            if [[ ${SILENT} == false ]]; then
+                notify-send "Light mode enabled" --urgency=low -h int:transient:1
+            fi
         fi
     fi
 }
