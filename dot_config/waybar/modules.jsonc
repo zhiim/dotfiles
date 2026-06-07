@@ -55,6 +55,7 @@
     "orientation": "inherit",
     "drawer": {
       "transition-left-to-right": false,
+      "transition-duration": 800
     },
     "modules": [
       "custom/backlight-control",
@@ -89,6 +90,7 @@
     "orientation": "inherit",
     "drawer": {
       "transition-left-to-right": false,
+      "transition-duration": 800
     },
     "modules": [
       "wireplumber",
@@ -153,6 +155,7 @@
     "orientation": "inherit",
     "drawer": {
       "transition-left-to-right": false,
+      "transition-duration": 800
     },
     "modules": ["battery", "cpu", "memory", "power-profiles-daemon"],
   },
@@ -200,6 +203,7 @@
     "orientation": "inherit",
     "drawer": {
       "transition-left-to-right": false,
+      "transition-duration": 800
     },
     "modules": [
       "custom/wlogout",

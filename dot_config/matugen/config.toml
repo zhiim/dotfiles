@@ -44,3 +44,16 @@ output_path = '~/.config/Kvantum/matugen/matugen.svg'
 [templates.hyprland]
 input_path = '~/.config/matugen/templates/hyprland.conf'
 output_path = '~/.config/hypr/colors.conf'
+
+[templates.fcitx5_highlight]
+input_path = '~/.config/matugen/templates/fcitx5/highlight.svg'
+output_path = '~/.local/share/fcitx5/themes/matugen/highlight.svg'
+
+[templates.fcitx5_panel]
+input_path = '~/.config/matugen/templates/fcitx5/panel.svg'
+output_path = '~/.local/share/fcitx5/themes/matugen/panel.svg'
+
+[templates.fcitx5_config]
+input_path = '~/.config/matugen/templates/fcitx5/theme.conf'
+output_path = '~/.local/share/fcitx5/themes/matugen/theme.conf'
+post_hook= 'dbus-send --type=method_call --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.ReloadAddonConfig string:"classicui"'
