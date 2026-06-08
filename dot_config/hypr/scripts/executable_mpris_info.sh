@@ -4,7 +4,7 @@ CACHE_DIR="$HOME/.cache/hyprlock_media"
 CACHE_ARTIST="${CACHE_DIR}/artist"
 CACHE_TITLE="${CACHE_DIR}/title"
 CACHE_LENGTH="${CACHE_DIR}/length"
-CACHE_ALBUM_ART="${CACHE_DIR}/album_art.jpg"
+CACHE_ALBUM_ART="${CACHE_DIR}/album_art.png"
 SQUARE_SIZE=512
 MAX_CACHE_FILES=10
 mkdir -p "$CACHE_DIR"
@@ -85,38 +85,50 @@ get_media_artist() {
 get_media_length() {
 	length=$(get_metadata "mpris:length")
 
-	if [ -z "$length" ]; then
-		echo "" > "$CACHE_LENGTH"
-	else
+	if [[ ! -z "$length" ]]; then
 		# Convert length from microseconds to a more readable format (seconds)
 		seconds=$((length / 1000000))
-		printf "%02d:%02d\n" $((seconds / 60)) $((seconds % 60)) > "$CACHE_LENGTH"
+		length=$(printf "%02d:%02d\n" $((seconds / 60)) $((seconds % 60)))
 	fi
+
+	if [[ ! -f "$CACHE_LENGTH" ]]; then
+		NEED_REFRESH=true
+	else
+		cached_length=$(cat "$CACHE_LENGTH")
+		if [ "$cached_length" != "${length}" ]; then
+			NEED_REFRESH=true
+		fi
+	fi
+
+	if [[ "$NEED_REFRESH" == true ]]; then
+		echo "${length}" > "$CACHE_LENGTH"
+	fi
+
 }
 
 get_media_album_art() {
 	url=$(get_metadata "mpris:artUrl")
 
-	if [ -z "$url" ]; then
-		return
-	else
-		local_path=""
-		case "$url" in
-		file://*)
-			local_path="${url#file://}"
-			local_path="$(printf '%b' "${local_path//%/\\x}")"
-			filename="$(printf '%s' "$local_path" | sha256sum | awk '{print $1}').img"
-			cp "$local_path" "$CACHE_DIR/$filename"
-			resize_image "$CACHE_DIR/$filename"
-			;;
-		http://* | https://*)
-			download_to_cache "$url"
-			;;
-		*)
-			return
+	local_path=""
+	echo "Album Art URL: $url"
+	case "$url" in
+	file://*)
+		local_path="${url#file://}"
+		local_path="$(printf '%b' "${local_path//%/\\x}")"
+		filename="$(printf '%s' "$local_path" | sha256sum | awk '{print $1}').img"
+		cp "$local_path" "$CACHE_DIR/$filename"
+		resize_image "$CACHE_DIR/$filename"
 		;;
-		esac
-	fi
+	http://* | https://*)
+		download_to_cache "$url"
+		;;
+	"")
+		cp "$HOME/.config/hypr/scripts/music.png" "$CACHE_ALBUM_ART"
+		;;
+	*)
+		return
+	;;
+	esac
 }
 
 get_status() {
@@ -124,6 +136,8 @@ get_status() {
 	if [[ $status == "Playing" ]]; then
 		echo ""
 	elif [[ $status == "Paused" ]]; then
+		echo ""
+	elif [[ $status == "Stopped" ]]; then
 		echo ""
 	else
 		echo ""
@@ -154,13 +168,13 @@ if [[ -z $status ]]; then
 else
 	get_media_title
 	get_media_artist
+	get_media_length
 
 	if [[ ! -f "$CACHE_ALBUM_ART" ]]; then
 		NEED_REFRESH=true
 	fi
 	
 	if [[ "$NEED_REFRESH" == true ]]; then
-		get_media_length
 		get_media_album_art
 	fi
 
@@ -182,9 +196,9 @@ case "$1" in
 	;;
 --album)
 	if [[ -z $status ]]; then
-		echo "~/.config/hypr/scripts/no_playing.png"
+		echo "~/.config/hypr/scripts/music.png"
 	else
-		echo "~/.cache/hyprlock_media/album_art.jpg"
+		echo "$CACHE_ALBUM_ART"
 	fi
 	;;
 *)
