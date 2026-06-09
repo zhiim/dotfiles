@@ -1,0 +1,44 @@
+/*
+* GTK Colors
+* Generated with Matugen
+*/
+
+@define-color accent_bg_color {{colors.primary.light.hex}};
+@define-color accent_fg_color {{colors.on_primary.light.hex}};
+@define-color destructive_bg_color {{colors.error.light.hex}};
+@define-color destructive_fg_color {{colors.on_error.light.hex}};
+@define-color error_bg_color {{colors.error.light.hex}};
+@define-color error_fg_color {{colors.on_error.light.hex}};
+@define-color window_bg_color {{colors.surface_container_low.light.hex}};
+@define-color window_fg_color {{colors.on_surface.light.hex}};
+@define-color view_bg_color {{colors.surface.light.hex}};
+@define-color view_fg_color {{colors.on_surface.light.hex}};
+@define-color headerbar_bg_color {{colors.surface_container_low.light.hex}};
+@define-color headerbar_fg_color {{colors.on_surface.light.hex}};
+@define-color sidebar_bg_color {{colors.surface_container.light.hex}};
+@define-color sidebar_fg_color {{colors.on_surface.light.hex}};
+@define-color secondary_sidebar_bg_color {{colors.surface_container_low.light.hex}};
+@define-color secondary_sidebar_fg_color {{colors.on_surface.light.hex}};
+@define-color card_bg_color {{colors.surface_container_high.light.hex}};
+@define-color card_fg_color {{colors.on_surface.light.hex}};
+@define-color overview_bg_color {{colors.surface_container_high.light.hex}};
+@define-color overview_fg_color {{colors.on_surface.light.hex}};
+@define-color popover_bg_color {{colors.surface_container_highest.light.hex}};
+@define-color popover_fg_color {{colors.on_surface.light.hex}};
+@define-color dialog_bg_color {{colors.surface_container_high.light.hex}};
+@define-color dialog_fg_color {{colors.on_surface.light.hex}};
+@define-color borders {{colors.outline_variant.light.hex}};
+@define-color window_border_color {{colors.outline.light.hex}};
+@define-color dim_label_color {{colors.on_surface_variant.light.hex}};
+@define-color success_bg_color {{colors.primary_container.light.hex}};
+@define-color success_fg_color {{colors.on_primary_container.light.hex}};
+@define-color warning_bg_color {{colors.tertiary_container.light.hex}};
+@define-color warning_fg_color {{colors.on_tertiary_container.light.hex}};
+@define-color headerbar_backdrop_color @window_bg_color;
+@define-color sidebar_backdrop_color @sidebar_bg_color;
+@define-color theme_unfocused_fg_color {{colors.on_surface_variant.light.hex}};
+@define-color theme_unfocused_text_color {{colors.on_surface_variant.light.hex}};
+@define-color theme_unfocused_bg_color @window_bg_color;
+@define-color theme_unfocused_base_color @window_bg_color;
+@define-color theme_unfocused_selected_bg_color {{colors.secondary_container.light.hex}};
+@define-color theme_unfocused_selected_fg_color {{colors.on_secondary_container.light.hex}};

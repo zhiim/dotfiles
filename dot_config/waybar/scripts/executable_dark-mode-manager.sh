@@ -13,45 +13,25 @@ get_dark_mode() {
     fi
 }
 
-update_gtk3_settings() {
-    local theme=$1
-    local prefer_dark=$2
-
-    if [[ ! -f "$GTK3_CONFIG" ]]; then
-        mkdir -p "$(dirname "$GTK3_CONFIG")"
-        echo "[Settings]" > "$GTK3_CONFIG"
-    fi
-
-    if grep -q "^gtk-theme-name=" "$GTK3_CONFIG"; then
-        sed -i "s/^gtk-theme-name=.*/gtk-theme-name=$theme/" "$GTK3_CONFIG"
-    else
-        echo "gtk-theme-name=$theme" >> "$GTK3_CONFIG"
-    fi
-
-    if grep -q "^gtk-application-prefer-dark-theme=" "$GTK3_CONFIG"; then
-        sed -i "s/^gtk-application-prefer-dark-theme=.*/gtk-application-prefer-dark-theme=$prefer_dark/" "$GTK3_CONFIG"
-    else
-        echo "gtk-application-prefer-dark-theme=$prefer_dark" >> "$GTK3_CONFIG"
-    fi
-}
-
 set_dark_mode() {
     matugen image "${CURRENT_WALLPAPER}" --source-color-index 0 -m dark 2>/dev/null
     # for GTK3 apps
+    gsettings set org.gnome.desktop.interface gtk-theme "" 2>/dev/null
     gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark" 2>/dev/null
-    update_gtk3_settings "adw-gtk3-dark" 1
     # for GTK4 apps, must after gtk-theme setting to let chrome follow dark mode
+    gsettings set org.gnome.desktop.interface color-scheme "prefer-light" 2>/dev/null
+    sleep 0.2
     gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 2>/dev/null
-    # GTK3 apps need to restart to apply dark mode
-    systemctl --user restart polkit-gnome.service 
 }
 
 set_light_mode() {
     matugen image "${CURRENT_WALLPAPER}" --source-color-index 0 -m light 2>/dev/null
+    gsettings set org.gnome.desktop.interface gtk-theme "" 2>/dev/null
     gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3" 2>/dev/null
-    update_gtk3_settings "adw-gtk3" 0
+    touch "$HOME/.config/gtk-4.0/gtk.css"
+    gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 2>/dev/null
+    sleep 0.2
     gsettings set org.gnome.desktop.interface color-scheme "prefer-light" 2>/dev/null
-    systemctl --user restart polkit-gnome.service 
 }
 
 toggle_dark_mode() {

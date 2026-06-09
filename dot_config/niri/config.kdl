@@ -145,7 +145,7 @@ binds {
     Super+X { spawn-sh "goldendict $(wl-paste --primary)"; }
     Super+N { spawn-sh "swaync-client -t -sw"; }
     Super+B { spawn-sh "/home/xu/.config/waybar/scripts/dark-mode-manager.sh auto 8:00 18:00 silent"; }
-    Super+G { spawn-sh "waypaper"; }
+    Super+P { spawn-sh "waypaper"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -377,7 +377,7 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+P       { toggle-window-floating; }
+    Mod+G       { toggle-window-floating; }
     Mod+Shift+G { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.

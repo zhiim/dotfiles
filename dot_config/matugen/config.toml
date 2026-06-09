@@ -26,11 +26,15 @@ output_path = '~/.config/swaync/colors.css'
 post_hook = 'swaync-client -rs &> /dev/null'
 
 [templates.gtk3]
-input_path = '~/.config/matugen/templates/gtk.css'
-output_path = '~/.config/gtk-3.0/colors.css'
+input_path = '~/.config/matugen/templates/gtk3.css'
+output_path = '~/.themes/adw-gtk3/gtk-3.0/colors.css'
+
+[templates.gtk3-dark]
+input_path = '~/.config/matugen/templates/gtk3-dark.css'
+output_path = '~/.themes/adw-gtk3-dark/gtk-3.0/colors.css'
 
 [templates.gtk4]
-input_path = '~/.config/matugen/templates/gtk.css'
+input_path = '~/.config/matugen/templates/gtk4.css'
 output_path = '~/.config/gtk-4.0/colors.css'
 
 [templates.kvantum_kvconfig]
