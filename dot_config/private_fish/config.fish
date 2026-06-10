@@ -18,7 +18,7 @@ function y
 	rm -f -- "$tmp"
 end
 
-abbr -a onedrive "/usr/bin/rclone mount --vfs-cache-mode full onedrive: $HOME/Onedrive --daemon"
+abbr -a onedrive "/usr/bin/rclone mount --vfs-cache-mode full onedrive: $HOME/OneDrive --daemon"
 abbr -a gdrive "/usr/bin/rclone mount --vfs-cache-mode full gdrive: $HOME/GDrive --daemon"
 
 abbr -a proxy "set -gx http_proxy http://127.0.0.1:7890; set -gx https_proxy http://127.0.0.1:7890; set -gx HTTP_PROXY http://127.0.0.1:7890; set -gx HTTPS_PROXY http://127.0.0.1:7890"
