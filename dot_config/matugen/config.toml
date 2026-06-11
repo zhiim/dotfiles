@@ -61,3 +61,7 @@ output_path = '~/.local/share/fcitx5/themes/matugen/panel.svg'
 input_path = '~/.config/matugen/templates/fcitx5/theme.conf'
 output_path = '~/.local/share/fcitx5/themes/matugen/theme.conf'
 post_hook= 'dbus-send --type=method_call --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.ReloadAddonConfig string:"classicui"'
+
+[templates.zathura]
+input_path = '~/.config/matugen/templates/zathurarc'
+output_path = '~/.config/zathura/zathurarc'
