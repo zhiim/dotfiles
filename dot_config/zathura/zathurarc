@@ -1,0 +1,50 @@
+set default-bg              "#eaeef2"
+set default-fg              "#171c1f"
+
+set statusbar-bg            "#dce3e9"
+set statusbar-fg            "#40484c"
+
+set inputbar-bg             "#dce3e9"
+set inputbar-fg             "#40484c"
+
+set notification-bg         "#dfe3e7"
+set notification-fg         "#171c1f"
+set notification-warning-bg "#e5deff"
+set notification-warning-fg "#1b1736"
+set notification-error-bg   "#ffdad6"
+set notification-error-fg   "#410002"
+
+set highlight-color         "#e5deff"
+set highlight-active-color  "#5f5a7d"
+
+set completion-bg           "#eaeef2"
+set completion-fg           "#171c1f"
+set completion-highlight-bg "#186584"
+set completion-highlight-fg "#ffffff"
+
+set recolor                 "true"
+set recolor-keephue         "true"
+set recolor-reverse-video   "true"
+
+set recolor-lightcolor      "#f6fafe"
+set recolor-darkcolor       "#171c1f"
+
+set selection-clipboard     "clipboard"
+
+set incremental-search      "true"
+set search-hadjust          "true"
+
+set adjust-open             "width"
+
+set page-padding            8
+
+set guioptions              ""
+
+set smooth-scroll           "true"
+set scroll-step             50
+
+map [normal]     b toggle_statusbar
+map [fullscreen] b toggle_statusbar
+
+map [normal]     i set recolor
+map [fullscreen] i set recolor
