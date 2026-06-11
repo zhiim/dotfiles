@@ -48,3 +48,6 @@ map [fullscreen] b toggle_statusbar
 
 map [normal]     i set recolor
 map [fullscreen] i set recolor
+
+map [normal]     <C-r> reload
+map [fullscreen] <C-r> reload
