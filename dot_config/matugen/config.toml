@@ -27,11 +27,11 @@ post_hook = 'swaync-client -rs &> /dev/null'
 
 [templates.gtk3]
 input_path = '~/.config/matugen/templates/gtk3.css'
-output_path = '~/.themes/adw-gtk3/gtk-3.0/colors.css'
+output_path = '~/.local/share/themes/adw-gtk3/gtk-3.0/colors.css'
 
 [templates.gtk3-dark]
 input_path = '~/.config/matugen/templates/gtk3-dark.css'
-output_path = '~/.themes/adw-gtk3-dark/gtk-3.0/colors.css'
+output_path = '~/.local/share/themes/adw-gtk3-dark/gtk-3.0/colors.css'
 
 [templates.gtk4]
 input_path = '~/.config/matugen/templates/gtk4.css'
