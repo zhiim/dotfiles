@@ -419,14 +419,5 @@ binds {
 cursor {
     xcursor-theme "capitaine-cursors"
     xcursor-size 32
-}
-
-environment {
-    LANG "zh_CN.UTF-8"
-    QT_QPA_PLATFORMTHEME "gtk3"
-    QT_WAYLAND_DECORATION "adwaita"
-    LIBVIRT_DEFAULT_URI "qemu:///system"
-    QT_IM_MODULES "wayland;fcitx"
-    QT_IM_MODULE "fcitx"
-    XMODIFIERS "@im=fcitx"
+    hide-when-typing
 }
