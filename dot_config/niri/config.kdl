@@ -118,6 +118,9 @@ window-rule {
     match app-id="spotify"
     match title="KOReader"
     match app-id="waypaper"
+    match app-id="org.pulseaudio.pavucontrol"
+    match app-id="io.github.kaii_lb.Overskride"
+    match app-id="com.network.manager"
 
     open-floating true
 }

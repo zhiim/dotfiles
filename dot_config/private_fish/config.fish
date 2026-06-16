@@ -22,3 +22,5 @@ abbr -a onedrive "/usr/bin/rclone mount --vfs-cache-mode full onedrive: $HOME/On
 abbr -a gdrive "/usr/bin/rclone mount --vfs-cache-mode full gdrive: $HOME/GDrive --daemon"
 
 abbr -a proxy "set -gx http_proxy http://127.0.0.1:7890; set -gx https_proxy http://127.0.0.1:7890; set -gx HTTP_PROXY http://127.0.0.1:7890; set -gx HTTPS_PROXY http://127.0.0.1:7890"
+
+abbr -a mtu "sudo sysctl -w net.ipv4.tcp_mtu_probing=1"
