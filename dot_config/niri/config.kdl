@@ -108,11 +108,9 @@ window-rule {
     match app-id="wlctl"
     match app-id="btop"
     match app-id="calcure"
-    match app-id="virt-manager"
     match app-id="org.telegram.desktop"
     match app-id="Peazip"
     match app-id="peazip"
-    match app-id="org.remmina.Remmina"
     match app-id="antigravity"
     match app-id="io.github.xiaoyifang.goldendict_ng"
     match app-id="spotify"
@@ -121,6 +119,9 @@ window-rule {
     match app-id="org.pulseaudio.pavucontrol"
     match app-id="io.github.kaii_lb.Overskride"
     match app-id="com.network.manager"
+    match app-id="virt-manager"
+    match app-id="wps"
+    match app-id="org.remmina.Remmina"
 
     open-floating true
 }
