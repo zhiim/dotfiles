@@ -120,8 +120,9 @@ window-rule {
     match app-id="io.github.kaii_lb.Overskride"
     match app-id="com.network.manager"
     match app-id="virt-manager"
-    match app-id="wps"
     match app-id="org.remmina.Remmina"
+    match app-id="wps"
+    match title=r#"WPS"#
 
     open-floating true
 }
