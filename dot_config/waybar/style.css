@@ -85,7 +85,7 @@ window#waybar.empty #window {
 }
 
 #tray menu {
-  padding: 5px 5px;
+  padding: 5px 3px;
   margin: 5px 3px 5px 3px;
   background-color: @surface;
   color: @on_surface;

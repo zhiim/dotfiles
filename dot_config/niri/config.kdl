@@ -123,6 +123,7 @@ window-rule {
     match app-id="org.remmina.Remmina"
     match app-id="wps"
     match title=r#"WPS"#
+    match app-id="org.gnome.Calendar"
 
     open-floating true
 }

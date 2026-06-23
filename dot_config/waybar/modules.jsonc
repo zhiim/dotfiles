@@ -204,7 +204,8 @@
       },
     },
     "max-length": 25,
-    "on-click": "wezterm --config enable_tab_bar=false start --always-new-process --class calcure -- calcure",
+    "on-click": "gnome-calendar"
+    // "on-click": "wezterm --config enable_tab_bar=false start --always-new-process --class calcure -- calcure",
   },
   "group/powermenu": {
     "orientation": "inherit",
