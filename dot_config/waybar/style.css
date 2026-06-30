@@ -212,6 +212,7 @@ window#waybar.empty #window {
 
 #cpu,
 #memory,
+#idle_inhibitor,
 #power-profiles-daemon {
   background-color: @surface_container_high;
   color: @tertiary;
@@ -224,6 +225,11 @@ window#waybar.empty #window {
 }
 
 #memory {
+  border-radius: 0px 0px 0px 0px;
+  margin: 5px 0px 5px 0px;
+}
+
+#idle_inhibitor {
   border-radius: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
 }

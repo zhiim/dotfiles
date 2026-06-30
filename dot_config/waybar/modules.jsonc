@@ -164,7 +164,7 @@
       "transition-left-to-right": false,
       "transition-duration": 800
     },
-    "modules": ["battery", "cpu", "memory", "power-profiles-daemon"],
+    "modules": ["battery", "cpu", "memory", "idle_inhibitor", "power-profiles-daemon"],
   },
   "battery": {
     "interval": 60,
@@ -185,6 +185,13 @@
       "balanced": "",
       "power-saver": "",
     },
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+        "activated": "",
+        "deactivated": ""
+    }
   },
   "cpu": {
     "format": "{usage}%",
