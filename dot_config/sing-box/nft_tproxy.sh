@@ -61,8 +61,10 @@ table ip proxy_tproxy {
         iifname \"tailscale0\" return
         ip daddr 100.64.0.0/10 return
 
-        # 3. 绕过 libvirt，让 libvirt 流量走后续的 redir
+        # 3. 绕过 libvirt 和 docker，让流量走后续的 redir
         iifname \"virbr0\" return
+        iifname \"docker0\" return
+        iifname \"br-*\" return
 
         # 4. DNS 劫持逻辑：sing-box 直接劫持发往局域网的 DNS 流量，mihomo 则直接绕过由后续处理
         $( if [ "$PROXY_MODE" = "singbox" ]; then
@@ -123,6 +125,8 @@ table ip proxy_redir {
         iifname \"tailscale0\" return
         ip daddr 100.64.0.0/10 return
         $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
+        $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"docker0\" return" )
+        $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"br-*\" return" )
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
         fi )
@@ -168,6 +172,8 @@ table ip6 proxy_tproxy {
         ip6 daddr fd7a:115c:a1e0::/48 return
 
         iifname \"virbr0\" return
+        iifname \"docker0\" return
+        iifname \"br-*\" return
 
         $( if [ "$PROXY_MODE" = "singbox" ]; then
             echo "ip6 daddr @nat_v6 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK tproxy to :$TPROXY_PORT"
@@ -216,6 +222,8 @@ table ip6 proxy_redir {
         iifname \"tailscale0\" return
         ip6 daddr fd7a:115c:a1e0::/48 return
         $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
+        $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"docker0\" return" )
+        $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"br-*\" return" )
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
         fi )
