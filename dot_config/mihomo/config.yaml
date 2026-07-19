@@ -102,13 +102,13 @@ dns:
     "rule-set:private_domain,fakeip_filter":
       - https://dns.alidns.com/dns-query
     "rule-set:google_domain,microsoft_domain,geolocation-!cn":
-      - https://dns.google/dns-query#🥤 默认
+      - https://dns.google/dns-query#👑 DNS
     "geosite:cn":
       - https://dns.alidns.com/dns-query
   proxy-server-nameserver: # 用于解析代理节点的域名
     - https://skky.cloudflare-gateway.com/dns-query
   nameserver: # 默认域名解析，用于兜底 nameserver-policy 无法匹配的域名
-    - https://dns.google/dns-query#🥤 默认&ecs=114.114.114.114/24&ecs-override=true
+    - https://dns.google/dns-query#👑 DNS&ecs=114.114.114.114/24&ecs-override=true
 
 # +----------------------------------------------------------+
 # |       域名嗅探，从流量中获取域名，从而使用域名规则       |
@@ -296,6 +296,19 @@ proxy-groups:
     <<: *direct
   - name: 🐟 漏网之鱼
     <<: *default
+  - name: 👑 DNS
+    type: select
+    proxies:
+      - 🚀 全部节点
+      - ♻ 自动选择
+      - 🎯 直连
+      - 🇭🇰 香港
+      - 🇹🇼 台湾
+      - 🇯🇵 日本
+      - 🇰🇷 韩国
+      - 🇸🇬 新加坡
+      - 🇺🇸 美国
+      - 🌏 其它地区
 
 # +----------------------------------------------------------+
 # |                         规则分流                         |
