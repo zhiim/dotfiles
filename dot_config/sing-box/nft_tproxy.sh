@@ -57,15 +57,18 @@ table ip proxy_tproxy {
         # 1. DIVERT：处理已建立连接的包，优化性能
         meta l4proto tcp socket transparent 1 meta mark set $FWMARK accept
 
-        # 2. 绕过 tailscale
+        # 2. 绕过局域网内 web 服务的 reply 流量
+        ct direction reply return
+
+        # 3. 绕过 tailscale
         iifname \"tailscale0\" return
         ip daddr 100.64.0.0/10 return
 
-        # 3. 绕过 libvirt 和 docker，让流量走后续的 redir
+        # 4. 绕过 libvirt 和 docker，让流量走后续的 redir
         iifname \"virbr0\" return
         iifname \"docker0\" return
 
-        # 4. DNS 劫持逻辑：sing-box 直接劫持发往局域网的 DNS 流量，mihomo 则直接绕过由后续处理
+        # 5. DNS 劫持逻辑：sing-box 直接劫持发往局域网的 DNS 流量，mihomo 则直接绕过由后续处理
         $( if [ "$PROXY_MODE" = "singbox" ]; then
             echo "ip daddr @nat_v4 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK tproxy to :$TPROXY_PORT"
         fi )
@@ -73,13 +76,13 @@ table ip proxy_tproxy {
             echo "meta l4proto { tcp, udp } th dport 53 return"
         fi )
 
-        # 5. 绕过本机所有公网/局域网 IP
+        # 6. 绕过本机所有公网/局域网 IP
         fib daddr type local return
 
-        # 6. 绕过发往保留地址的普通流量
+        # 7. 绕过发往保留地址的普通流量
         ip daddr @reserved_v4 return
 
-        # 7. TPROXY 接管剩余所有公网流量
+        # 8. TPROXY 接管剩余所有公网流量
         meta l4proto { tcp, udp } meta mark set $FWMARK tproxy to :$TPROXY_PORT
     }
 
@@ -121,6 +124,7 @@ table ip proxy_redir {
     }
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
+        ct direction reply return
         iifname \"tailscale0\" return
         ip daddr 100.64.0.0/10 return
         $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
@@ -165,6 +169,8 @@ table ip6 proxy_tproxy {
         type filter hook prerouting priority mangle; policy accept;
 
         meta l4proto tcp socket transparent 1 meta mark set $FWMARK accept
+
+        ct direction reply return
 
         iifname \"tailscale0\" return
         ip6 daddr fd7a:115c:a1e0::/48 return
@@ -216,6 +222,7 @@ table ip6 proxy_redir {
     }
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
+        ct direction reply return
         iifname \"tailscale0\" return
         ip6 daddr fd7a:115c:a1e0::/48 return
         $( [ "$PROXY_VIRT" = "false" ] && echo "iifname \"virbr0\" return" )
