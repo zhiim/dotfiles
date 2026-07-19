@@ -93,11 +93,14 @@ table ip proxy_tproxy {
         # 1. 防止代理进程自身流量死循环
         skuid \"$PROXY_USER\" return
 
-        # 2. 绕过 tailscale 发出的流量
+        # 2. 绕过本机的 reply 流量
+        ct direction reply return
+
+        # 3. 绕过 tailscale 发出的流量
         meta mark 0x40000 return
         ip daddr 100.64.0.0/10 return
 
-        # 3. DNS 本机劫持逻辑
+        # 4. DNS 本机劫持逻辑
         $( if [ "$PROXY_MODE" = "singbox" ]; then
             echo "ip daddr @nat_v4 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK"
         fi )
@@ -105,13 +108,13 @@ table ip proxy_tproxy {
             echo "meta l4proto { tcp, udp } th dport 53 return"
         fi )
 
-        # 4. 绕过本机 IP
+        # 5. 绕过本机 IP
         fib daddr type local return
 
-        # 5. 绕过保留地址
+        # 6. 绕过保留地址
         ip daddr @reserved_v4 return
 
-        # 6. 为本机发出的公网流量打标签以交由策略路由处理
+        # 7. 为本机发出的公网流量打标签以交由策略路由处理
         meta l4proto { tcp, udp } meta mark set $FWMARK
     }
 }
@@ -138,6 +141,7 @@ table ip proxy_redir {
     }
     chain output {
         type nat hook output priority dstnat; policy accept;
+        ct direction reply return
         skuid \"$PROXY_USER\" return
         meta mark 0x40000 return
         ip daddr 100.64.0.0/10 return
@@ -197,6 +201,8 @@ table ip6 proxy_tproxy {
 
         skuid \"$PROXY_USER\" return
 
+        ct direction reply return
+
         meta mark 0x40000 return
         ip6 daddr fd7a:115c:a1e0::/48 return
 
@@ -236,6 +242,7 @@ table ip6 proxy_redir {
     }
     chain output {
         type nat hook output priority dstnat; policy accept;
+        ct direction reply return
         skuid \"$PROXY_USER\" return
         meta mark 0x40000 return
         ip6 daddr fd7a:115c:a1e0::/48 return
