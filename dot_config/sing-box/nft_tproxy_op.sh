@@ -3,14 +3,14 @@
 # ==========================================
 # 配置区域
 # ==========================================
-PROXY_MODE="singbox"
+PROXY_MODE="mihomo"
 TPROXY_PORT="9898"
 REDIRECT_PORT="9797"
 FWMARK="1"
 ENABLE_IPV6="true"
 TABLE_V4="100"
 TABLE_V6="101"
-PROXY_VIRT="true"  # 是否代理 libvirt 流量
+PROXY_VIRT="false"  # 是否代理 libvirt 流量
 
 if [ "$PROXY_MODE" = "singbox" ]; then
     PROXY_USER="singbox"
@@ -251,7 +251,7 @@ start() {
     sleep 1
 
     echo "▶ 启动 ${SERVICE_NAME} 服务..."
-    systemctl start $SERVICE_NAME
+    /etc/init.d/$SERVICE_NAME start
 
     echo "▶ 正在加载 nftables 规则..."
     sysctl -w net.ipv4.ip_forward=1 >/dev/null
@@ -295,7 +295,7 @@ stop() {
     fi
 
     echo "▶ 关闭 ${SERVICE_NAME} 服务..."
-    systemctl stop $SERVICE_NAME
+    /etc/init.d/$SERVICE_NAME stop
 
     echo "▶ 清理连接状态..."
     conntrack -F 2>/dev/null || true
