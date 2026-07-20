@@ -90,32 +90,16 @@ table ip proxy_tproxy {
     chain output {
         type route hook output priority mangle; policy accept;
 
-        # 1. 防止代理进程自身流量死循环
         skuid \"$PROXY_USER\" return
 
-        # 2. 绕过本机的 reply 流量
         ct direction reply return
 
-        # 3. 绕过 tailscale 发出的流量
         meta mark 0x40000 return
         ip daddr 100.64.0.0/10 return
 
-        # 4. DNS 本机劫持逻辑
         $( if [ "$PROXY_MODE" = "singbox" ]; then
             echo "ip daddr @nat_v4 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK"
         fi )
-        $( if [ "$PROXY_MODE" = "mihomo" ]; then
-            echo "meta l4proto { tcp, udp } th dport 53 return"
-        fi )
-
-        # 5. 绕过本机 IP
-        fib daddr type local return
-
-        # 6. 绕过保留地址
-        ip daddr @reserved_v4 return
-
-        # 7. 为本机发出的公网流量打标签以交由策略路由处理
-        meta l4proto { tcp, udp } meta mark set $FWMARK
     }
 }
 # proxy_tproxy table 绕过的流量将进入 proxy_redir
@@ -141,13 +125,16 @@ table ip proxy_redir {
     }
     chain output {
         type nat hook output priority dstnat; policy accept;
-        ct direction reply return
         skuid \"$PROXY_USER\" return
+        ct direction reply return
         meta mark 0x40000 return
         ip daddr 100.64.0.0/10 return
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
         fi )
+        fib daddr type local return
+        ip daddr @reserved_v4 return
+        meta l4proto tcp redirect to :$REDIRECT_PORT
     }
 }"
 
@@ -209,15 +196,6 @@ table ip6 proxy_tproxy {
         $( if [ "$PROXY_MODE" = "singbox" ]; then
             echo "ip6 daddr @nat_v6 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK"
         fi )
-        $( if [ "$PROXY_MODE" = "mihomo" ]; then
-            echo "meta l4proto { tcp, udp } th dport 53 return"
-        fi )
-
-        fib daddr type local return
-
-        ip6 daddr @reserved_v6 return
-
-        meta l4proto { tcp, udp } meta mark set $FWMARK
     }
 }
 table ip6 proxy_redir {
@@ -242,13 +220,16 @@ table ip6 proxy_redir {
     }
     chain output {
         type nat hook output priority dstnat; policy accept;
-        ct direction reply return
         skuid \"$PROXY_USER\" return
+        ct direction reply return
         meta mark 0x40000 return
         ip6 daddr fd7a:115c:a1e0::/48 return
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
         fi )
+        fib daddr type local return
+        ip6 daddr @reserved_v6 return
+        meta l4proto tcp redirect to :$REDIRECT_PORT
     }
 }"
 
