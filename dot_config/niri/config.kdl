@@ -89,6 +89,7 @@ animations {
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     match title="^Picture in picture$"
+    match title="^画中画$"
     open-floating true
 }
 
