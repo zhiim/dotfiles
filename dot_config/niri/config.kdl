@@ -47,6 +47,7 @@ output "eDP-1" {
 spawn-at-startup "xrdb" "-merge" "/home/xu/.Xresources"
 spawn-sh-at-startup "wl-paste --type text --watch cliphist store"
 spawn-sh-at-startup "wl-paste --type image --watch cliphist store"
+spawn-at-startup "/home/xu/.config/niri/scripts/late-float.py"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -125,6 +126,7 @@ window-rule {
     match app-id="wps"
     match title=r#"WPS"#
     match app-id="org.gnome.Calendar"
+    match app-id=r#"^firefox$"# title=r#"^(扩展：|Extension:)"#
 
     open-floating true
 }
