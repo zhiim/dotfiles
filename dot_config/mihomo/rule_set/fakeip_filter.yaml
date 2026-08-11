@@ -82,7 +82,6 @@ payload:
   - "+.wggames.cn"
   - "+.wowsgame.cn"
   - "+.wargaming.net"
-  - "proxy.golang.org"
   - "+.stun.*.*"
   - "+.stun.*.*.*"
   - "+.stun.*.*.*.*"
