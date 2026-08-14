@@ -29,7 +29,7 @@ set recolor-reverse-video   "true"
 set recolor-lightcolor      "#f7f9ff"
 set recolor-darkcolor       "#181c20"
 
-set selection-clipboard     "clipboard"
+set selection-clipboard     "false"
 
 set incremental-search      "true"
 set search-hadjust          "true"
