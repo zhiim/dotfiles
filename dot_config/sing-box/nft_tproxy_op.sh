@@ -82,7 +82,10 @@ table ip proxy_tproxy {
         # 7. 绕过发往保留地址的普通流量
         ip daddr @reserved_v4 return
 
-        # 8. TPROXY 接管剩余所有公网流量
+        # 8. 绕过 NTP 流量
+        udp dport 123 return
+
+        # 9. TPROXY 接管剩余所有公网流量
         meta l4proto { tcp, udp } meta mark set $FWMARK tproxy to :$TPROXY_PORT
     }
 
@@ -179,6 +182,8 @@ table ip6 proxy_tproxy {
         fib daddr type local return
 
         ip6 daddr @reserved_v6 return
+
+        udp dport 123 return
 
         meta l4proto { tcp, udp } meta mark set $FWMARK tproxy to :$TPROXY_PORT
     }
