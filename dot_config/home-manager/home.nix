@@ -23,6 +23,7 @@
     pkgs.starship
     pkgs.tmux
     pkgs.uv
+    pkgs.pi-coding-agent
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
