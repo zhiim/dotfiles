@@ -6,8 +6,6 @@
 
   home.stateVersion = "26.05"; # Please read the comment before changing.
 
-  targets.genericLinux.gpu.enable = true;
-
   home.packages = [
     pkgs.nodejs
     pkgs.bun
