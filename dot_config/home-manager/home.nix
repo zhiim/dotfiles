@@ -24,6 +24,7 @@
     pkgs.tmux
     pkgs.uv
     pkgs.pi-coding-agent
+    pkgs.codegraph
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
