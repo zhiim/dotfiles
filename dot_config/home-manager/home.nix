@@ -23,11 +23,9 @@
     pkgs.starship
     pkgs.tmux
     pkgs.uv
-    pkgs.pi-coding-agent
     pkgs.codegraph
     pkgs.delta
     pkgs.cmake
-    pkgs.aria2
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
