@@ -309,6 +309,16 @@ proxy-groups:
       - 🇸🇬 新加坡
       - 🇺🇸 美国
       - 🌏 其它地区
+  - name: 🪙 币安
+    type: select
+    proxies:
+      - 🎯 直连
+    include-all-providers: true
+  - name: 🏦 Bybit
+    type: select
+    proxies:
+      - 🎯 直连
+    include-all-providers: true
 
 # +----------------------------------------------------------+
 # |                         规则分流                         |
@@ -324,6 +334,8 @@ rules:
   - RULE-SET,category_porn_domain,REJECT
   - RULE-SET,blacklist,REJECT
   - RULE-SET,direct_apps,🎯 直连
+  - RULE-SET,bybit_domain,🏦 Bybit
+  - RULE-SET,binance_domain,🪙 币安
   - RULE-SET,google_fcm,📢 谷歌FCM
   - RULE-SET,github_domain,🍮 Github
   - RULE-SET,spotify_domain,🥛 Spotify
@@ -430,6 +442,12 @@ rule-providers:
   blacklist:
     <<: *mrs
     url: "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/mihomo/rule_set/blacklist.mrs"
+  bybit_domain:
+    <<: *mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bybit.mrs"
+  binance_domain:
+    <<: *mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/binance.mrs"
   direct_apps:
     type: inline
     behavior: classical
