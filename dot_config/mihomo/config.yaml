@@ -14,7 +14,7 @@ p: &p
   interval: 86400
   health-check:
     enable: true
-    url: https://www.google.com/generate_204
+    url: http://captive.apple.com
     interval: 21600
 
 # url 里填写自己的订阅,名称不能重复
@@ -29,11 +29,6 @@ proxy-providers:
     url: ""
     override:
       additional-prefix: "[备]"
-  fallback2:
-    <<: *p
-    url: ""
-    override:
-      additional-prefix: "[自]"
 
 # +----------------------------------------------------------+
 # |                      Clash 基础设置                      |
@@ -159,9 +154,10 @@ FilterJP: &FilterJP "^(?=.*(?i)(日|🇯🇵|JP|Japan|NRT|HND|KIX|CTS|FUK)).*$"
 FilterKR: &FilterKR "^(?=.*(?i)(韩|🇰🇷|韓|首尔|南朝鲜|KR|KOR|Korea|South)).*$"
 FilterUS: &FilterUS "^(?=.*(?i)(美|🇺🇸|US|USA|SJC|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD)).*$"
 FilterTW: &FilterTW "^(?=.*(?i)(台|🇼🇸|🇹🇼|TW|tai|TPE|TSA|KHH)).*$"
-FilterOT: &FilterOT "^(?!.*(港|🇭🇰|HK|Hong|HKG|坡|🇸🇬|SG|Sing|SIN|XSP|日|🇯🇵|JP|Japan|NRT|HND|KIX|CTS|FUK|韩|🇰🇷|韓|首尔|南朝鲜|KR|KOR|Korea|South|美|🇺🇸|US|USA|SJC|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD|台|🇼🇸|🇹🇼|TW|tai|TPE|TSA|KHH)).*$"
+FilterEU: &FilterEU "^(?=.*(?i)(奥|比|法|德|爱尔|意|荷|西|瑞|英|🇦🇹|🇧🇪|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇳🇱|🇪🇸|🇨🇭|🇬🇧|CDG|FRA|AMS|MUC|BRU|DUB|FCO|MAD|BCN|ZRH|LHR|LON)).*$"
+FilterOT: &FilterOT "^(?!.*(港|🇭🇰|HK|Hong|HKG|坡|🇸🇬|SG|Sing|SIN|XSP|日|🇯🇵|JP|Japan|NRT|HND|KIX|CTS|FUK|韩|🇰🇷|韓|首尔|南朝鲜|KR|KOR|Korea|South|美|🇺🇸|US|USA|SJC|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD|台|🇼🇸|🇹🇼|TW|tai|TPE|TSA|KHH|奥|比|法|德|爱尔|意|荷|西|瑞|英|🇦🇹|🇧🇪|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇳🇱|🇪🇸|🇨🇭|🇬🇧|CDG|FRA|AMS|MUC|BRU|DUB|FCO|MAD|BCN|ZRH|LHR|LON)).*$"
 
-Exclude: &Exclude '^(\[备\]|\[自\]).*$'
+Exclude: &Exclude '^(\[备\]).*$'
 
 default: &default
   type: select
@@ -173,10 +169,12 @@ default: &default
     - 🇰🇷 韩国
     - 🇸🇬 新加坡
     - 🇺🇸 美国
+    - 🇪🇺 欧洲
     - 🌏 其它地区
     - 🎯 直连
     - 🚀 全部节点
     - ♻ 自动选择
+  include-all-providers: true
 direct: &direct
   type: select
   proxies:
@@ -188,9 +186,11 @@ direct: &direct
     - 🇰🇷 韩国
     - 🇸🇬 新加坡
     - 🇺🇸 美国
+    - 🇪🇺 欧洲
     - 🌏 其它地区
     - 🚀 全部节点
     - ♻ 自动选择
+  include-all-providers: true
 
 proxy-groups:
   - name: 🥤 默认
@@ -199,20 +199,12 @@ proxy-groups:
       - 🚀 全部节点
       - ♻ 自动选择
       - 🎯 直连
-      - 🇭🇰 香港
-      - 🇹🇼 台湾
-      - 🇯🇵 日本
-      - 🇰🇷 韩国
-      - 🇸🇬 新加坡
-      - 🇺🇸 美国
-      - 🌏 其它地区
 
   - name: 🚀 全部节点
     type: select
     proxies:
       - ✈️ 主订阅
       - 🛩️ 备用订阅
-      - 🛩️ 自建节点
   - name: ✈️ 主订阅
     type: select
     exclude-filter: *Exclude
@@ -221,16 +213,12 @@ proxy-groups:
     type: select
     filter: '^\[备\].*$'
     include-all-providers: true
-  - name: 🛩️ 自建节点
-    type: select
-    filter: '^\[自\].*$'
-    include-all: true
 
   - name: ♻ 自动选择
     type: url-test
     interval: 21600
     lazy: true
-    url: "https://www.google.com/generate_204"
+    url: "http://captive.apple.com"
     hidden: true
     exclude-filter: *Exclude
     include-all-providers: true
@@ -266,25 +254,32 @@ proxy-groups:
     filter: *FilterUS
     exclude-filter: *Exclude
     include-all-providers: true
+  - name: 🇪🇺 欧洲
+    type: select
+    filter: *FilterEU
+    exclude-filter: *Exclude
+    include-all-providers: true
   - name: 🌏 其它地区
     type: select
     filter: *FilterOT
     exclude-filter: *Exclude
     include-all-providers: true
 
-  - name: 🍮 Github
-    <<: *default
   - name: 🥛 Spotify
     <<: *default
   - name: 🫙 Microsoft
     <<: *default
   - name: 🍿 Apple
-    <<: *direct
+    <<: *default
   - name: 🧊 Google
     <<: *default
-  - name: 🍭 Telegram
+  - name: 🧿 meta
     <<: *default
-  - name: 🧋 YouTube
+  - name: 🤖 AI
+    <<: *default
+  - name: 🪙 币安
+    <<: *default
+  - name: 🏦 Bybit
     <<: *default
   - name: 🍡 Tracker
     <<: *direct
@@ -297,28 +292,7 @@ proxy-groups:
   - name: 🐟 漏网之鱼
     <<: *default
   - name: 👑 DNS
-    type: select
-    proxies:
-      - 🚀 全部节点
-      - ♻ 自动选择
-      - 🎯 直连
-      - 🇭🇰 香港
-      - 🇹🇼 台湾
-      - 🇯🇵 日本
-      - 🇰🇷 韩国
-      - 🇸🇬 新加坡
-      - 🇺🇸 美国
-      - 🌏 其它地区
-  - name: 🪙 币安
-    type: select
-    proxies:
-      - 🎯 直连
-    include-all-providers: true
-  - name: 🏦 Bybit
-    type: select
-    proxies:
-      - 🎯 直连
-    include-all-providers: true
+    <<: *default
 
 # +----------------------------------------------------------+
 # |                         规则分流                         |
@@ -337,19 +311,17 @@ rules:
   - RULE-SET,bybit_domain,🏦 Bybit
   - RULE-SET,binance_domain,🪙 币安
   - RULE-SET,google_fcm,📢 谷歌FCM
-  - RULE-SET,github_domain,🍮 Github
+  - RULE-SET,ai_domain,🤖 AI
   - RULE-SET,spotify_domain,🥛 Spotify
   - RULE-SET,microsoft_domain,🫙 Microsoft
   - RULE-SET,apple_domain,🍿 Apple
   - RULE-SET,google_domain,🧊 Google
-  - RULE-SET,telegram_domain,🍭 Telegram
-  - RULE-SET,youtube_domain,🧋 YouTube
+  - RULE-SET,meta_domain,🧿 meta
   - RULE-SET,tracker_domain,🍡 Tracker
   - RULE-SET,geolocation-!cn,⭐ 其他非大陆
   - RULE-SET,cn_domain,🇨🇳 国内
   # IP规则, 如果域名规则不匹配则进入IP规则, 此时会使用Clash配置的DNS规则解析IP
   - RULE-SET,google_ip,🧊 Google
-  - RULE-SET,telegram_ip,🍭 Telegram
   - RULE-SET,cn_ip,🇨🇳 国内
   # 未匹配兜底
   - MATCH,🐟 漏网之鱼
@@ -385,9 +357,6 @@ rule-providers:
   private_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"
-  github_domain:
-    <<: *mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"
   spotify_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/spotify.mrs"
@@ -400,12 +369,9 @@ rule-providers:
   google_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
-  youtube_domain:
+  meta_domain:
     <<: *mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"
-  telegram_domain:
-    <<: *mrs
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/meta.mrs"
   tracker_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tracker.mrs"
@@ -430,9 +396,6 @@ rule-providers:
   google_ip:
     <<: *mrsip
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"
-  telegram_ip:
-    <<: *mrsip
-    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"
   cn_ip:
     <<: *mrsip
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"
@@ -448,6 +411,9 @@ rule-providers:
   binance_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/binance.mrs"
+  ai_domain:
+    <<: *mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs"
   direct_apps:
     type: inline
     behavior: classical
