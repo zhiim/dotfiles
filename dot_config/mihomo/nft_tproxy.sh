@@ -279,7 +279,11 @@ start() {
     sleep 1
 
     echo "▶ 启动 ${SERVICE_NAME} 服务..."
-    systemctl start $SERVICE_NAME
+    if command -v systemctl >/dev/null 2>&1; then
+        systemctl start $SERVICE_NAME
+    else
+        /etc/init.d/$SERVICE_NAME start
+    fi
 
     echo "▶ 正在加载 nftables 规则..."
     sysctl -w net.ipv4.ip_forward=1 >/dev/null
@@ -323,7 +327,11 @@ stop() {
     fi
 
     echo "▶ 关闭 ${SERVICE_NAME} 服务..."
-    systemctl stop $SERVICE_NAME
+    if command -v systemctl >/dev/null 2>&1; then
+        systemctl stop $SERVICE_NAME
+    else
+        /etc/init.d/$SERVICE_NAME stop
+    fi
 
     echo "▶ 清理连接状态..."
     conntrack -F 2>/dev/null || true
