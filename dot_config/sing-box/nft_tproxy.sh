@@ -133,6 +133,8 @@ table ip proxy_redir {
     }
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
+        # 绕过已经标记的流量，避免重复处理
+        meta mark $FWMARK return
         ct direction reply return
         iifname \"tailscale0\" return
         ip daddr 100.64.0.0/10 return
@@ -197,7 +199,8 @@ table ip6 proxy_tproxy {
 
         fib daddr type local return
 
-        ip6 daddr @reserved_v6 return
+        # 绕过保留 ipv6 地址，除了 mihomo 的 fake-ipv6 地址
+        ip6 daddr @reserved_v6 ip6 daddr != fdfe:dcba:9876::/64 return
 
         udp dport 123 return
 
@@ -223,7 +226,7 @@ table ip6 proxy_tproxy {
 
         fib daddr type local return
 
-        ip6 daddr @reserved_v6 return
+        ip6 daddr @reserved_v6 ip6 daddr != fdfe:dcba:9876::/64 return
 
         udp dport 123 return
 
@@ -238,6 +241,7 @@ table ip6 proxy_redir {
     }
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
+        meta mark $FWMARK return
         ct direction reply return
         iifname \"tailscale0\" return
         ip6 daddr fd7a:115c:a1e0::/48 return
@@ -247,7 +251,7 @@ table ip6 proxy_redir {
             echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
         fi )
         fib daddr type local return
-        ip6 daddr @reserved_v6 return
+        ip6 daddr @reserved_v6 ip6 daddr != fdfe:dcba:9876::/64 return
         meta l4proto tcp redirect to :$REDIRECT_PORT
     }
     chain output {
