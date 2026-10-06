@@ -275,6 +275,8 @@ proxy-groups:
     <<: *default
   - name: 🧿 meta
     <<: *default
+  - name: 🕸 twitter
+    <<: *default
   - name: 🤖 AI
     <<: *default
   - name: 🪙 币安
@@ -316,6 +318,7 @@ rules:
   - RULE-SET,microsoft_domain,🫙 Microsoft
   - RULE-SET,apple_domain,🍿 Apple
   - RULE-SET,google_domain,🧊 Google
+  - RULE-SET,twitter_domain,🕸 twitter
   - RULE-SET,meta_domain,🧿 meta
   - RULE-SET,tracker_domain,🍡 Tracker
   - RULE-SET,geolocation-!cn,⭐ 其他非大陆
@@ -414,6 +417,9 @@ rule-providers:
   ai_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs"
+  twitter_domain:
+    <<: *mrs
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.mrs"
   direct_apps:
     type: inline
     behavior: classical
