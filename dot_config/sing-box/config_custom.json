@@ -10,8 +10,8 @@
       {
         "tag": "fakeip",
         "type": "fakeip",
-        "inet4_range": "198.18.0.0/15",
-        "inet6_range": "fc00::/18"
+        "inet4_range": "198.18.0.0/16",
+        "inet6_range": "fdfe:dcba:9876::1/64"
       },
       {
         "tag": "hosts",
@@ -151,10 +151,16 @@
       "listen_port": 9898
     },
     {
+      "type": "redirect",
+      "tag": "redirect-in",
+      "listen": "::",
+      "listen_port": 9797
+    },
+    {
       "type": "tun",
       "tag": "tun-in",
       "interface_name": "sing-box",
-      "address": ["172.18.0.1/30", "fdfe:dcba:9876::1/126"],
+      "address": ["172.18.0.1/30", "fdfe:dcba:9877::1/126"],
       "auto_route": true,
       "strict_route": true,
       "endpoint_independent_nat": false,

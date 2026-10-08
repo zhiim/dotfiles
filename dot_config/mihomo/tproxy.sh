@@ -3,7 +3,7 @@
 # ==========================================
 # 配置区域
 # ==========================================
-PROXY_MODE="singbox"
+PROXY_MODE="mihomo"
 TPROXY_PORT="9898"
 REDIRECT_PORT="9797"
 FWMARK="1"
@@ -11,6 +11,8 @@ ENABLE_IPV6="true"
 TABLE_V4="100"
 TABLE_V6="101"
 PROXY_VIRT="true"  # 是否代理 libvirt 流量
+FAKEIP4_RANGE="198.18.0.1/16"
+FAKEIP6_RANGE="fdfe:dcba:9876::1/64"
 
 if [ "$PROXY_MODE" = "singbox" ]; then
     PROXY_USER="singbox"
@@ -41,7 +43,23 @@ table ip proxy_tproxy {
     set reserved_v4 {
         type ipv4_addr
         flags interval
-        elements = { 10.0.0.0/8, 127.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 224.0.0.0/4, 255.255.255.255/32 }
+        elements = {
+            0.0.0.0/8,
+            10.0.0.0/8,
+            100.64.0.0/10,
+            127.0.0.0/8,
+            169.254.0.0/16,
+            172.16.0.0/12,
+            192.0.0.0/24,
+            192.0.2.0/24,
+            192.88.99.0/24,
+            192.168.0.0/16,
+            198.18.0.0/15,
+            198.51.100.0/24,
+            203.0.113.0/24,
+            224.0.0.0/4,
+            240.0.0.0/4
+        }
     }
     # 可能为上游网关的 DNS 地址
     set nat_v4 {
@@ -80,7 +98,7 @@ table ip proxy_tproxy {
         fib daddr type local return
 
         # 7. 绕过发往保留地址的普通流量
-        ip daddr @reserved_v4 return
+        ip daddr @reserved_v4 ip daddr != $FAKEIP4_RANGE return
 
         # 8. 绕过 NTP 流量
         udp dport 123 return
@@ -115,7 +133,7 @@ table ip proxy_tproxy {
         fib daddr type local return
 
         # 6. 绕过保留地址
-        ip daddr @reserved_v4 return
+        ip daddr @reserved_v4 ip daddr != $FAKEIP4_RANGE return
 
         # 7. 绕过 NTP 流量
         udp dport 123 return
@@ -129,7 +147,23 @@ table ip proxy_redir {
     set reserved_v4 {
         type ipv4_addr
         flags interval
-        elements = { 10.0.0.0/8, 127.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 224.0.0.0/4, 255.255.255.255/32 }
+        elements = {
+            0.0.0.0/8,
+            10.0.0.0/8,
+            100.64.0.0/10,
+            127.0.0.0/8,
+            169.254.0.0/16,
+            172.16.0.0/12,
+            192.0.0.0/24,
+            192.0.2.0/24,
+            192.88.99.0/24,
+            192.168.0.0/16,
+            198.18.0.0/15,
+            198.51.100.0/24,
+            203.0.113.0/24,
+            224.0.0.0/4,
+            240.0.0.0/4
+        }
     }
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
@@ -144,7 +178,7 @@ table ip proxy_redir {
             echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
         fi )
         fib daddr type local return
-        ip daddr @reserved_v4 return
+        ip daddr @reserved_v4 ip daddr != $FAKEIP4_RANGE return
         meta l4proto tcp redirect to :$REDIRECT_PORT
     }
     chain output {
@@ -169,7 +203,23 @@ table ip6 proxy_tproxy {
     set reserved_v6 {
         type ipv6_addr
         flags interval
-        elements = { ::1/128, fc00::/7, fe80::/10, ff00::/8 }
+        elements = {
+            ::/128,
+            ::1/128,
+            ::ffff:0:0/96,
+            64:ff9b::/96,
+            64:ff9b:1::/48,
+            100::/64,
+            2001::/32,
+            2001:20::/28,
+            2001:db8::/32,
+            2002::/16,
+            3fff::/20,
+            5f00::/16,
+            fc00::/7,
+            fe80::/10,
+            ff00::/8
+        }
     }
     set nat_v6 {
         type ipv6_addr
@@ -200,7 +250,7 @@ table ip6 proxy_tproxy {
         fib daddr type local return
 
         # 绕过保留 ipv6 地址，除了 mihomo 的 fake-ipv6 地址
-        ip6 daddr @reserved_v6 ip6 daddr != fdfe:dcba:9876::/64 return
+        ip6 daddr @reserved_v6 ip6 daddr != $FAKEIP6_RANGE return
 
         udp dport 123 return
 
@@ -226,7 +276,7 @@ table ip6 proxy_tproxy {
 
         fib daddr type local return
 
-        ip6 daddr @reserved_v6 ip6 daddr != fdfe:dcba:9876::/64 return
+        ip6 daddr @reserved_v6 ip6 daddr != $FAKEIP6_RANGE return
 
         udp dport 123 return
 
@@ -237,7 +287,23 @@ table ip6 proxy_redir {
     set reserved_v6 {
         type ipv6_addr
         flags interval
-        elements = { ::1/128, fc00::/7, fe80::/10, ff00::/8 }
+        elements = {
+            ::/128,
+            ::1/128,
+            ::ffff:0:0/96,
+            64:ff9b::/96,
+            64:ff9b:1::/48,
+            100::/64,
+            2001::/32,
+            2001:20::/28,
+            2001:db8::/32,
+            2002::/16,
+            3fff::/20,
+            5f00::/16,
+            fc00::/7,
+            fe80::/10,
+            ff00::/8
+        }
     }
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
@@ -251,7 +317,7 @@ table ip6 proxy_redir {
             echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
         fi )
         fib daddr type local return
-        ip6 daddr @reserved_v6 ip6 daddr != fdfe:dcba:9876::/64 return
+        ip6 daddr @reserved_v6 ip6 daddr != $FAKEIP6_RANGE return
         meta l4proto tcp redirect to :$REDIRECT_PORT
     }
     chain output {
