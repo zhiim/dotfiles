@@ -67,7 +67,7 @@ hosts:
 dns:
   enable: true
   listen: 0.0.0.0:1053
-  ipv6: true # 如果需要使用 box for magisk 的热点共享代理，需要设置为 false
+  ipv6: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16 # clash 以此 IP 段发送 fake-ip 映射
   fake-ip-range6: fdfe:dcba:9876::1/64

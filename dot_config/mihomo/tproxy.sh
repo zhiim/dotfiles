@@ -3,16 +3,23 @@
 # ==========================================
 # 配置区域
 # ==========================================
-PROXY_MODE="mihomo"
+PROXY_MODE="mihomo" # 可选值: "singbox" 或 "mihomo"
+WORK_MODE="local" # 可选值: "local" 或 "router"
 TPROXY_PORT="9898"
 REDIRECT_PORT="9797"
 FWMARK="1"
 ENABLE_IPV6="true"
 TABLE_V4="100"
 TABLE_V6="101"
-PROXY_VIRT="true"  # 是否代理 libvirt 流量
+PROXY_VIRT="false"  # 是否代理 libvirt 流量
 FAKEIP4_RANGE="198.18.0.1/16"
 FAKEIP6_RANGE="fdfe:dcba:9876::1/64"
+
+if [ "$WORK_MODE" = "router" ] && [ "$ENABLE_IPV6" = "true" ]; then
+    # 使用命令 ip -6 addr show scope global 查看路由器的 lan 接口和 ULA 地址
+    FAKEIP6_IFACE="br-lan"
+    FAKEIP6_SRC="fd4c:569f:85e0::1"
+fi
 
 if [ "$PROXY_MODE" = "singbox" ]; then
     PROXY_USER="singbox"
@@ -368,6 +375,10 @@ start() {
         ip -6 route add local ::/0 dev lo table $TABLE_V6 2>/dev/null || true
 
         apply_nft_rules_v6
+
+        if [ "$WORK_MODE" = "router" ]; then
+            ip -6 route add "$FAKEIP6_RANGE" dev "$FAKEIP6_IFACE" src "$FAKEIP6_SRC" table main || true
+        fi
     fi
 
     echo "▶ nftables TPROXY 规则应用成功！"
@@ -375,6 +386,10 @@ start() {
 
 stop() {
     echo "▶ 清除内核路由规则..."
+    if [ "$WORK_MODE" = "router" ] && [ "$ENABLE_IPV6" = "true" ]; then
+        ip -6 route del "$FAKEIP6_RANGE" dev "$FAKEIP6_IFACE" src "$FAKEIP6_SRC" table main 2>/dev/null || true
+    fi
+
     ip rule del fwmark $FWMARK table $TABLE_V4 2>/dev/null || true
     ip route del local 0.0.0.0/0 dev lo table $TABLE_V4 2>/dev/null || true
 
