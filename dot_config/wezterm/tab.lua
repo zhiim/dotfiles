@@ -82,6 +82,7 @@ function M.apply(config, theme)
   -- }
 
   wezterm.on('format-tab-title', function(tab, _, _, _, hover, max_width)
+    local locked = require('mappings').is_tab_locked(tab.tab_id)
     local bg = inactive_fg
     local fg = inactive_bg
     if tab.is_active then
@@ -114,11 +115,11 @@ function M.apply(config, theme)
     local tab_index = tostring(tab.tab_index + 1)
 
     local tab_name = get_tab_name(tab)
-    tab_name = wezterm.truncate_right(tab_name, max_width - 5)
+    tab_name = wezterm.truncate_right(tab_name, math.max(0, max_width - 5))
 
     return {
       { Background = { Color = fg } },
-      { Foreground = { Color = active_bg } },
+      { Foreground = { Color = locked and red or active_bg } },
       { Attribute = { Intensity = 'Bold' } },
       { Text = ' ' .. tab_index .. '#' },
       { Background = { Color = fg } },
@@ -167,12 +168,15 @@ function M.apply(config, theme)
     local mode
     local mode_bg_colour
     local mode_fg_colour = tabbar_bg
-    if require('mappings').read_toggle() then
+    if require('mappings').read_toggle(window) then
       mode = wezterm.nerdfonts.fa_lock .. ' LOCKED'
       mode_bg_colour = red
     elseif window:active_key_table() then
       mode = format_mode_text(window:active_key_table())
-      if mode == 'COPY' then
+      if mode == 'LEADER' then
+        mode = wezterm.nerdfonts.fa_dot_circle_o .. ' LEADER'
+        mode_bg_colour = cyan
+      elseif mode == 'COPY' then
         mode = ' ' .. mode
         mode_bg_colour = green
       elseif mode == 'SEARCH' then
