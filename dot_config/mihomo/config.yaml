@@ -285,6 +285,8 @@ proxy-groups:
     <<: *default
   - name: 🍡 Tracker
     <<: *direct
+  - name: 💬 VOXI
+    <<: *default
   - name: ⭐ 其他非大陆
     <<: *default
   - name: 🇨🇳 国内
@@ -310,6 +312,7 @@ rules:
   - RULE-SET,category_porn_domain,REJECT
   - RULE-SET,blacklist,REJECT
   - RULE-SET,direct_apps,🎯 直连
+  - RULE-SET,voxi,💬 VOXI
   - RULE-SET,bybit_domain,🏦 Bybit
   - RULE-SET,binance_domain,🪙 币安
   - RULE-SET,google_fcm,📢 谷歌FCM
@@ -355,6 +358,11 @@ mrsip: &mrsip
   interval: 86400
   behavior: ipcidr
   format: mrs
+classical: &classical
+  type: http
+  interval: 86400
+  behavior: classical
+  format: yaml
 
 rule-providers:
   private_domain:
@@ -420,6 +428,9 @@ rule-providers:
   twitter_domain:
     <<: *mrs
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.mrs"
+  voxi:
+    <<: *classical
+    url: "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/mihomo/rule_set/voxi.yaml"
   direct_apps:
     type: inline
     behavior: classical

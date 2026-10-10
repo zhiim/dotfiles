@@ -1,0 +1,6 @@
+payload:
+  - DOMAIN-SUFFIX,epdg.epc.mnc015.mcc234.pub.3gppnetwork.org
+  - DOMAIN-SUFFIX,epdg.vodafone.co.uk
+  - IP-CIDR,148.252.188.96/32
+  - IP-CIDR,88.82.11.221/32
+  - IP-CIDR,88.82.11.208/32
