@@ -19,7 +19,7 @@ function M.smart_nav(resize_or_move, key)
     key = key,
     mods = resize_or_move == 'resize' and 'META' or 'CTRL',
     action = wezterm.action_callback(function(win, pane)
-      if is_vim(pane) then
+      if require('mappings').read_toggle(win) or is_vim(pane) then
         -- pass the keys through to vim/nvim
         win:perform_action(
           action.SendKey {

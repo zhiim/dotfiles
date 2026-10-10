@@ -86,7 +86,7 @@ function M.apply(config, theme)
     local bg = inactive_fg
     local fg = inactive_bg
     if tab.is_active then
-      bg = active_bg
+      bg = locked and red or active_bg
       fg = active_fg
     end
     if not tab.is_active and hover then
@@ -95,17 +95,15 @@ function M.apply(config, theme)
     end
 
     if tab.is_active then
+      local icon = locked and wezterm.nerdfonts.fa_lock
+        or wezterm.nerdfonts.md_image_filter_center_focus_strong
       return {
         { Background = { Color = fg } },
         { Foreground = { Color = bg } },
         { Text = '' },
         { Background = { Color = bg } },
         { Foreground = { Color = fg } },
-        {
-          Text = ' '
-            .. wezterm.nerdfonts.md_image_filter_center_focus_strong
-            .. ' ',
-        },
+        { Text = ' ' .. icon .. ' ' },
         { Background = { Color = fg } },
         { Foreground = { Color = bg } },
         { Text = '' },
@@ -168,10 +166,7 @@ function M.apply(config, theme)
     local mode
     local mode_bg_colour
     local mode_fg_colour = tabbar_bg
-    if require('mappings').read_toggle(window) then
-      mode = wezterm.nerdfonts.fa_lock .. ' LOCKED'
-      mode_bg_colour = red
-    elseif window:active_key_table() then
+    if window:active_key_table() then
       mode = format_mode_text(window:active_key_table())
       if mode == 'LEADER' then
         mode = wezterm.nerdfonts.fa_dot_circle_o .. ' LEADER'
