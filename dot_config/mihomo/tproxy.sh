@@ -146,27 +146,6 @@ table ip proxy_tproxy {
 }
 # proxy_tproxy table 绕过的流量将进入 proxy_redir
 table ip proxy_redir {
-    set reserved_v4 {
-        type ipv4_addr
-        flags interval
-        elements = {
-            0.0.0.0/8,
-            10.0.0.0/8,
-            100.64.0.0/10,
-            127.0.0.0/8,
-            169.254.0.0/16,
-            172.16.0.0/12,
-            192.0.0.0/24,
-            192.0.2.0/24,
-            192.88.99.0/24,
-            192.168.0.0/16,
-            198.18.0.0/15,
-            198.51.100.0/24,
-            203.0.113.0/24,
-            224.0.0.0/4,
-            240.0.0.0/4
-        }
-    }
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
         # 绕过已经标记的流量，避免重复处理
@@ -177,11 +156,6 @@ table ip proxy_redir {
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
         fi )
-        fib daddr type local return
-        ip daddr @reserved_v4 ip daddr != $FAKEIP4_RANGE return
-        # 用 redir 兜底，如果在 proxy_tproxy 里没有被 tproxy 接管的流量
-        # 仍然会被重定向到 mihomo 的 redir 端口（目前未使用）
-        meta l4proto tcp redirect to :$REDIRECT_PORT
     }
     chain output {
         type nat hook output priority dstnat; policy accept;
@@ -283,27 +257,6 @@ table ip6 proxy_tproxy {
     }
 }
 table ip6 proxy_redir {
-    set reserved_v6 {
-        type ipv6_addr
-        flags interval
-        elements = {
-            ::/128,
-            ::1/128,
-            ::ffff:0:0/96,
-            64:ff9b::/96,
-            64:ff9b:1::/48,
-            100::/64,
-            2001::/32,
-            2001:20::/28,
-            2001:db8::/32,
-            2002::/16,
-            3fff::/20,
-            5f00::/16,
-            fc00::/7,
-            fe80::/10,
-            ff00::/8
-        }
-    }
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
         meta mark $FWMARK return
@@ -313,9 +266,6 @@ table ip6 proxy_redir {
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 redirect to :$DNS_PORT"
         fi )
-        fib daddr type local return
-        ip6 daddr @reserved_v6 ip6 daddr != $FAKEIP6_RANGE return
-        meta l4proto tcp redirect to :$REDIRECT_PORT
     }
     chain output {
         type nat hook output priority dstnat; policy accept;
