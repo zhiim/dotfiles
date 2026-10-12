@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "domain": [],
+      "domain_suffix": [
+        "epdg.epc.mnc015.mcc234.pub.3gppnetwork.org",
+        "epdg.vodafone.co.uk"
+      ],
+      "domain_regex": [],
+      "ip_cidr": [
+        "148.252.188.96/32",
+        "88.82.11.221/32",
+        "88.82.11.208/32"
+      ]
+    }
+  ]
+}

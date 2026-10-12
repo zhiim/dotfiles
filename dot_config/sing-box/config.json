@@ -37,6 +37,15 @@
         "path": "/dns-query",
         "domain_resolver": "hosts",
         "detour": "🥤 默认"
+      },
+      {
+        "tag": "foreign_global",
+        "type": "https",
+        "server": "dns.google",
+        "server_port": 443,
+        "path": "/dns-query",
+        "domain_resolver": "hosts",
+        "detour": "🪐 GLOBAL"
       }
     ],
     "rules": [
@@ -89,7 +98,7 @@
       {
         "clash_mode": "global",
         "action": "route",
-        "server": "foreign"
+        "server": "foreign_global"
       },
       {
         "rule_set": ["google_domain", "microsoft_domain", "geolocation-!cn"],
@@ -135,7 +144,8 @@
     "optimistic": {
       "enabled": true,
       "timeout": "1d"
-    }
+    },
+    "reverse_mapping": true
   },
   "inbounds": [
     {
@@ -172,7 +182,7 @@
       "tag": "🚀 全部节点",
       "type": "selector",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": ["{all}"]
     },
     {
       "type": "urltest",
@@ -180,49 +190,107 @@
       "url": "https://www.google.com/generate_204",
       "interval": "5m",
       "interrupt_exist_connections": false,
-      "outbounds": []
+      "outbounds": ["{all}"]
     },
     {
       "tag": "🇺🇸 美国",
       "type": "selector",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": ["{all}"],
+      "filter": [
+        {
+          "action": "include",
+          "keywords": ["美|🇺🇸|US|USA|SJC|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD"]
+        }
+      ]
     },
     {
       "tag": "🇯🇵 日本",
       "type": "selector",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": ["{all}"],
+      "filter": [
+        {
+          "action": "include",
+          "keywords": ["日|🇯🇵|JP|Japan|NRT|HND|KIX|CTS|FUK"]
+        }
+      ]
     },
     {
       "tag": "🇭🇰 香港",
       "type": "selector",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": ["{all}"],
+      "filter": [
+        {
+          "action": "include",
+          "keywords": ["港|🇭🇰|HK|Hong|HKG"]
+        }
+      ]
     },
     {
       "tag": "🇹🇼 台湾",
       "type": "selector",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": ["{all}"],
+      "filter": [
+        {
+          "action": "include",
+          "keywords": ["台|🇼🇸|🇹🇼|TW|tai|TPE|TSA|KHH"]
+        }
+      ]
     },
     {
       "tag": "🇸🇬 新加坡",
       "type": "selector",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": ["{all}"],
+      "filter": [
+        {
+          "action": "include",
+          "keywords": ["坡|🇸🇬|SG|Sing|SIN|XSP"]
+        }
+      ]
     },
     {
       "tag": "🇰🇷 韩国",
       "type": "selector",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": ["{all}"],
+      "filter": [
+        {
+          "action": "include",
+          "keywords": ["韩|🇰🇷|韓|首尔|南朝鲜|KR|KOR|Korea|South"]
+        }
+      ]
+    },
+    {
+      "tag": "🇪🇺 欧洲",
+      "type": "selector",
+      "interrupt_exist_connections": true,
+      "outbounds": ["{all}"],
+      "filter": [
+        {
+          "action": "include",
+          "keywords": [
+            "奥|比|法|德|爱尔|意|荷|西|瑞|英|🇦🇹|🇧🇪|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇳🇱|🇪🇸|🇨🇭|🇬🇧|CDG|FRA|AMS|MUC|BRU|DUB|FCO|MAD|BCN|ZRH|LHR|LON"
+          ]
+        }
+      ]
     },
     {
       "tag": "🌏 其它地区",
       "type": "selector",
       "interrupt_exist_connections": true,
-      "outbounds": []
+      "outbounds": ["{all}"],
+      "filter": [
+        {
+          "action": "exclude",
+          "keywords": [
+            "港|🇭🇰|HK|Hong|HKG|坡|🇸🇬|SG|Sing|SIN|XSP|日|🇯🇵|JP|Japan|NRT|HND|KIX|CTS|FUK|韩|🇰🇷|韓|首尔|南朝鲜|KR|KOR|Korea|South|美|🇺🇸|US|USA|SJC|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD|台|🇼🇸|🇹🇼|TW|tai|TPE|TSA|KHH|奥|比|法|德|爱尔|意|荷|西|瑞|英|🇦🇹|🇧🇪|🇫🇷|🇩🇪|🇮🇪|🇮🇹|🇳🇱|🇪🇸|🇨🇭|🇬🇧|CDG|FRA|AMS|MUC|BRU|DUB|FCO|MAD|BCN|ZRH|LHR|LON"
+          ]
+        }
+      ]
     },
     {
       "type": "direct",
@@ -239,35 +307,10 @@
         "🚀 全部节点",
         "♻ 自动选择",
         "🟢 DIRECT",
-        "🇺🇸 美国",
-        "🇯🇵 日本",
-        "🇭🇰 香港",
-        "🇹🇼 台湾",
-        "🇸🇬 新加坡",
-        "🇰🇷 韩国",
-        "🌏 其它地区",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🚀 全部节点"
-    },
-    {
-      "tag": "🍮 Github",
-      "type": "selector",
-      "outbounds": [
-        "🥤 默认",
-        "🇺🇸 美国",
-        "🇯🇵 日本",
-        "🇭🇰 香港",
-        "🇹🇼 台湾",
-        "🇸🇬 新加坡",
-        "🇰🇷 韩国",
-        "🌏 其它地区",
-        "🟢 DIRECT",
-        "🚀 全部节点",
-        "♻ 自动选择",
-        "🔴 BLOCK"
-      ],
-      "default": "🥤 默认"
     },
     {
       "tag": "🥛 Spotify",
@@ -280,11 +323,13 @@
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
+        "🇪🇺 欧洲",
         "🌏 其它地区",
         "🟢 DIRECT",
         "🚀 全部节点",
         "♻ 自动选择",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🥤 默认"
     },
@@ -299,11 +344,13 @@
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
+        "🇪🇺 欧洲",
         "🌏 其它地区",
         "🟢 DIRECT",
         "🚀 全部节点",
         "♻ 自动选择",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🥤 默认"
     },
@@ -318,16 +365,18 @@
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
+        "🇪🇺 欧洲",
         "🌏 其它地区",
         "🟢 DIRECT",
         "🚀 全部节点",
         "♻ 自动选择",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🥤 默认"
     },
     {
-      "tag": "🍭 Telegram",
+      "tag": "🍿 Apple",
       "type": "selector",
       "outbounds": [
         "🥤 默认",
@@ -337,16 +386,18 @@
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
+        "🇪🇺 欧洲",
         "🌏 其它地区",
         "🟢 DIRECT",
         "🚀 全部节点",
         "♻ 自动选择",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🥤 默认"
     },
     {
-      "tag": "🧋 YouTube",
+      "tag": "🧿 meta",
       "type": "selector",
       "outbounds": [
         "🥤 默认",
@@ -356,11 +407,118 @@
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
+        "🇪🇺 欧洲",
         "🌏 其它地区",
         "🟢 DIRECT",
         "🚀 全部节点",
         "♻ 自动选择",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
+      ],
+      "default": "🥤 默认"
+    },
+    {
+      "tag": "🕸 twitter",
+      "type": "selector",
+      "outbounds": [
+        "🥤 默认",
+        "🇺🇸 美国",
+        "🇯🇵 日本",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇰🇷 韩国",
+        "🇪🇺 欧洲",
+        "🌏 其它地区",
+        "🟢 DIRECT",
+        "🚀 全部节点",
+        "♻ 自动选择",
+        "🔴 BLOCK",
+        "{all}"
+      ],
+      "default": "🥤 默认"
+    },
+    {
+      "tag": "🤖 AI",
+      "type": "selector",
+      "outbounds": [
+        "🥤 默认",
+        "🇺🇸 美国",
+        "🇯🇵 日本",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇰🇷 韩国",
+        "🇪🇺 欧洲",
+        "🌏 其它地区",
+        "🟢 DIRECT",
+        "🚀 全部节点",
+        "♻ 自动选择",
+        "🔴 BLOCK",
+        "{all}"
+      ],
+      "default": "🥤 默认"
+    },
+    {
+      "tag": "🪙 币安",
+      "type": "selector",
+      "outbounds": [
+        "🥤 默认",
+        "🇺🇸 美国",
+        "🇯🇵 日本",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇰🇷 韩国",
+        "🇪🇺 欧洲",
+        "🌏 其它地区",
+        "🟢 DIRECT",
+        "🚀 全部节点",
+        "♻ 自动选择",
+        "🔴 BLOCK",
+        "{all}"
+      ],
+      "default": "🥤 默认"
+    },
+    {
+      "tag": "🏦 Bybit",
+      "type": "selector",
+      "outbounds": [
+        "🥤 默认",
+        "🇺🇸 美国",
+        "🇯🇵 日本",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇰🇷 韩国",
+        "🇪🇺 欧洲",
+        "🌏 其它地区",
+        "🟢 DIRECT",
+        "🚀 全部节点",
+        "♻ 自动选择",
+        "🔴 BLOCK",
+        "{all}"
+      ],
+      "default": "🥤 默认"
+    },
+    {
+      "tag": "💬 VOXI",
+      "type": "selector",
+      "outbounds": [
+        "🥤 默认",
+        "🇺🇸 美国",
+        "🇯🇵 日本",
+        "🇭🇰 香港",
+        "🇹🇼 台湾",
+        "🇸🇬 新加坡",
+        "🇰🇷 韩国",
+        "🇪🇺 欧洲",
+        "🌏 其它地区",
+        "🟢 DIRECT",
+        "🚀 全部节点",
+        "♻ 自动选择",
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🥤 默认"
     },
@@ -376,10 +534,12 @@
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
+        "🇪🇺 欧洲",
         "🌏 其它地区",
         "🚀 全部节点",
         "♻ 自动选择",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🟢 DIRECT"
     },
@@ -394,11 +554,13 @@
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
+        "🇪🇺 欧洲",
         "🌏 其它地区",
         "🟢 DIRECT",
         "🚀 全部节点",
         "♻ 自动选择",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🥤 默认"
     },
@@ -414,10 +576,12 @@
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
+        "🇪🇺 欧洲",
         "🌏 其它地区",
         "🚀 全部节点",
         "♻ 自动选择",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🟢 DIRECT"
     },
@@ -432,11 +596,13 @@
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
+        "🇪🇺 欧洲",
         "🌏 其它地区",
         "🟢 DIRECT",
         "🚀 全部节点",
         "♻ 自动选择",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🥤 默认"
     },
@@ -451,11 +617,13 @@
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
+        "🇪🇺 欧洲",
         "🌏 其它地区",
         "🟢 DIRECT",
         "🚀 全部节点",
         "♻ 自动选择",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🥤 默认"
     },
@@ -472,8 +640,10 @@
         "🇹🇼 台湾",
         "🇸🇬 新加坡",
         "🇰🇷 韩国",
+        "🇪🇺 欧洲",
         "🌏 其它地区",
-        "🔴 BLOCK"
+        "🔴 BLOCK",
+        "{all}"
       ],
       "default": "🚀 全部节点"
     }
@@ -529,13 +699,28 @@
       },
       {
         "action": "route",
+        "rule_set": ["voxi"],
+        "outbound": "💬 VOXI"
+      },
+      {
+        "action": "route",
+        "rule_set": ["bybit_domain"],
+        "outbound": "🏦 Bybit"
+      },
+      {
+        "action": "route",
+        "rule_set": ["binance_domain"],
+        "outbound": "🪙 币安"
+      },
+      {
+        "action": "route",
         "rule_set": ["google_fcm"],
         "outbound": "📢 谷歌FCM"
       },
       {
         "action": "route",
-        "rule_set": ["github_domain"],
-        "outbound": "🍮 Github"
+        "rule_set": ["ai_domain"],
+        "outbound": "🤖 AI"
       },
       {
         "action": "route",
@@ -549,18 +734,23 @@
       },
       {
         "action": "route",
+        "rule_set": ["apple_domain"],
+        "outbound": "🍿 Apple"
+      },
+      {
+        "action": "route",
         "rule_set": ["google_domain"],
         "outbound": "🧊 Google"
       },
       {
         "action": "route",
-        "rule_set": ["telegram_domain"],
-        "outbound": "🍭 Telegram"
+        "rule_set": ["twitter_domain"],
+        "outbound": "🕸 twitter"
       },
       {
         "action": "route",
-        "rule_set": ["youtube_domain"],
-        "outbound": "🧋 YouTube"
+        "rule_set": ["meta_domain"],
+        "outbound": "🧿 meta"
       },
       {
         "action": "route",
@@ -587,11 +777,6 @@
       },
       {
         "action": "route",
-        "rule_set": ["telegram_ip"],
-        "outbound": "🍭 Telegram"
-      },
-      {
-        "action": "route",
         "rule_set": ["cn_ip"],
         "outbound": "🇨🇳 国内"
       }
@@ -601,13 +786,6 @@
         "tag": "private_domain",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/private.srs",
-        "format": "binary",
-        "update_interval": "24h"
-      },
-      {
-        "tag": "github_domain",
-        "type": "remote",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/github.srs",
         "format": "binary",
         "update_interval": "24h"
       },
@@ -626,6 +804,13 @@
         "update_interval": "24h"
       },
       {
+        "tag": "apple_domain",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple.srs",
+        "format": "binary",
+        "update_interval": "24h"
+      },
+      {
         "tag": "google_domain",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google.srs",
@@ -633,16 +818,9 @@
         "update_interval": "24h"
       },
       {
-        "tag": "youtube_domain",
+        "tag": "meta_domain",
         "type": "remote",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs",
-        "format": "binary",
-        "update_interval": "24h"
-      },
-      {
-        "tag": "telegram_domain",
-        "type": "remote",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/telegram.srs",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/meta.srs",
         "format": "binary",
         "update_interval": "24h"
       },
@@ -703,13 +881,6 @@
         "update_interval": "24h"
       },
       {
-        "tag": "telegram_ip",
-        "type": "remote",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs",
-        "format": "binary",
-        "update_interval": "24h"
-      },
-      {
         "tag": "cn_ip",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
@@ -727,6 +898,41 @@
         "tag": "blacklist",
         "type": "remote",
         "url": "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/sing-box/rule_set/blacklist.srs",
+        "format": "binary",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "bybit_domain",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/bybit.srs",
+        "format": "binary",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "binance_domain",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/binance.srs",
+        "format": "binary",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "ai_domain",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-!cn.srs",
+        "format": "binary",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "twitter_domain",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/twitter.srs",
+        "format": "binary",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "voxi",
+        "type": "remote",
+        "url": "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/sing-box/rule_set/voxi.srs",
         "format": "binary",
         "update_interval": "24h"
       },
