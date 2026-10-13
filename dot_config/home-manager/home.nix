@@ -26,6 +26,8 @@
     pkgs.codegraph
     pkgs.delta
     pkgs.cmake
+    pkgs.go
+    pkgs.xremap
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
