@@ -1,0 +1,10 @@
+[Unit]
+Description=xreamp Daemon.
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.nix-profile/bin/xremap %h/.config/xremap/config.yaml
+
+[Install]
+WantedBy=default.target

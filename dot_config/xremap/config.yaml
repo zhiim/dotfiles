@@ -1,0 +1,20 @@
+modmap:
+  - name: Esc switches to English
+    remap:
+      Esc:
+        skip_key_event: false
+        press:
+          - launch: ["/home/xu/.config/xremap/switch_to_us_im.sh"]
+
+  - name: Tap Ctrl to switch IM
+    remap:
+      Ctrl_L:
+        held: Ctrl_L
+        alone: F24
+        free_hold: true
+
+keymap:
+  - name: Switch IM
+    remap:
+      F24:
+        launch: ["/home/xu/.config/xremap/switch_im.sh"]
