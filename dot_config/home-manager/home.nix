@@ -67,4 +67,10 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # support GUI applications
+  # targets.genericLinux = {
+  #   enable = true;
+  #   gpu.enable = true;
+  # };
 }
