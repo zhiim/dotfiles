@@ -3,7 +3,7 @@
     "tooltip-format": "左键：软件启动菜单\n右键：打开终端",
     "format": "",
     "on-click": "rofi -show drun -theme ~/.config/rofi/theme/launchpad.rasi",
-    "on-click-right":"wezterm"
+    "on-click-right":"kitty"
   },
   "niri/window": {
     "format": "{app_id}",
@@ -195,11 +195,13 @@
   },
   "cpu": {
     "format": "{usage}%",
-    "on-click": "wezterm --config enable_tab_bar=false start --always-new-process --class btop -- btop",
+    "on-click": "kitty --class btop --override tab_bar_style=hidden btop",
+    // "on-click": "wezterm --config enable_tab_bar=false start --always-new-process --class btop -- btop",
   },
   "memory": {
     "format": "{percentage}%",
-    "on-click": "wezterm --config enable_tab_bar=false start --always-new-process --class btop -- btop",
+    "on-click": "kitty --class btop --override tab_bar_style=hidden btop",
+    // "on-click": "wezterm --config enable_tab_bar=false start --always-new-process --class btop -- btop",
   },
   "clock": {
     "interval": 60,
