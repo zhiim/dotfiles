@@ -1,5 +1,3 @@
-"""Theme-aware tab/status bar matching the behavior of wezterm/tab.lua."""
-
 import sys
 from os.path import basename
 from typing import TYPE_CHECKING
@@ -74,24 +72,18 @@ def os_icon(window) -> str:
         command = window.child.foreground_cmdline
         if window.ssh_kitten_cmdline() or (command and basename(command[0]) == "ssh"):
             return "󰢹"
-    return (
-        ""
-        if sys.platform.startswith("linux")
-        else ""
-        if sys.platform == "darwin"
-        else "󰖳"
-    )
+    return "" if sys.platform.startswith("linux") else ""
 
 
 def mode_status(boss, window, options) -> tuple[str, int]:
+    # for kitty_grab
+    if window is not None and window.title == "kitty_pager.sh":
+        return " COPY", int(options.color2)
+
     mode = boss.mappings.current_keyboard_mode_name.replace("_", " ").upper()
     mode = mode.removesuffix(" MODE")
     if mode == "LEADER":
         return " LEADER", int(options.color6)
-    if mode == "COPY":
-        return " COPY", int(options.color2)
-    if mode == "SEARCH":
-        return " SEARCH", int(options.color3)
     return f"{os_icon(window)} NORMAL", int(options.active_tab_background)
 
 
@@ -106,13 +98,12 @@ def draw_right_status(screen: "Screen", manager, options, bg: int) -> None:
     if available < 4:
         return
     session_budget = min(24, available // 2) if title else available
-    session_text = fit_text(f" 󰗘 {session} ", session_budget)
-    title_text = fit_text(f"󰙀 {title} ", available - wcswidth(session_text))
+    session_text = fit_text(f"󰗘 {session} ", session_budget)
+    title_text = fit_text(f"󰙀 {title}", available - wcswidth(session_text))
     start = screen.columns - wcswidth(session_text + title_text)
     screen.cursor.x = start
     draw_text(screen, session_text, int(options.foreground), bg, bold=True)
     draw_text(screen, title_text, int(options.color5), bg)
-    manager.tab_bar._kitty_status_ranges += ((start, screen.columns),)
 
 
 def draw_tab(
@@ -127,49 +118,71 @@ def draw_tab(
 ) -> int:
     boss = get_boss()
     options = get_options()
+    # get tab manager
     manager = boss.os_window_map.get(tab.os_window_id)
+    # get active tab
     active = manager.active_tab if manager is not None else None
+    # get current tab
     real_tab = boss.tab_for_id(tab.tab_id) if tab.tab_id > 0 else None
+    # whether current tab is locked or not
     locked = real_tab is not None and getattr(real_tab, LOCK_ATTRIBUTE, False)
     bg = int(draw_data.default_bg)
+    # max available length for current tab
     budget = min(max_tab_length, screen.columns - before)
-    if not extra_data.for_layout and index == 1 and manager is not None:
-        manager.tab_bar._kitty_status_ranges = ()
 
+    tab_bar = manager.tab_bar
+    # used to record (start, end) position of mod status pill, use empty value at startup
+    if not extra_data.for_layout and index == 1 and manager is not None:
+        tab_bar._kitty_status_ranges = None
+        tab_bar._kitty_mode_pill_degraded = False
+
+    # draw the keyboard mode status pill
     if index == 1:
         window = active.active_window if active is not None else None
+        # get keyboard mode of current active window
         status, status_bg = mode_status(boss, window, options)
-        pill_width = wcswidth(status) + 4
+        # left half circle + statu widith + right space + right half circle
+        pill_width = wcswidth(status) + 3
         start = screen.cursor.x
+        # whither there is sufficient space for current_tab_pill (length 5)
         if budget - 5 >= pill_width:
             draw_pill(
-                screen, status, int(draw_data.active_fg), status_bg, bg, bold=True
+                screen,
+                status,
+                int(draw_data.active_fg),
+                status_bg,
+                bg,
+                leading="",
+                bold=True,
             )
         else:
-            prefix = fit_text(f" {status} ", max(0, budget - 5))
+            # only display keyboard mode status, no half circle
+            prefix = fit_text(f"{status} ", max(0, budget - 5))
             draw_text(screen, prefix, int(draw_data.active_fg), status_bg, bold=True)
+            tab_bar._kitty_mode_pill_degraded = True
+
         budget -= screen.cursor.x - start
         if (
             not extra_data.for_layout
             and manager is not None
             and screen.cursor.x > start
         ):
-            manager.tab_bar._kitty_status_ranges += ((start, screen.cursor.x),)
+            manager.tab_bar._kitty_status_ranges = (start, screen.cursor.x)
 
     width = max(0, min(TAB_MAX_WIDTH, budget))
-    if tab.tab_id < 0:
-        draw_text(
-            screen, fit_text("   +   ", width), int(options.foreground), bg, bold=True
-        )
-    elif tab.is_active:
+    # current active tab
+    if tab.is_active:
         accent = int(options.color1) if locked else int(draw_data.active_bg)
         outer_bg = int(draw_data.active_fg)
         icon = LOCK_ICON if locked else FOCUS_ICON
         body = f" {icon} "
-        if width >= wcswidth(body) + 2:
+        if width >= wcswidth(body) + 2 and not getattr(
+            tab_bar, "_kitty_mode_pill_degraded", False
+        ):
             draw_pill(screen, body, outer_bg, accent, outer_bg, leading="", trailing="")
         else:
             draw_text(screen, fit_text(body, width), outer_bg, accent)
+    # not active tab
     else:
         inactive_bg = int(draw_data.inactive_bg)
         label = fit_text(f" {index}# ", width)
@@ -182,8 +195,11 @@ def draw_tab(
             draw_text(screen, " ", int(draw_data.inactive_fg), inactive_bg)
 
     end = screen.cursor.x
+
+    # reset cursor status
     screen.cursor.bold = screen.cursor.italic = False
     screen.cursor.fg = screen.cursor.bg = 0
+
     if is_last and not extra_data.for_layout and manager is not None:
         draw_right_status(screen, manager, options, bg)
         # Kitty erases from the cursor to EOL after drawing the final tab.

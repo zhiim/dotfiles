@@ -11,26 +11,20 @@ if TYPE_CHECKING:
 
 
 DIRECTIONS = {"h": "left", "j": "bottom", "k": "top", "l": "right"}
-DIRECTION_KEYS = {value: key for key, value in DIRECTIONS.items()}
-DIRECTION_KEYS.update(up="k", down="j")
 LOCK_ATTRIBUTE = "_kitty_navigation_locked"
 
 
 def main(args: list[str]) -> None:
-    """No terminal UI is needed; Kitty invokes handle_result directly."""
+    pass
 
 
 def resize_towards(tab: "Tab", window: "Window", key: str, amount: int = 3) -> None:
-    if amount < 1:
-        raise ValueError("Resize amount must be positive")
     neighbors = tab.current_layout.neighbors_for_window(window, tab.windows)
     horizontal = key in ("h", "l")
     before, after = ("left", "right") if horizontal else ("top", "bottom")
     if not (neighbors.get(before) or neighbors.get(after)):
         return
 
-    # Move the right/bottom edge if possible; at the outer edge move left/top.
-    # This preserves directional resizing instead of always shrinking for h/k.
     grow = key in ("l", "j")
     if not neighbors.get(after):
         grow = not grow
@@ -57,6 +51,7 @@ def handle_result(
     if operation == "toggle":
         # Keep state on the tab, not the kitten module (Kitty reloads kittens).
         setattr(tab, LOCK_ATTRIBUTE, not getattr(tab, LOCK_ATTRIBUTE, False))
+        # notify kitty to refresh tab
         tab.mark_tab_bar_dirty()
         return
     if operation == "close-tab":
