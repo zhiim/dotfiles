@@ -299,12 +299,7 @@
     {
       "tag": "🥤 默认",
       "type": "selector",
-      "outbounds": [
-        "🚀 全部节点",
-        "♻ 自动选择",
-        "🟢 DIRECT",
-        "{all}"
-      ],
+      "outbounds": ["🚀 全部节点", "♻ 自动选择", "🟢 DIRECT", "{all}"],
       "default": "🚀 全部节点"
     },
     {
