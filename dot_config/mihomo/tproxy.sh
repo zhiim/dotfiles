@@ -67,12 +67,6 @@ table ip proxy_tproxy {
             240.0.0.0/4
         }
     }
-    # 可能为上游网关的 DNS 地址
-    set nat_v4 {
-        type ipv4_addr
-        flags interval
-        elements = { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 }
-    }
 
     # PREROUTING 链：处理局域网设备转发到本机的流量
     chain prerouting {
@@ -90,7 +84,8 @@ table ip proxy_tproxy {
 
         # 4. DNS 劫持逻辑：sing-box 直接劫持发往局域网的 DNS 流量，mihomo 则直接绕过由后续处理
         $( if [ "$PROXY_MODE" = "singbox" ]; then
-            echo "ip daddr @nat_v4 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK tproxy to :$TPROXY_PORT"
+            echo "iifname lo meta mark != $FWMARK return"
+            echo "meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK tproxy to :$TPROXY_PORT"
         fi )
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 return"
@@ -125,7 +120,7 @@ table ip proxy_tproxy {
 
         # 4. DNS 本机劫持逻辑
         $( if [ "$PROXY_MODE" = "singbox" ]; then
-            echo "ip daddr @nat_v4 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK"
+            echo "meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK"
         fi )
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 return"
@@ -197,11 +192,6 @@ table ip6 proxy_tproxy {
             ff00::/8
         }
     }
-    set nat_v6 {
-        type ipv6_addr
-        flags interval
-        elements = { fc00::/7, fe80::/10 }
-    }
 
     chain prerouting {
         type filter hook prerouting priority mangle; policy accept;
@@ -214,7 +204,8 @@ table ip6 proxy_tproxy {
         ip6 daddr fd7a:115c:a1e0::/48 return
 
         $( if [ "$PROXY_MODE" = "singbox" ]; then
-            echo "ip6 daddr @nat_v6 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK tproxy to :$TPROXY_PORT"
+            echo "iifname lo meta mark != $FWMARK return"
+            echo "meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK tproxy to :$TPROXY_PORT"
         fi )
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 return"
@@ -241,7 +232,7 @@ table ip6 proxy_tproxy {
         ip6 daddr fd7a:115c:a1e0::/48 return
 
         $( if [ "$PROXY_MODE" = "singbox" ]; then
-            echo "ip6 daddr @nat_v6 meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK"
+            echo "meta l4proto { tcp, udp } th dport 53 meta mark set $FWMARK"
         fi )
         $( if [ "$PROXY_MODE" = "mihomo" ]; then
             echo "meta l4proto { tcp, udp } th dport 53 return"
