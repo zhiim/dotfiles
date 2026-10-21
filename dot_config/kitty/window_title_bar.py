@@ -1,4 +1,4 @@
-"""Render complete left-aligned pane labels using the tab bar palette."""
+"""Render flat tab-colored pane labels on the terminal's background."""
 
 from typing import TYPE_CHECKING
 
@@ -26,7 +26,7 @@ def color_sequence(color: int, *, background: bool = False) -> str:
 
 
 def fit_text(text: str, cells: int) -> str:
-    """Leave room for the right cap, including with wide/combining titles."""
+    """Fit titles by terminal cells, including wide/combining characters."""
     if cells <= 0:
         return ""
     text = (
@@ -56,7 +56,7 @@ def draw_window_title(data: "WindowTitleData") -> str:
     else:
         fg = int(options.inactive_tab_foreground)
         bg = int(options.inactive_tab_background)
-    outer_bg = int(options.tab_bar_background)
+    outer_bg = int(window.screen.color_profile.default_bg)
 
     title = f"{LOCK_ICON} " if locked else ""
     if data.has_activity_since_last_focus:
@@ -68,15 +68,25 @@ def draw_window_title(data: "WindowTitleData") -> str:
         title += f"[{progress.percent}%] "
     title += data.title
 
-    width = max(1, window.screen.columns)
-    body = fit_text(title, width - 3)
+    # Use the title screen's actual width, which can include terminal padding.
+    title_screen = window._title_bar_screen
+    if title_screen is not None:
+        # Match the native screen background too, including partial edge cells.
+        title_screen.screen.color_profile.default_bg = window.screen.color_profile.default_bg
+    title_width = (
+        title_screen.screen.columns if title_screen is not None else window.screen.columns
+    )
+    width = max(1, title_width)
+    body = fit_text(title, width - 2 if width >= 2 else width)
+    body_width = wcswidth(body) + (2 if width >= 2 else 0)
     if locked and not data.is_active and body.startswith(LOCK_ICON):
         # Like inactive tabs, keep the label quiet and highlight only its lock.
         body = f"{color_sequence(int(options.color1))}{LOCK_ICON}{color_sequence(fg)}{body[1:]}"
-    body = f" {body} " if width >= 3 else " " * (width - 1)
-    # The label starts flush left with a flat edge. Only its right edge is round.
+    body = f" {body} " if width >= 2 else body
+    # Explicitly paint the unused cells: Kitty otherwise clears them using its
+    # default title-bar background, which falls back to the tab's label color.
+    padding = " " * (width - body_width)
     return (
         f"{color_sequence(fg)}{color_sequence(bg, background=True)}{body}"
-        f"{color_sequence(bg)}{color_sequence(outer_bg, background=True)}"
-        f"{color_sequence(fg)}"
+        f"{color_sequence(outer_bg, background=True)}{padding}"
     )
