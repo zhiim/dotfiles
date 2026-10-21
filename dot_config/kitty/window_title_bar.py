@@ -1,8 +1,15 @@
-"""Render a theme-colored lock pill beside each pane's title."""
+"""Render complete left-aligned pane labels using the tab bar palette."""
 
 from typing import TYPE_CHECKING
 
-from kitty.fast_data_types import get_boss, get_options
+from kitty.fast_data_types import (
+    get_boss,
+    get_options,
+    truncate_point_for_length,
+    wcswidth,
+)
+from kitty.progress import ProgressState
+from kitty.utils import sanitize_control_codes
 
 if TYPE_CHECKING:
     from kitty.window_title_bar import WindowTitleData
@@ -18,6 +25,23 @@ def color_sequence(color: int, *, background: bool = False) -> str:
     return f"\x1b[{channel};2;{color >> 16};{(color >> 8) & 255};{color & 255}m"
 
 
+def fit_text(text: str, cells: int) -> str:
+    """Leave room for the right cap, including with wide/combining titles."""
+    if cells <= 0:
+        return ""
+    text = (
+        sanitize_control_codes(text)
+        .replace("\n", " ")
+        .replace("\r", " ")
+        .replace("\t", " ")
+    )
+    if wcswidth(text) <= cells:
+        return text
+    if cells == 1:
+        return "…"
+    return text[: truncate_point_for_length(text, cells - 1)] + "…"
+
+
 def draw_window_title(data: "WindowTitleData") -> str:
     window = get_boss().window_id_map.get(data.window_id)
     if window is None:
@@ -26,26 +50,33 @@ def draw_window_title(data: "WindowTitleData") -> str:
     tab = window.tabref()
     locked = getattr(window, LOCK_ATTRIBUTE, getattr(tab, LOCK_ATTRIBUTE, False))
     options = get_options()
-    accent = color_sequence(int(options.color1))
-    if not locked:
-        # Keep an inset even without a badge; activity markers use the theme red.
-        return f" {accent}"
-
     if data.is_active:
-        background = options.window_title_bar_active_background
-        fallback = options.active_tab_background
+        fg = int(options.active_tab_foreground)
+        bg = int(options.color1 if locked else options.active_tab_background)
     else:
-        background = options.window_title_bar_inactive_background
-        fallback = options.inactive_tab_background
-    bar_bg = color_sequence(
-        int(fallback if background is None else background), background=True
-    )
-    pill_bg = color_sequence(int(options.color1), background=True)
-    pill_fg = color_sequence(int(options.background))
-    # Match tab_bar.py's rounded Powerline pills, restoring the bar background
-    # before the activity marker, progress and title supplied by the template.
+        fg = int(options.inactive_tab_foreground)
+        bg = int(options.inactive_tab_background)
+    outer_bg = int(options.tab_bar_background)
+
+    title = f"{LOCK_ICON} " if locked else ""
+    if data.has_activity_since_last_focus:
+        title += options.tab_activity_symbol
+    progress = window.progress
+    if progress.state is ProgressState.indeterminate:
+        title += "[…] "
+    elif progress.state is not ProgressState.unset and progress.percent > 0:
+        title += f"[{progress.percent}%] "
+    title += data.title
+
+    width = max(1, window.screen.columns)
+    body = fit_text(title, width - 3)
+    if locked and not data.is_active and body.startswith(LOCK_ICON):
+        # Like inactive tabs, keep the label quiet and highlight only its lock.
+        body = f"{color_sequence(int(options.color1))}{LOCK_ICON}{color_sequence(fg)}{body[1:]}"
+    body = f" {body} " if width >= 3 else " " * (width - 1)
+    # The label starts flush left with a flat edge. Only its right edge is round.
     return (
-        f" {bar_bg}{accent}"
-        f"{pill_bg}{pill_fg} {LOCK_ICON} "
-        f"{bar_bg}{accent} "
+        f"{color_sequence(fg)}{color_sequence(bg, background=True)}{body}"
+        f"{color_sequence(bg)}{color_sequence(outer_bg, background=True)}"
+        f"{color_sequence(fg)}"
     )
