@@ -1,4 +1,4 @@
-"""Show manual tab and window navigation locks in each pane's title bar."""
+"""Show the pane's effective manual navigation lock in its title bar."""
 
 from typing import TYPE_CHECKING
 
@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 
 # Shared with key_mappings.py and tab_bar.py; Kitty loads these via runpy.
 LOCK_ATTRIBUTE = "_kitty_navigation_locked"
+LOCK_ICON = ""
 
 
 def draw_window_title(data: "WindowTitleData") -> str:
@@ -18,10 +19,5 @@ def draw_window_title(data: "WindowTitleData") -> str:
         return ""
 
     tab = window.tabref()
-    markers = []
-    if tab is not None and getattr(tab, LOCK_ATTRIBUTE, False):
-        markers.append("[TAB LOCK]")
-    if getattr(window, LOCK_ATTRIBUTE, False):
-        markers.append("[WIN LOCK]")
-
-    return " ".join(markers) + " " if markers else ""
+    locked = getattr(window, LOCK_ATTRIBUTE, getattr(tab, LOCK_ATTRIBUTE, False))
+    return f"{LOCK_ICON} " if locked else ""

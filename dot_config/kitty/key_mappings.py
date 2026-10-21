@@ -50,9 +50,18 @@ def handle_result(
     operation = args[1]
     if operation in ("toggle", "toggle-window"):
         # Keep state on its owner, not the kitten module (Kitty reloads kittens).
-        # A tab lock overrides routing without changing individual window locks.
-        target = tab if operation == "toggle" else window
-        setattr(target, LOCK_ATTRIBUTE, not getattr(target, LOCK_ATTRIBUTE, False))
+        if operation == "toggle":
+            locked = not getattr(tab, LOCK_ATTRIBUTE, False)
+            # Bulk-set existing panes; the tab state is the default for new ones.
+            setattr(tab, LOCK_ATTRIBUTE, locked)
+            for pane in tab.windows:
+                setattr(pane, LOCK_ATTRIBUTE, locked)
+        else:
+            # Explicit window state overrides the tab default, including False.
+            locked = getattr(
+                window, LOCK_ATTRIBUTE, getattr(tab, LOCK_ATTRIBUTE, False)
+            )
+            setattr(window, LOCK_ATTRIBUTE, not locked)
         tab.update_window_title_bars()
         tab.mark_tab_bar_dirty()
         return
@@ -78,8 +87,7 @@ def handle_result(
     # smart-splits v2.1.1 emits base64 of 1 plus a newline, not "true".
     # Match the upstream Kitty config: presence marks Neovim, removal clears it.
     if (
-        getattr(tab, LOCK_ATTRIBUTE, False)
-        or getattr(window, LOCK_ATTRIBUTE, False)
+        getattr(window, LOCK_ATTRIBUTE, getattr(tab, LOCK_ATTRIBUTE, False))
         or "IS_NVIM" in window.user_vars
     ):
         modifier = "ctrl" if operation == "move" else "alt"
