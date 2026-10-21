@@ -48,6 +48,14 @@ def handle_result(
         return
 
     operation = args[1]
+    if operation in ("next-window", "previous-window"):
+        # Explicit leader navigation works even when smart navigation is locked.
+        if tab.current_layout.name == "stack":
+            if operation == "next-window":
+                tab.next_window()
+            else:
+                tab.previous_window()
+        return
     if operation in ("toggle", "toggle-window"):
         # Keep state on its owner, not the kitten module (Kitty reloads kittens).
         if operation == "toggle":
