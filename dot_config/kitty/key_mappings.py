@@ -1,4 +1,4 @@
-"""Dispatch keyboard shortcuts and smart-splits.nvim callbacks with a tab-local lock."""
+"""Dispatch keyboard shortcuts with tab-local and window-local navigation locks."""
 
 from typing import TYPE_CHECKING
 
@@ -48,10 +48,12 @@ def handle_result(
         return
 
     operation = args[1]
-    if operation == "toggle":
-        # Keep state on the tab, not the kitten module (Kitty reloads kittens).
-        setattr(tab, LOCK_ATTRIBUTE, not getattr(tab, LOCK_ATTRIBUTE, False))
-        # notify kitty to refresh tab
+    if operation in ("toggle", "toggle-window"):
+        # Keep state on its owner, not the kitten module (Kitty reloads kittens).
+        # A tab lock overrides routing without changing individual window locks.
+        target = tab if operation == "toggle" else window
+        setattr(target, LOCK_ATTRIBUTE, not getattr(target, LOCK_ATTRIBUTE, False))
+        tab.update_window_title_bars()
         tab.mark_tab_bar_dirty()
         return
     if operation == "close-tab":
@@ -75,7 +77,11 @@ def handle_result(
     direction = DIRECTIONS[key]
     # smart-splits v2.1.1 emits base64 of 1 plus a newline, not "true".
     # Match the upstream Kitty config: presence marks Neovim, removal clears it.
-    if getattr(tab, LOCK_ATTRIBUTE, False) or "IS_NVIM" in window.user_vars:
+    if (
+        getattr(tab, LOCK_ATTRIBUTE, False)
+        or getattr(window, LOCK_ATTRIBUTE, False)
+        or "IS_NVIM" in window.user_vars
+    ):
         modifier = "ctrl" if operation == "move" else "alt"
         window.send_key(f"{modifier}+{key}")
     elif operation == "move":
