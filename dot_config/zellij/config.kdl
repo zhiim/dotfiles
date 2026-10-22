@@ -8,7 +8,7 @@ theme "ansi"
 pane_frames true
 pane_frame_style "titles"
 
-keybinds  {
+keybinds clear-defaults=true {
     normal {
         bind "Ctrl b" {
             SwitchToMode "tmux";
@@ -72,6 +72,10 @@ keybinds  {
         bind "d" {
             Detach;
         }
+        bind "s" {
+            ToggleActiveSyncTab;
+            SwitchToMode "normal";
+        }
         bind "r" {
             LaunchOrFocusPlugin "session-manager" {
                 floating true
@@ -79,65 +83,85 @@ keybinds  {
             };
             SwitchToMode "normal";
         }
+        bind "l" {
+            LaunchOrFocusPlugin "zellij:layout-manager" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
     }
     scroll {
+        bind "Esc" { SwitchToMode "Normal"; }
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
         bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
+        bind "G" { ScrollToBottom; SwitchToMode "Normal"; }
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
         bind "Ctrl d" { PageScrollDown; }
         bind "Ctrl u" { PageScrollUp; }
     }
     search {
+        bind "Esc" { SwitchToMode "Scroll"; }
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
+        bind "G" { ScrollToBottom; SwitchToMode "Normal"; }
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
         bind "Ctrl d" { PageScrollDown; }
         bind "Ctrl u" { PageScrollUp; }
         bind "n" { Search "down"; }
         bind "N" { Search "up"; }
+        bind "c" { SearchToggleOption "CaseSensitivity"; }
+    }
+    entersearch {
+        bind "Esc" { SwitchToMode "Scroll"; }
+        bind "Enter" { SwitchToMode "Search"; }
     }
     shared_except "locked" {
         bind "Ctrl h" {
-            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.2.1/vim-zellij-navigator.wasm" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm" {
                 name "move_focus";
                 payload "left";
             };
         }
         bind "Ctrl j" {
-            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.2.1/vim-zellij-navigator.wasm" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm" {
                 name "move_focus";
                 payload "down";
             };
         }
         bind "Ctrl k" {
-            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.2.1/vim-zellij-navigator.wasm" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm" {
                 name "move_focus";
                 payload "up";
             };
         }
         bind "Ctrl l" {
-            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.2.1/vim-zellij-navigator.wasm" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm" {
                 name "move_focus";
                 payload "right";
             };
         }
         bind "Alt h" {
-            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.2.1/vim-zellij-navigator.wasm" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm" {
                 name "resize";
                 payload "left";
             };
         }
         bind "Alt j" {
-            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.2.1/vim-zellij-navigator.wasm" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm" {
                 name "resize";
                 payload "down";
             };
         }
         bind "Alt k" {
-            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.2.1/vim-zellij-navigator.wasm" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm" {
                 name "resize";
                 payload "up";
             };
         }
         bind "Alt l" {
-            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/download/0.2.1/vim-zellij-navigator.wasm" {
+            MessagePlugin "https://github.com/hiasr/vim-zellij-navigator/releases/latest/download/vim-zellij-navigator.wasm" {
                 name "resize";
                 payload "right";
             };
