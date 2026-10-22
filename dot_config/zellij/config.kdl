@@ -144,10 +144,15 @@ plugins {
     }
     plugin-manager location="zellij:plugin-manager"
     session-manager location="zellij:session-manager"
-    // Customized native hint renderer: hidden in Normal/Tmux, rounded otherwise.
-    status-bar location="file:~/.config/zellij/plugins/rounded-status.wasm"
+    status-bar location="zellij:status-bar"
     strider location="zellij:strider"
     tab-bar location="zellij:tab-bar"
+    zjstatus-hints location="https://github.com/b0o/zjstatus-hints/releases/latest/download/zjstatus-hints.wasm" {
+        pipe_name "zjstatus_hints"
+        hide_in_base_mode true
+        max_length 80
+        overflow_str "…"
+    }
     welcome-screen location="zellij:session-manager" {
         welcome_screen true
     }
@@ -157,7 +162,7 @@ plugins {
 // eg. "file:/path/to/my-plugin.wasm"
 // eg. "https://example.com/my-plugin.wasm"
 load_plugins {
-    status-bar
+    zjstatus-hints
 }
 web_client {
     font "monospace"
