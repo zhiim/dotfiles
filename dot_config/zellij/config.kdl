@@ -4,7 +4,7 @@ scrollback_editor "nvim"
 support_kitty_keyboard_protocol true
 default_mode "normal"
 default_layout "tmux"
-theme "ansi-tmux"
+theme "ansi"
 pane_frames true
 pane_frame_style "titles"
 
@@ -144,7 +144,8 @@ plugins {
     }
     plugin-manager location="zellij:plugin-manager"
     session-manager location="zellij:session-manager"
-    status-bar location="zellij:status-bar"
+    // Customized native hint renderer: hidden in Normal/Tmux, rounded otherwise.
+    status-bar location="file:~/.config/zellij/plugins/rounded-status.wasm"
     strider location="zellij:strider"
     tab-bar location="zellij:tab-bar"
     welcome-screen location="zellij:session-manager" {
@@ -156,6 +157,7 @@ plugins {
 // eg. "file:/path/to/my-plugin.wasm"
 // eg. "https://example.com/my-plugin.wasm"
 load_plugins {
+    status-bar
 }
 web_client {
     font "monospace"

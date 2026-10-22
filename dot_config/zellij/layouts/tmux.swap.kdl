@@ -1,4 +1,4 @@
-// Swap layouts for tmux.kdl. The default_tab_template supplies both bottom bars.
+// Swap layouts for tmux.kdl. The default_tab_template supplies the bottom bar.
 swap_tiled_layout name="vertical" {
     tab max_panes=4 {
         pane split_direction="vertical" {
