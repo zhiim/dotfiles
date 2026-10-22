@@ -51,7 +51,7 @@ keybinds  {
             SwitchToMode "normal";
         }
         bind "[" {
-            SwitchToMode "search";
+            SwitchToMode "scroll";
         }
         bind "o" {
             ToggleFloatingPanes;

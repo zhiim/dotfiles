@@ -14,6 +14,9 @@ layout {
 
                 mode_normal "#[fg=black,bg=blue]  "
                 mode_tmux "#[fg=black,bg=yellow]  "
+                mode_scroll "#[fg=black,bg=cyan] SCROLL "
+                mode_enter_search "#[fg=black,bg=green] SEARCH INPUT "
+                mode_search "#[fg=black,bg=magenta] SEARCH "
                 mode_default_to_mode "tmux"
 
                 tab_normal "#[fg=blue,bg=black] {index} {name} {fullscreen_indicator}{sync_indicator}"
