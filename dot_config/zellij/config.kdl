@@ -4,7 +4,7 @@ scrollback_editor "nvim"
 support_kitty_keyboard_protocol true
 default_mode "normal"
 default_layout "tmux"
-theme "ansi"
+theme "ansi-tmux"
 pane_frames true
 pane_frame_style "titles"
 

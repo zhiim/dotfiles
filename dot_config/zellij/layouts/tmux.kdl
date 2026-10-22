@@ -1,6 +1,14 @@
 layout {
     default_tab_template {
         children
+        // Native key hints above zjstatus, using the effective Zellij keymap.
+        // One-row classic UI shows mode keys in normal mode and action keys in
+        // pane/search/etc. Keep it in the template for new tabs and swap layouts.
+        pane size=1 borderless=true {
+            plugin location="zellij:status-bar" {
+                classic true
+            }
+        }
         pane size=1 borderless=true {
             plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
                 format_left "{mode}{tabs}"
@@ -14,6 +22,17 @@ layout {
 
                 mode_normal "#[fg=black,bg=blue]  "
                 mode_tmux "#[fg=black,bg=yellow]  "
+                mode_locked "#[fg=black,bg=blue] LOCK "
+                mode_pane "#[fg=black,bg=yellow] PANE "
+                mode_tab "#[fg=black,bg=yellow] TAB "
+                mode_resize "#[fg=black,bg=yellow] RESIZE "
+                mode_move "#[fg=black,bg=yellow] MOVE "
+                mode_scroll "#[fg=black,bg=yellow] SCROLL "
+                mode_enter_search "#[fg=black,bg=yellow] SEARCH "
+                mode_search "#[fg=black,bg=yellow] SEARCH "
+                mode_rename_tab "#[fg=black,bg=yellow] RENAME TAB "
+                mode_rename_pane "#[fg=black,bg=yellow] RENAME PANE "
+                mode_session "#[fg=black,bg=yellow] SESSION "
                 mode_default_to_mode "tmux"
 
                 tab_normal "#[fg=blue,bg=black] {index} {name} {fullscreen_indicator}{sync_indicator}"
