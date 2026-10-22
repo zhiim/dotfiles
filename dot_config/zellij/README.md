@@ -17,6 +17,20 @@ always reserves two rows, including in normal mode; no extra plugin is needed.
 terminal's ANSI palette: black backgrounds, blue shortcuts/tabs, and yellow
 active modes. Other components retain the upstream ANSI colors.
 
+## Half-circle segments
+
+The zjstatus mode badge and each tab use Nerd Font `` (U+E0B4) on both
+ends. On the left, the glyph is black on the segment color, carving an inward
+half-circle; on the right, the glyph uses the segment color on black, extending
+an outward half-circle. This is intentionally different from a ` … ` capsule.
+Inactive tabs use ANSI bright black (8) as their segment background, with blue
+text; active tabs stay blue and non-normal modes stay yellow. Use a Nerd Font
+with Powerline Extra glyphs in the host terminal.
+
+The upper, built-in status bar still uses its native arrow separators. Its
+separator glyph is hard-coded in the plugin rather than exposed as a theme
+option; changing it requires a customized status-bar plugin.
+
 ## Apply and check
 
 Apply these files with chezmoi, then start a **new** session so the layout takes
