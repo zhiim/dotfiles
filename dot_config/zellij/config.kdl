@@ -51,8 +51,7 @@ keybinds  {
             SwitchToMode "normal";
         }
         bind "[" {
-            EditScrollback;
-            SwitchToMode "normal";
+            SwitchToMode "search";
         }
         bind "o" {
             ToggleFloatingPanes;
@@ -80,6 +79,19 @@ keybinds  {
             };
             SwitchToMode "normal";
         }
+    }
+    scroll {
+        bind "e" { EditScrollback; SwitchToMode "Normal"; }
+        bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
+        bind "Ctrl d" { PageScrollDown; }
+        bind "Ctrl u" { PageScrollUp; }
+    }
+    search {
+        bind "e" { EditScrollback; SwitchToMode "Normal"; }
+        bind "Ctrl d" { PageScrollDown; }
+        bind "Ctrl u" { PageScrollUp; }
+        bind "n" { Search "down"; }
+        bind "N" { Search "up"; }
     }
     shared_except "locked" {
         bind "Ctrl h" {
