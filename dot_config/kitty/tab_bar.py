@@ -20,6 +20,7 @@ if TYPE_CHECKING:
 # as a package, so it must not depend on the config directory being on sys.path.
 LOCK_ATTRIBUTE = "_kitty_navigation_locked"
 FOCUS_ICON = "󰻿"
+STACK_ICON = ""
 LOCK_ICON = ""
 TAB_MAX_WIDTH = 18
 
@@ -172,9 +173,13 @@ def draw_tab(
     width = max(0, min(TAB_MAX_WIDTH, budget))
     # current active tab
     if tab.is_active:
-        accent = int(options.color1) if locked else int(draw_data.active_bg)
+        if locked:
+            icon, accent = LOCK_ICON, int(options.color1)
+        elif tab.layout_name == "stack":
+            icon, accent = STACK_ICON, int(options.color3)
+        else:
+            icon, accent = FOCUS_ICON, int(draw_data.active_bg)
         outer_bg = int(draw_data.active_fg)
-        icon = LOCK_ICON if locked else FOCUS_ICON
         body = f" {icon} "
         if width >= wcswidth(body) + 2 and not getattr(
             tab_bar, "_kitty_mode_pill_degraded", False
