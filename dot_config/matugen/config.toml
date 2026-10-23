@@ -60,8 +60,13 @@ output_path = '~/.local/share/fcitx5/themes/matugen/panel.svg'
 [templates.fcitx5_config]
 input_path = '~/.config/matugen/templates/fcitx5/theme.conf'
 output_path = '~/.local/share/fcitx5/themes/matugen/theme.conf'
-post_hook= 'dbus-send --type=method_call --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.ReloadAddonConfig string:"classicui"'
+post_hook = 'dbus-send --type=method_call --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.ReloadAddonConfig string:"classicui"'
 
 [templates.zathura]
 input_path = '~/.config/matugen/templates/zathurarc'
 output_path = '~/.config/zathura/zathurarc'
+
+[templates.neru]
+input_path = "~/.config/matugen/templates/neru.toml"
+output_path = "~/.config/neru/theme.toml"
+post_hook = "python3 ~/.config/matugen/scripts/apply-neru.py"

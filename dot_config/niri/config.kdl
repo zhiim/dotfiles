@@ -155,6 +155,9 @@ binds {
     Super+N { spawn-sh "swaync-client -t -sw"; }
     Super+B { spawn-sh "/home/xu/.config/waybar/scripts/dark-mode-manager.sh auto 8:00 18:00 silent"; }
     Super+P { spawn-sh "waypaper"; }
+    Ctrl+Shift+f { spawn-sh "neru hints"; }
+    Ctrl+Shift+d { spawn-sh "neru bisect"; }
+    Ctrl+Shift+s { spawn-sh "neru scroll"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

@@ -1,0 +1,13 @@
+[theme.light]
+surface = "{{ colors.surface.light.hex }}"
+accent = "{{ colors.secondary.light.hex }}"
+accent_alt = "{{ colors.primary.light.hex }}"
+on_accent_alt = "{{ colors.on_primary.light.hex }}"
+text = "{{ colors.on_primary_container.light.hex }}"
+
+[theme.dark]
+surface = "{{ colors.surface.dark.hex }}"
+accent = "{{ colors.primary.dark.hex }}"
+accent_alt = "{{ colors.primary_container.dark.hex }}"
+on_accent_alt = "{{ colors.on_primary_container.dark.hex }}"
+text = "{{ colors.on_surface.dark.hex }}"
