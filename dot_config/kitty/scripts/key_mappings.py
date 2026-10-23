@@ -95,7 +95,8 @@ def handle_result(
     # smart-splits v2.1.1 emits base64 of 1 plus a newline, not "true".
     # Match the upstream Kitty config: presence marks Neovim, removal clears it.
     if (
-        tab.current_layout.name == "stack"
+        len(tab.windows) == 1
+        or tab.current_layout.name == "stack"
         or getattr(window, LOCK_ATTRIBUTE, getattr(tab, LOCK_ATTRIBUTE, False))
         or "IS_NVIM" in window.user_vars
     ):
