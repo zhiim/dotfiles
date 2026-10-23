@@ -72,9 +72,13 @@ def draw_window_title(data: "WindowTitleData") -> str:
     title_screen = window._title_bar_screen
     if title_screen is not None:
         # Match the native screen background too, including partial edge cells.
-        title_screen.screen.color_profile.default_bg = window.screen.color_profile.default_bg
+        title_screen.screen.color_profile.default_bg = (
+            window.screen.color_profile.default_bg
+        )
     title_width = (
-        title_screen.screen.columns if title_screen is not None else window.screen.columns
+        title_screen.screen.columns
+        if title_screen is not None
+        else window.screen.columns
     )
     width = max(1, title_width)
     body = fit_text(title, width - 2 if width >= 2 else width)

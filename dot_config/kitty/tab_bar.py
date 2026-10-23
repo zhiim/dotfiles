@@ -191,7 +191,13 @@ def draw_tab(
     else:
         inactive_bg = int(draw_data.inactive_bg)
         label = fit_text(f" {index}# ", width)
-        accent = int(options.color1) if locked else int(draw_data.active_bg)
+        accent = (
+            int(options.color1)
+            if locked
+            else int(options.color3)
+            if tab.layout_name == "stack"
+            else int(draw_data.active_bg)
+        )
         draw_text(screen, label, accent, inactive_bg, bold=True)
         remaining = width - wcswidth(label)
         title = fit_text(tab.title, remaining - 1)
