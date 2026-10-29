@@ -13,6 +13,7 @@ TABLE_V4="100"
 TABLE_V6="101"
 FAKEIP4_RANGE="198.18.0.1/16"
 FAKEIP6_RANGE="fdfe:dcba:9876::1/64"
+DIRECT_IIF="none"  # 如果设置为 none，表示代理所有接口
 
 if [ "$WORK_MODE" = "router" ] && [ "$ENABLE_IPV6" = "true" ]; then
     # 使用命令 ip -6 addr show scope global 查看路由器的 lan 接口和 ULA 地址
@@ -71,6 +72,10 @@ table ip proxy_tproxy {
     # PREROUTING 链：处理局域网设备转发到本机的流量
     chain prerouting {
         type filter hook prerouting priority mangle; policy accept;
+
+        $( if [ "$DIRECT_IIF" != "none" ]; then
+            echo "iifname == $DIRECT_IIF return"
+        fi )
 
         # 1. DIVERT：处理已建立连接的包，优化性能
         meta l4proto tcp socket transparent 1 meta mark set $FWMARK accept
@@ -143,6 +148,9 @@ table ip proxy_tproxy {
 table ip proxy_redir {
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
+        $( if [ "$DIRECT_IIF" != "none" ]; then
+            echo "iifname == $DIRECT_IIF return"
+        fi )
         # 绕过已经标记的流量，避免重复处理
         meta mark $FWMARK return
         ct direction reply return
@@ -195,6 +203,10 @@ table ip6 proxy_tproxy {
 
     chain prerouting {
         type filter hook prerouting priority mangle; policy accept;
+
+        $( if [ "$DIRECT_IIF" != "none" ]; then
+            echo "iifname == $DIRECT_IIF return"
+        fi )
 
         meta l4proto tcp socket transparent 1 meta mark set $FWMARK accept
 
@@ -250,6 +262,9 @@ table ip6 proxy_tproxy {
 table ip6 proxy_redir {
     chain prerouting {
         type nat hook prerouting priority dstnat; policy accept;
+        $( if [ "$DIRECT_IIF" != "none" ]; then
+            echo "iifname == $DIRECT_IIF return"
+        fi )
         meta mark $FWMARK return
         ct direction reply return
         iifname \"tailscale0\" return
