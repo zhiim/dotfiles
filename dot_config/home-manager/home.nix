@@ -28,7 +28,6 @@
     pkgs.starship
     pkgs.tmux
     pkgs.uv
-    pkgs.codegraph
     pkgs.delta
     pkgs.cmake
     pkgs.go
