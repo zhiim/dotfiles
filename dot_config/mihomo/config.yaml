@@ -287,6 +287,8 @@ proxy-groups:
     <<: *direct
   - name: 💬 VOXI
     <<: *default
+  - name: 🦀 Kraken
+    <<: *default
   - name: ⭐ 其他非大陆
     <<: *default
   - name: 🇨🇳 国内
@@ -315,6 +317,7 @@ rules:
   - RULE-SET,voxi,💬 VOXI
   - RULE-SET,bybit_domain,🏦 Bybit
   - RULE-SET,binance_domain,🪙 币安
+  - RULE-SET,kraken_domain,🦀 Kraken
   - RULE-SET,google_fcm,📢 谷歌FCM
   - RULE-SET,ai_domain,🤖 AI
   - RULE-SET,spotify_domain,🥛 Spotify
@@ -431,6 +434,9 @@ rule-providers:
   voxi:
     <<: *classical
     url: "https://raw.githubusercontent.com/zhiim/dotfiles/master/dot_config/mihomo/rule_set/voxi.yaml"
+  kraken_domain:
+    <<: *classical
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/kraken.mrs"
   direct_apps:
     type: inline
     behavior: classical
